@@ -1,7 +1,10 @@
 package kr.co.bsa.silage;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class SilageServiceImple implements SilageService{
     @Override
     public void insertSilage(Silage silage) {

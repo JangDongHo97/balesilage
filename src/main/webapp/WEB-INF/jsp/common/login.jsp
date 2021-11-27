@@ -8,9 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>로그인 화면</title>
 </head>
 <body>
-
+<table>
+    <form action="/login" method="POST">
+        <tr>
+            <td>ID : <input type="text" name="id"/> </td>
+        </tr>
+        <tr>
+            <td>PW : <input type="password" name="pw"/> </td>
+        </tr>
+        <tr>
+            <td> <input type="submit" value="로그인"/> </td>
+        </tr>
+        <tr>
+            <td> <a href="/addAuthInfo"> <input type="button" value="회원가입"/> </a> </td>
+        </tr>
+    </form>
+</table>
 </body>
 </html>
