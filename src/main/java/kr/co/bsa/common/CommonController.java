@@ -1,12 +1,14 @@
 package kr.co.bsa.common;
 
 import kr.co.bsa.member.Member;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
+@Controller
 public class CommonController {
 
     //forward /WEB-INF/jsp/common/login.jsp
