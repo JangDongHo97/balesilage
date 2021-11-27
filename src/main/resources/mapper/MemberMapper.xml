@@ -10,8 +10,8 @@
     </insert>
     
     <select id="select"
-            parameterType="Member"
-            resultType="Member">
+            parameterType="kr.co.bsa.member.Member"
+            resultType="kr.co.bsa.member.Member">
         SELECT
                MEMBER_CODE
              , ID
@@ -20,7 +20,7 @@
              , PHONE
              , ADDRESS
              , MEMBER_STATUS
-        FROM MEMBER;
+        FROM MEMBER
     </select>
 
     <update id="update"

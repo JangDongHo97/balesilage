@@ -4,55 +4,39 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
         http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util.xsd
-		">
+        http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
-    <util:properties id="database"
-                     location="classpath:properties/*.properties"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/bale_silage?useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="0863"/>
+    </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="#{database['database.driverclass']}" />
-        <property name="url" value="{#{database['database.url']}" />
-        <property name="username" value="{#{database['database.username']}" />
-        <property name="password" value="{#{database['database.password']}" />
-    </bean>
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <!-- 		필수 -->
-        <property name="typeAliasesPackage" value="kr.co.bsa"/>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+        <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-setting.xml"/>
-        <property name="mapperLocations" value="classpath*:mapper/*.xml" />
-        <!-- <property name="mapperLocations" value="classpath*:org/oreilly/book/persistence/*.xml" /> -->
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <!-- 	마이바티스 스프링에서 제공 -> sqlSessionFactory와 차이 : 쓰레드에 safe하다. -->
-        <constructor-arg index="0" ref="sqlSessionFactory" />
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
-    <!--
-        <bean id="topicMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-            <property name="mapperInterface" value="org.oreilly.book.topic.TopicMapper" />
-            <property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
-        </bean>
-    -->
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 		@mapper 걸려있는 인터페이스를 찾아서 mapper로 등록 해준다.(프록시 객체로) -->
-        <!--
-            component가 스캔하는것과 mapperScannerConfiguration이 스캔한느것이 충돌일어날 수 있다.
-             ->   property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"
-        -->
-        <property name="basePackage" value="kr.co.bsa" />
-        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper" />
-        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
+
+    <bean id="mapperScannerConfigurer"
+          class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="kr.co.bsa"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>
