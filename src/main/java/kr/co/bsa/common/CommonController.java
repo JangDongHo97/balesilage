@@ -30,11 +30,11 @@ public class CommonController {
         //회원일 시
         if (memberStatus == 'Y') {
             mav = new ModelAndView(new RedirectView("/bsa/silages"));
-            session.setAttribute("id", member.getMemberCode());
+            session.setAttribute("memberCode", member.getMemberCode());
         //관리자일 시
         } else if(memberStatus == 'A') {
             mav = new ModelAndView(new RedirectView("/bsa/silages"));
-            session.setAttribute("id", "admin");
+            session.setAttribute("memberCode", "admin");
         //탈퇴회원, 비회원일 시
         } else {
             mav = new ModelAndView(new RedirectView("/login"));
