@@ -29,13 +29,10 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 		필수 -->
+        <property name="typeAliasesPackage" value="kr.co.bsa"/>
+        <property name="configLocation" value="classpath:mybatis-setting.xml"/>
         <property name="mapperLocations" value="classpath*:mapper/*.xml" />
         <!-- <property name="mapperLocations" value="classpath*:org/oreilly/book/persistence/*.xml" /> -->
-        <property name="configuration">
-            <bean class="org.apache.ibatis.session.Configuration">
-                <property name="mapUnderscoreToCamelCase" value="true" />
-            </bean>
-        </property>
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

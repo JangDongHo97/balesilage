@@ -4,5 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.account.AccountMapper">
+    <select id="select"
+            parameterType="Account"
+            resultType="Account">
 
+    </select>
+
+    <insert id="insert"
+            parameterType="Account">
+
+    </insert>
+
+    <update id="update"
+            parameterType="Account">
+
+    </update>
 </mapper>

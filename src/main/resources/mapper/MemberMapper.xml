@@ -4,5 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.member.MemberMapper">
+    <insert id="insert"
+            parameterType="Member">
 
+    </insert>
+    
+    <select id="select"
+            parameterType="Member"
+            resultType="Member">
+        SELECT
+               MEMBER_CODE
+             , ID
+             , PASSWORD
+             , NAME
+             , PHONE
+             , ADDRESS
+             , MEMBER_STATUS
+        FROM MEMBER;
+    </select>
+
+    <update id="update"
+            parameterType="Member">
+
+    </update>
 </mapper>
