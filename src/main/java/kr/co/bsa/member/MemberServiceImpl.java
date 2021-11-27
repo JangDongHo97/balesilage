@@ -1,7 +1,7 @@
 package kr.co.bsa.member;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -17,9 +17,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<Member> selectMemberList() {
-        System.out.println("service -----");
-        List<Member> members =  memberMapper.select();
-        return members;
+        return null;
     }
 
     @Override

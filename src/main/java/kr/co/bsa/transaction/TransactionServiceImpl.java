@@ -1,7 +1,10 @@
 package kr.co.bsa.transaction;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class TransactionServiceImpl implements TransactionService{
     @Override
     public void insertTransaction(Transaction transaction) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -14,24 +15,41 @@ import java.util.List;
 @Controller
 public class CommonController {
     @Autowired
-    private MemberServiceImpl memberService;
+    private LoginService loginService;
 
     //forward /WEB-INF/jsp/common/login.jsp
     @GetMapping("/login")
     public ModelAndView login() {
-        return null;
+        ModelAndView mav = new ModelAndView("common/login");
+        return mav;
     }
 
     //redirect /bsa/silages
     @PostMapping("/login")
-    public ModelAndView login(Member member) {
-        return null;
+    public ModelAndView login(Member member, HttpSession session) {
+        ModelAndView mav = null;
+        char memberStatus = loginService.login(member);
+        //회원일 시
+        if (memberStatus == 'Y') {
+            mav = new ModelAndView(new RedirectView("/bsa/silages"));
+            session.setAttribute("memberCode", member.getMemberCode());
+        //관리자일 시
+        } else if(memberStatus == 'A') {
+            mav = new ModelAndView(new RedirectView("/bsa/silages"));
+            session.setAttribute("memberCode", "admin");
+        //탈퇴회원, 비회원일 시
+        } else {
+            mav = new ModelAndView(new RedirectView("/login"));
+        }
+        return mav;
     }
 
     //redirect /bsa/silages
     @GetMapping("logout")
     public ModelAndView logout(HttpSession session){
-        return null;
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
+        session.invalidate();
+        return mav;
     }
 
     //forward /WEB-INF/jsp/common/error404.jsp

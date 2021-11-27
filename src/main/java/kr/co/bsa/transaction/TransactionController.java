@@ -1,11 +1,13 @@
 package kr.co.bsa.transaction;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@Controller
 public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
