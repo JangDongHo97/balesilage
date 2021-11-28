@@ -1,25 +1,39 @@
 package kr.co.bsa.silage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class SilageController {
+    @Autowired
+    private SilageService silageService;
 
     //forward /WEB-INF/jsp/silage/add.jsp
     @GetMapping("/silages/form")
     public ModelAndView enrollSilage() {
-        return null;
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("silage/add");
+
+        return mav;
     }
 
     //redirect /bsa/silages
     @PostMapping("/silages")
-    public ModelAndView enrollSilage(Silage silage) {
-        return null;
+    public ModelAndView enrollSilage(Silage silage, HttpSession session) {
+//        int memberCode = Integer.valueOf(
+//                                    String.valueOf(session.getAttribute("memberCode"))
+//                        );
+        silageService.insertSilage(silage, 2);
+
+        return new ModelAndView(new RedirectView("/bsa/silages"));
     }
 
     //forward /WEB-INF/jsp/silage/mySilage.jsp

@@ -3,8 +3,8 @@ package kr.co.bsa.silage;
 import java.io.Serializable;
 
 public class Silage implements Serializable {
-    private String silageCode;
-    private String sellerCode;
+    private int silageCode;
+    private int sellerCode;
     private String enrollDateTime;
     private int unitPrice;
     private int count;
@@ -15,19 +15,19 @@ public class Silage implements Serializable {
     public Silage() {
     }
 
-    public String getSilageCode() {
+    public int getSilageCode() {
         return silageCode;
     }
 
-    public void setSilageCode(String silageCode) {
+    public void setSilageCode(int silageCode) {
         this.silageCode = silageCode;
     }
 
-    public String getSellerCode() {
+    public int getSellerCode() {
         return sellerCode;
     }
 
-    public void setSellerCode(String sellerCode) {
+    public void setSellerCode(int sellerCode) {
         this.sellerCode = sellerCode;
     }
 
