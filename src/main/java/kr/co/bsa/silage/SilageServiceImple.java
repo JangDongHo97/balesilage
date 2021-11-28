@@ -1,14 +1,28 @@
 package kr.co.bsa.silage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class SilageServiceImple implements SilageService{
-    @Override
-    public void insertSilage(Silage silage) {
+    @Autowired
+    private SilageMapper silageMapper;
 
+    @Override
+    @Transactional
+    public void insertSilage(Silage silage, int memberCode) {
+        if(silage.getUnitPrice() == 0
+                || silage.getCount() == 0
+                || silage.getWeight() == 0
+                || silage.getProductionDate() == null) {
+            return;
+        } else {
+            silage.setSellerCode(memberCode);
+            silageMapper.insert(silage);
+        }
     }
 
     @Override

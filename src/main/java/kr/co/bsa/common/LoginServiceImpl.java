@@ -16,7 +16,7 @@ public class LoginServiceImpl implements LoginService{
     @Transactional
     @Override
     public char login(Member member) {
-        List<Member> members = memberMapper.selectAll();
+        List<Member> members = memberMapper.select();
 
         for (int i = 0; i < members.size(); i ++ ) {
             //id, password 검증

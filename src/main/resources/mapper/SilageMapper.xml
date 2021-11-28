@@ -4,5 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.silage.SilageMapper">
+    <insert id="insert"
+            parameterType="kr.co.bsa.silage.Silage">
+        INSERT INTO SILAGE
+            (SELLER_CODE, ENROLL_DATETIME, UNIT_PRICE, COUNT, WEIGHT, PRODUCTION_DATE)
+        VALUES
+            (#{sellerCode}
+            , STR_TO_DATE(NOW()
+            ,'%Y-%m-%d %H:%i:%s')
+            , #{unitPrice}
+            , #{count}
+            , #{weight}
+            , STR_TO_DATE(#{productionDate},'%Y%m%d'))
+        ;
+    </insert>
 
 </mapper>
