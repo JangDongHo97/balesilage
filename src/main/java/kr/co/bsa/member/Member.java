@@ -3,7 +3,7 @@ package kr.co.bsa.member;
 import java.io.Serializable;
 
 public class Member implements Serializable {
-    private String memberCode;
+    private int memberCode;
     private String id;
     private String password;
     private String name;
@@ -14,11 +14,11 @@ public class Member implements Serializable {
     public Member() {
     }
 
-    public String getMemberCode() {
+    public int getMemberCode() {
         return memberCode;
     }
 
-    public void setMemberCode(String memberCode) {
+    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
     }
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SilageServiceImple implements SilageService{
+public class SilageServiceImpl implements SilageService{
     @Override
     public void insertSilage(Silage silage) {
 

@@ -1,10 +1,10 @@
 package kr.co.bsa.common;
 
-public class dateComand {
+public class DateComand {
     private String startDate;
     private String endDate;
 
-    public dateComand() {
+    public DateComand() {
     }
 
     public String getStartDate() {
@@ -25,7 +25,7 @@ public class dateComand {
 
     @Override
     public String toString() {
-        return "dateCommand{" +
+        return "DateCommand{" +
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 '}';

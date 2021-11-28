@@ -4,14 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.member.MemberMapper">
+    <!--리절트 맵-->
+    <resultMap id="memberResultMap" type="member">
+        <id column="MEMBER_CODE" property="memberCode"/>
+        <id column="ID" property="id"/>
+        <id column="PASSWORD" property="password"/>
+        <id column="NAME" property="name"/>
+        <id column="PHONE" property="phone"/>
+        <id column="ADDRESS" property="address"/>
+        <id column="MEMBER_STATUS" property="memberStatus"/>
+    </resultMap>
+
+    <!--매핑 구문-->
     <insert id="insert"
             parameterType="Member">
-
     </insert>
     
     <select id="select"
-            parameterType="kr.co.bsa.member.Member"
-            resultType="kr.co.bsa.member.Member">
+            parameterType="Member"
+            resultType="Member">
         SELECT
                MEMBER_CODE
              , ID
@@ -21,6 +32,12 @@
              , ADDRESS
              , MEMBER_STATUS
         FROM MEMBER
+        <where>
+            <if test="memberCode > 0">
+                AND MEMBER_CODE = #{memberCode}
+            </if>
+        </where>
+        ORDER BY MEMBER_CODE
     </select>
 
     <update id="update"

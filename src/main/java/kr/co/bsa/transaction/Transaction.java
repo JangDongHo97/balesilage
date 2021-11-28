@@ -3,10 +3,10 @@ package kr.co.bsa.transaction;
 import java.io.Serializable;
 
 public class Transaction implements Serializable {
-    private String transactionCode;
-    private String silageCode;
-    private String sellerCode;
-    private String buyerCode;
+    private int transactionCode;
+    private int silageCode;
+    private int sellerCode;
+    private int buyerCode;
     private String bankName;
     private String accountNo;
     private int totalPrice;
@@ -16,35 +16,35 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public String getTransactionCode() {
+    public int getTransactionCode() {
         return transactionCode;
     }
 
-    public void setTransactionCode(String transactionCode) {
+    public void setTransactionCode(int transactionCode) {
         this.transactionCode = transactionCode;
     }
 
-    public String getSilageCode() {
+    public int getSilageCode() {
         return silageCode;
     }
 
-    public void setSilageCode(String silageCode) {
+    public void setSilageCode(int silageCode) {
         this.silageCode = silageCode;
     }
 
-    public String getSellerCode() {
+    public int getSellerCode() {
         return sellerCode;
     }
 
-    public void setSellerCode(String sellerCode) {
+    public void setSellerCode(int sellerCode) {
         this.sellerCode = sellerCode;
     }
 
-    public String getBuyerCode() {
+    public int getBuyerCode() {
         return buyerCode;
     }
 
-    public void setBuyerCode(String buyerCode) {
+    public void setBuyerCode(int buyerCode) {
         this.buyerCode = buyerCode;
     }
 
