@@ -1,20 +1,26 @@
 package kr.co.bsa.silage;
 
+import kr.co.bsa.common.DateCommand;
+import kr.co.bsa.member.Member;
+import kr.co.bsa.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Controller
 public class SilageController {
     @Autowired
     private SilageService silageService;
+    @Autowired
+    private MemberService memberService;
 
     //forward /WEB-INF/jsp/silage/add.jsp
     @GetMapping("/silages/form")
@@ -31,9 +37,9 @@ public class SilageController {
 //        int memberCode = Integer.valueOf(
 //                                    String.valueOf(session.getAttribute("memberCode"))
 //                        );
-        silageService.insertSilage(silage, 2);
+        silageService.insertSilage(silage, 3);
 
-        return new ModelAndView(new RedirectView("/bsa/silages"));
+        return new ModelAndView(new RedirectView("/silages"));
     }
 
     //forward /WEB-INF/jsp/silage/mySilage.jsp
@@ -44,14 +50,42 @@ public class SilageController {
 
     //forward /WEB-INF/jsp/silage/main.jsp
     @GetMapping("/silages")
-    public ModelAndView searchSilageList() {
-        return null;
+    public ModelAndView searchSilageList(DateCommand dateCommand) {
+        List<Silage> silages = silageService.selectSilageList(dateCommand);
+        List<String> addressList = new ArrayList<String>();
+
+        Iterator<Silage> iter = silages.iterator();
+        while(iter.hasNext()) {
+            Silage silageIter = iter.next();
+            addressList.add(silageIter.getAddress());
+        }
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("silages",silages);
+        mav.addObject("addresses", addressList);
+        mav.setViewName("silage/main");
+
+        return mav;
+    }
+
+    @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Member searchSilagePlace(@RequestBody(required = false) Member member) {
+        System.out.println("아이디 : " + member.getId());
+
+        return memberService.selectMember(member);
     }
 
     //forward /WEB-INF/jsp/silage/view.jsp
     @GetMapping("/silages/{silageCode}")
     public ModelAndView searchSilage(Silage silage) {
-        return null;
+        Silage afterSilage = silageService.selectSilage(silage);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("silage", afterSilage);
+        mav.setViewName("silage/view");
+
+        return mav;
     }
 
     //forward /WEB-INF/jsp/silage/edit.jsp

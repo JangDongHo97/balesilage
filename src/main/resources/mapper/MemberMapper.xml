@@ -10,8 +10,8 @@
     </insert>
     
     <select id="select"
-            parameterType="kr.co.bsa.member.Member"
-            resultType="kr.co.bsa.member.Member">
+            parameterType="Member"
+            resultType="Member">
         SELECT
                MEMBER_CODE
              , ID
@@ -21,6 +21,14 @@
              , ADDRESS
              , MEMBER_STATUS
         FROM MEMBER
+        <where>
+            <if test="memberCode != null">
+                AND MEMBER_CODE = #{memberCode}
+            </if>
+            <if test="memberId != null">
+                AND ID = #{memberId}
+            </if>
+        </where>
     </select>
 
     <update id="update"

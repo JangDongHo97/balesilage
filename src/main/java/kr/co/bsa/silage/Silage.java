@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class Silage implements Serializable {
     private int silageCode;
     private int sellerCode;
+    private String id;
+    private String address;
     private String enrollDateTime;
     private int unitPrice;
     private int count;
     private int weight;
     private String productionDate;
-    private char TransactionStatus;
+    private char transactionStatus;
 
     public Silage() {
     }
@@ -19,16 +21,24 @@ public class Silage implements Serializable {
         return silageCode;
     }
 
-    public void setSilageCode(int silageCode) {
-        this.silageCode = silageCode;
-    }
-
     public int getSellerCode() {
         return sellerCode;
     }
 
     public void setSellerCode(int sellerCode) {
         this.sellerCode = sellerCode;
+    }
+
+    public void setSilageCode(int silageCode) {
+        this.silageCode = silageCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEnrollDateTime() {
@@ -72,24 +82,34 @@ public class Silage implements Serializable {
     }
 
     public char getTransactionStatus() {
-        return TransactionStatus;
+        return transactionStatus;
     }
 
     public void setTransactionStatus(char transactionStatus) {
-        TransactionStatus = transactionStatus;
+        this.transactionStatus = transactionStatus;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Silage{" +
-                "silageCode='" + silageCode + '\'' +
-                ", sellerCode='" + sellerCode + '\'' +
+                "silageCode=" + silageCode +
+                ", sellerCode=" + sellerCode +
+                ", id='" + id + '\'' +
+                ", address='" + address + '\'' +
                 ", enrollDateTime='" + enrollDateTime + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", count=" + count +
                 ", weight=" + weight +
                 ", productionDate='" + productionDate + '\'' +
-                ", TransactionStatus=" + TransactionStatus +
+                ", transactionStatus=" + transactionStatus +
                 '}';
     }
 }

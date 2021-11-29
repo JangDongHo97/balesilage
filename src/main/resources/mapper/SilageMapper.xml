@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.bsa.silage.SilageMapper">
     <insert id="insert"
-            parameterType="kr.co.bsa.silage.Silage">
+            parameterType="Silage">
         INSERT INTO SILAGE
             (SELLER_CODE, ENROLL_DATETIME, UNIT_PRICE, COUNT, WEIGHT, PRODUCTION_DATE)
         VALUES
@@ -19,4 +19,41 @@
         ;
     </insert>
 
+    <select id="selectAll"
+            parameterType="kr.co.bsa.common.DateCommand"
+            resultType="Silage">
+        SELECT
+            SILAGE_CODE
+            , ID
+            , ADDRESS
+            , ENROLL_DATETIME
+            , UNIT_PRICE
+            , COUNT
+            , WEIGHT
+            , PRODUCTION_DATE
+            , TRANSACTION_STATUS
+        FROM SILAGE INNER JOIN MEMBER
+        ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="select"
+            parameterType="Silage"
+            resultType="Silage">
+        SELECT
+               SILAGE_CODE
+             , ID
+             , ENROLL_DATETIME
+             , PRODUCTION_DATE
+             , WEIGHT
+             , COUNT
+             , UNIT_PRICE
+        FROM SILAGE INNER JOIN MEMBER
+        ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
+        WHERE SILAGE_CODE=#{silageCode}
+    </select>
 </mapper>

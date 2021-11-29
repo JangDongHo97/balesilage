@@ -22,7 +22,8 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member selectMember(Member member) {
-        return null;
+        Member afterMember = memberMapper.select(member);
+        return afterMember;
     }
 
     @Override

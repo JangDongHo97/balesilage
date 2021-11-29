@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Account implements Serializable {
     private String accountCode;
-    private String memberCode;
+    private int memberCode;
     private String bankName;
     private String AccountNo;
 
@@ -19,11 +19,11 @@ public class Account implements Serializable {
         this.accountCode = accountCode;
     }
 
-    public String getMemberCode() {
+    public int getMemberCode() {
         return memberCode;
     }
 
-    public void setMemberCode(String memberCode) {
+    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
     }
 

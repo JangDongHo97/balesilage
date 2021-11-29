@@ -1,10 +1,10 @@
 package kr.co.bsa.common;
 
-public class dateComand {
+public class DateCommand {
     private String startDate;
     private String endDate;
 
-    public dateComand() {
+    public DateCommand() {
     }
 
     public String getStartDate() {
