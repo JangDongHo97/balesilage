@@ -2,6 +2,8 @@ package kr.co.bsa.common;
 
 import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,16 +17,17 @@ public class LoginServiceImpl implements LoginService{
 
     @Transactional
     @Override
-    public char login(Member member) {
+    public Member login(Member member) {
         List<Member> members = memberMapper.select();
 
         for (int i = 0; i < members.size(); i ++ ) {
             //id, password 검증
             if (members.get(i).getId().equals(member.getId()) &&
                     members.get(i).getPassword().equals(member.getPassword())) {
-                return member.getMemberStatus();
+                member = members.get(i);
+                return member;
             }
         }
-        return 0;
+        return null;
     }
 }

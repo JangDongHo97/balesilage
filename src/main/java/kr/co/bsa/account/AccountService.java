@@ -1,9 +1,9 @@
 package kr.co.bsa.account;
 
-import org.springframework.stereotype.Service;
+import kr.co.bsa.member.Member;
 
 public interface AccountService {
     public void insertAccount(Account account);
-    public Account selectAccount(Account account);
+    public Account selectAccount(Member member);
     public void update(Account account);
 }

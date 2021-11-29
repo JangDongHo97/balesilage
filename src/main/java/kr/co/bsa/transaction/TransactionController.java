@@ -1,5 +1,6 @@
 package kr.co.bsa.transaction;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TransactionController {
+    @Autowired
+    private TransactionServiceImpl transactionService;
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice")
     public ModelAndView alertPurchase() {
-        return null;
+        ModelAndView mav = new ModelAndView("transaction/notice");
+
+        return mav;
     }
 
     //forward /WEB-INF/jsp/transaction/purchaseList.jsp

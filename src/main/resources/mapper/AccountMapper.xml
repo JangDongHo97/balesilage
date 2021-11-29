@@ -4,15 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.account.AccountMapper">
+    <!--매핑 구문-->
     <select id="select"
             parameterType="Account"
             resultType="Account">
-
+        SELECT
+        ACCOUNT_CODE
+        , MEMBER_CODE
+        , BANK_NAME
+        , ACCOUNT_NO
+        FROM ACCOUNT
+        <where>
+            <if test="accountCode > 0">
+                AND ACCOUNT_CODE = #{accountNo}
+            </if>
+        </where>
     </select>
 
     <insert id="insert"
             parameterType="Account">
-
+        INSERT INTO ACCOUNT
+        (MEMBER_CODE, BANK_NAME, ACCOUNT_NO)
+        VALUES
+        (#{memberCode}, #{bankName}, #{accountNo})
     </insert>
 
     <update id="update"
