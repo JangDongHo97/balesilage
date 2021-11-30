@@ -10,13 +10,11 @@
             (SELLER_CODE, ENROLL_DATETIME, UNIT_PRICE, COUNT, WEIGHT, PRODUCTION_DATE)
         VALUES
             (#{sellerCode}
-            , STR_TO_DATE(NOW()
-            ,'%Y-%m-%d %H:%i:%s')
+            , STR_TO_DATE(NOW(),'%Y-%m-%d %H:%i:%s')
             , #{unitPrice}
             , #{count}
             , #{weight}
             , STR_TO_DATE(#{productionDate},'%Y%m%d'))
-        ;
     </insert>
 
     <select id="selectAll"
@@ -56,4 +54,21 @@
         ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
         WHERE SILAGE_CODE=#{silageCode}
     </select>
+
+    <update id="update"
+            parameterType="Silage">
+        UPDATE SILAGE
+        SET ENROLL_DATETIME = #{enrollDateTime}
+            PRODUCTION_DATE = #{productionDate}
+            WEIGHT = #{weight}
+            COUNT = #{count}
+            UNIT_PRICE = #{unitPrice}
+        WHERE SILAGE_CODE = #{silageCode}
+    </update>
+
+    <delete id="delete"
+            parameterType="Silage">
+        DELETE FROM SILAGE
+        WHERE SILAGE_CODE = #{silageCode}
+    </delete>
 </mapper>

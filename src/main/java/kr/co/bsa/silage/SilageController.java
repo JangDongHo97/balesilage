@@ -91,18 +91,25 @@ public class SilageController {
     //forward /WEB-INF/jsp/silage/edit.jsp
     @GetMapping("/silages/{silageCode}/form")
     public ModelAndView editSilageForm(Silage silage) {
-        return null;
+        ModelAndView mav = new ModelAndView("silage/edit/form");
+        silageService.selectSilage(silage);
+        mav.addObject("silage", silage);
+        return mav;
     }
 
     //redirect /bsa/silages
     @PutMapping("/silages")
     public ModelAndView editSilage(Silage silage) {
-        return null;
+        ModelAndView mav = new ModelAndView("bsa/silages");
+        silageService.updateSilage(silage);
+        return mav;
     }
 
     //redirect /bsa/silages
     @DeleteMapping("/silages")
     public ModelAndView removeSilage(Silage silage) {
-        return null;
+        ModelAndView mav = new ModelAndView("/bsa/silages");
+        silageService.deleteSilage(silage);
+        return mav;
     }
 }

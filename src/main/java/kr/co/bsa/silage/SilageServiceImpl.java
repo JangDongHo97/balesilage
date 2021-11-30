@@ -49,11 +49,11 @@ public class SilageServiceImpl implements SilageService {
 
     @Override
     public void updateSilage(Silage silage) {
-
+        silageMapper.update(silage);
     }
 
     @Override
     public void deleteSilage(Silage silage) {
-
+        silageMapper.delete(silage);
     }
 }

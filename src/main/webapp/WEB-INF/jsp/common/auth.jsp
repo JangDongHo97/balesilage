@@ -12,14 +12,18 @@
 </head>
 <body>
     <p>계정 관리의 권한을 확인하기 위해 자신의 비밀번호를 입력해주세요</p>
-    <table>
-        <tr>
-            <td>PW : <input type="password" name="password"/> </td>
-        </tr>
-        <tr>
-            <td><a href="bsa/auth"><input type="button" value="확인"></a></td>
-            <td><a href="bsa/auth"><input type="button" value="취소"></a></td>
-        </tr>
-    </table>
+    <form action="/bsa/auth" method=post>
+        <table>
+            <tr>
+                <td>PW : <input type="password" name="password"/> </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td><input type="submit" value="확인"></td>
+                <td><a href="bsa/silages"><input type="button" value="취소"></a></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

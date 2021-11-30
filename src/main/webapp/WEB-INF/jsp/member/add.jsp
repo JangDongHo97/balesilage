@@ -25,6 +25,9 @@
                 <td><a href="/login"><input type="button" value="로그인"></a></td>
                 <td><a href="/members/form"><input type="button" value="회원가입"></a></td>
             </tr>
+            <tr>
+                <td>곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</td>
+            </tr>
         </table>
         <form action="/members" method="POST">
             <table>
