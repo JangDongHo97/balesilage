@@ -3,19 +3,19 @@ package kr.co.bsa.account;
 import java.io.Serializable;
 
 public class Account implements Serializable {
-    private String accountCode;
+    private int accountCode;
     private int memberCode;
     private String bankName;
-    private String AccountNo;
+    private String accountNo;
 
     public Account() {
     }
 
-    public String getAccountCode() {
+    public int getAccountCode() {
         return accountCode;
     }
 
-    public void setAccountCode(String accountCode) {
+    public void setAccountCode(int accountCode) {
         this.accountCode = accountCode;
     }
 
@@ -36,11 +36,11 @@ public class Account implements Serializable {
     }
 
     public String getAccountNo() {
-        return AccountNo;
+        return accountNo;
     }
 
     public void setAccountNo(String accountNo) {
-        AccountNo = accountNo;
+        this.accountNo = accountNo;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Account implements Serializable {
                 "accountCode='" + accountCode + '\'' +
                 ", memberCode='" + memberCode + '\'' +
                 ", bankName='" + bankName + '\'' +
-                ", AccountNo='" + AccountNo + '\'' +
+                ", accountNo='" + accountNo + '\'' +
                 '}';
     }
 }

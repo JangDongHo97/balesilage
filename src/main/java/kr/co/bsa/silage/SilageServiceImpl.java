@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class SilageServiceImple implements SilageService{
+public class SilageServiceImpl implements SilageService {
     @Autowired
     private SilageMapper silageMapper;
     @Autowired
@@ -19,7 +19,7 @@ public class SilageServiceImple implements SilageService{
     @Override
     @Transactional
     public void insertSilage(Silage silage, int memberCode) {
-        if(silage.getUnitPrice() == 0
+        if (silage.getUnitPrice() == 0
                 || silage.getCount() == 0
                 || silage.getWeight() == 0
                 || silage.getProductionDate() == null) {

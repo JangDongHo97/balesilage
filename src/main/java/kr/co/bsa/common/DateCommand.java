@@ -1,6 +1,8 @@
 package kr.co.bsa.common;
 
-public class DateCommand {
+import java.io.Serializable;
+
+public class DateCommand implements Serializable {
     private String startDate;
     private String endDate;
 
@@ -25,7 +27,7 @@ public class DateCommand {
 
     @Override
     public String toString() {
-        return "dateCommand{" +
+        return "DateCommand{" +
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 '}';

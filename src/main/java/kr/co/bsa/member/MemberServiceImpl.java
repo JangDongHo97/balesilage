@@ -12,27 +12,30 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void insertMember(Member member) {
-
+        memberMapper.insert(member);
     }
 
     @Override
     public List<Member> selectMemberList() {
-        return null;
+        List<Member> members = memberMapper.select();
+        return members;
     }
 
     @Override
     public Member selectMember(Member member) {
-        Member afterMember = memberMapper.select(member);
-        return afterMember;
+        member = memberMapper.select(member);
+        return member;
     }
 
     @Override
     public void updateMember(Member member) {
-
+        memberMapper.update(member);
     }
 
     @Override
     public void deleteMember(Member member) {
-
+        //회원 수정을 통한 회원 탈퇴 진행 (회원 삭제 x)
+        member.setMemberStatus('N');
+        memberMapper.update(member);
     }
 }

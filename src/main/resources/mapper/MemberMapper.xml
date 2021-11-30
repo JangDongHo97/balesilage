@@ -4,11 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.member.MemberMapper">
-    <insert id="insert"
-            parameterType="Member">
-
-    </insert>
-    
+    <!--매핑 구문-->
     <select id="select"
             parameterType="Member"
             resultType="Member">
@@ -22,14 +18,25 @@
              , MEMBER_STATUS
         FROM MEMBER
         <where>
-            <if test="memberCode != null">
-                AND MEMBER_CODE = #{memberCode}
-            </if>
             <if test="memberId != null">
                 AND ID = #{memberId}
+            <if test="memberCode > 0">
+                AND MEMBER_CODE = #{memberCode}
             </if>
         </where>
+        ORDER BY MEMBER_CODE
     </select>
+
+    <insert id="insert"
+            parameterType="Member">
+        <selectKey order="BEFORE" keyColumn="MEMBER_CODE" keyProperty="memberCode" resultType="int">
+            SELECT MAX(MEMBER_CODE)+1 FROM member
+        </selectKey>
+        INSERT INTO MEMBER
+        (ID, PASSWORD, NAME, PHONE, ADDRESS)
+        VALUES
+        (#{id}, #{password}, #{name}, #{phone}, #{address})
+    </insert>
 
     <update id="update"
             parameterType="Member">
