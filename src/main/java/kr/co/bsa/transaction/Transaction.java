@@ -12,6 +12,7 @@ public class Transaction implements Serializable {
     private int totalPrice;
     private String transactionDateTime;
     private boolean depositStatus;
+    private boolean remitStatus;
 
     public Transaction() {
     }
@@ -88,18 +89,27 @@ public class Transaction implements Serializable {
         this.depositStatus = depositStatus;
     }
 
+    public boolean isRemitStatus() {
+        return remitStatus;
+    }
+
+    public void setRemitStatus(boolean remitStatus) {
+        this.remitStatus = remitStatus;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
-                "transactionCode='" + transactionCode + '\'' +
-                ", silageCode='" + silageCode + '\'' +
-                ", sellerCode='" + sellerCode + '\'' +
-                ", buyerCode='" + buyerCode + '\'' +
+                "transactionCode=" + transactionCode +
+                ", silageCode=" + silageCode +
+                ", sellerCode=" + sellerCode +
+                ", buyerCode=" + buyerCode +
                 ", bankName='" + bankName + '\'' +
                 ", accountNo='" + accountNo + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", transactionDateTime='" + transactionDateTime + '\'' +
                 ", depositStatus=" + depositStatus +
+                ", remitStatus=" + remitStatus +
                 '}';
     }
 }

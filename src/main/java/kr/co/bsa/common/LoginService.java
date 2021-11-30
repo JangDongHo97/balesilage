@@ -5,4 +5,6 @@ import org.springframework.stereotype.Service;
 
 public interface LoginService {
     public Member login(Member member);
+
+    public boolean auth(Member member);
 }

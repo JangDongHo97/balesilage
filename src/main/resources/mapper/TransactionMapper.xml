@@ -4,5 +4,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.bsa.transaction.TransactionMapper">
+    <insert id="insert"
+            parameterType="Transaction">
+        INSERT INTO TRANSACTION
+            (TRANSACTION_CODE, SILAGE_CODE, SELLER_CODE, BUYER_CODE, BANK_NAME, ACCOUNT_NO, TOTAL_PRICE)
+        VALUES
+            (#{transactionCode}
+            , #{silageCode}
+            , #{sellerCode}
+            , #{buyerCode}
+            , #{bankName}
+            , #{accountNo}
+            , #{totalPrice}
+            , TRANSACTION_DATETIME(NOW(),'%Y-%m-%d %H:%i:%s'))
+    </insert>
 
+    <select id="selectAll"
+            parameterType="Transaction"
+            resultType="Transaction">
+        SELECT
+            TRANSACTION_CODE
+            , SILAGE_CODE
+            , SELLER_CODE
+            , BUYER_CODE
+            , BANK_NAME
+            , ACCOUNT_NO
+            , TOTAL_PRICE
+            , TRANSACTION_DATETIME
+            , DEPOSIT_STATUS
+            , REMIT_STATUS
+        FROM TRANSACTION
+    </select>
+
+    <select id="select"
+            parameterType="Transaction"
+            resultType="Transaction">
+        SELECT
+            TRANSACTION_CODE
+             , SILAGE_CODE
+             , SELLER_CODE
+             , BUYER_CODE
+             , BANK_NAME
+             , ACCOUNT_NO
+             , TOTAL_PRICE
+             , TRANSACTION_DATETIME
+             , DEPOSIT_STATUS
+             , REMIT_STATUS
+        FROM TRANSACTION
+    </select>
+
+    <update id="update"
+            parameterType="Transaction">
+        UPDATE TRANSACTION
+        SET DEPOSIT_STATUS = #{depositStatus}
+            REMIT_STATUS = #{remitStatus}
+        WHERE TRANSACTION_CODE = #{transactionCode}
+    </update>
+
+    <delete id="delete"
+            parameterType="Transaction">
+        DELETE FROM TRANSACTION
+        WHERE TRANSACTION_CODE = #{transactionCode}
+    </delete>
 </mapper>

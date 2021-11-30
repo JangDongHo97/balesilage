@@ -40,7 +40,7 @@ public class SilageController {
 //                        );
         silageService.insertSilage(silage, 3);
 
-        return new ModelAndView(new RedirectView("/bsa/silages"));
+        return new ModelAndView(new RedirectView("/silages"));
     }
 
     //forward /WEB-INF/jsp/silage/mySilage.jsp
@@ -82,8 +82,6 @@ public class SilageController {
     public ModelAndView searchSilage(Silage silage, HttpSession session) {
         Silage afterSilage = silageService.selectSilage(silage);
 
-        System.out.println(String.valueOf(session.getAttribute("memberCode")));
-
         ModelAndView mav = new ModelAndView();
         mav.addObject("silage", afterSilage);
         mav.addObject("auth",session.getAttribute("memberCode"));
@@ -107,12 +105,16 @@ public class SilageController {
     //redirect /bsa/silages
     @PutMapping("/silages")
     public ModelAndView editSilage(Silage silage) {
-        return null;
+        ModelAndView mav = new ModelAndView("bsa/silages");
+        silageService.updateSilage(silage);
+        return mav;
     }
 
     //redirect /bsa/silages
     @DeleteMapping("/silages")
     public ModelAndView removeSilage(Silage silage) {
-        return null;
+        ModelAndView mav = new ModelAndView("/bsa/silages");
+        silageService.deleteSilage(silage);
+        return mav;
     }
 }
