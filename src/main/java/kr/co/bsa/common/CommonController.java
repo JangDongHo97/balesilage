@@ -97,13 +97,17 @@ public class CommonController {
     @GetMapping("/auth")
     public ModelAndView checkAuth() {
         ModelAndView mav = new ModelAndView("/common/auth");
-        return null;
+        return mav;
     }
 
     //redirect /bsa/member/{memberCode}/form
     @PostMapping("/auth")
     public ModelAndView checkAuth(Member member, HttpSession session) {
         member.setMemberCode((int) session.getAttribute("memberCode"));
-        return null;
+        if(loginService.auth(member)) {
+            ModelAndView mav = new ModelAndView("/bsa/member/{memberCode}/form");
+        }
+        ModelAndView mav = new ModelAndView("/common/auth");
+        return mav;
     }
 }
