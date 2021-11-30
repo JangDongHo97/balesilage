@@ -12,6 +12,6 @@
 </head>
 <body>
     <p>웹 페이지를 찾을 수 없습니다</p>
-
+    <a href="/bale/silages"><input type="button" value="돌아가기"/></a>
 </body>
 </html>

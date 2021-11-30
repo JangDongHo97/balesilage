@@ -96,12 +96,14 @@ public class CommonController {
     //forward /WEB-INF/jsp/common/auth.jsp
     @GetMapping("/auth")
     public ModelAndView checkAuth() {
+        ModelAndView mav = new ModelAndView("/common/auth");
         return null;
     }
 
     //redirect /bsa/member/{memberCode}/form
     @PostMapping("/auth")
-    public ModelAndView checkAuth(Member member) {
+    public ModelAndView checkAuth(Member member, HttpSession session) {
+        member.setMemberCode((int) session.getAttribute("memberCode"));
         return null;
     }
 }
