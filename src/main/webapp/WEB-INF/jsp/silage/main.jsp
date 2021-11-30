@@ -14,6 +14,7 @@
     <title>곤포 사일리지 목록</title>
 </head>
 <body>
+    <jsp:include page="../top/top.jsp"/>
     <table border="1">
         <tr>
             <th>일련번호</th>
@@ -28,7 +29,7 @@
         <c:forEach items="${silages}" var="silage">
             <c:if test="${fn:contains(silage.transactionStatus,'Y')}">
                 <tr>
-                    <td><a href="/silages/${silage.silageCode}"/>${silage.silageCode}</td>
+                    <td><a href="/bsa/silages/${silage.silageCode}"/>${silage.silageCode}</td>
                     <td><input type="hidden" id="memberId" value="${silage.id}">${silage.id}</td>
                     <td>${silage.enrollDateTime}</td>
                     <td>${silage.weight}</td>
@@ -130,6 +131,6 @@
             <%--});--%>
         }
     </script>
-    <a href="/silages/form">곤포 사일리지 등록</a>
+    <a href="/bsa/silages/form">곤포 사일리지 등록</a>
 </body>
 </html>

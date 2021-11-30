@@ -20,6 +20,7 @@
         <where>
             <if test="memberId != null">
                 AND ID = #{memberId}
+            </if>
             <if test="memberCode > 0">
                 AND MEMBER_CODE = #{memberCode}
             </if>

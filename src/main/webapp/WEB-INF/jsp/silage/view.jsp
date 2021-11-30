@@ -13,72 +13,104 @@
     <title>Title</title>
 </head>
 <body>
+    <jsp:include page="../top/top.jsp"/>
+    <form action="/bsa/silages" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="silageCode" value="${silage.silageCode}">
+        <table border="1">
+            <tr>
+                <td>
+                    상품 번호
+                </td>
+                <td>
+                    ${silage.silageCode}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    판매자 아이디
+                </td>
+                <td>
+                    ${silage.id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    등록 일시
+                </td>
+                <td>
+                    ${silage.enrollDateTime}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    제조 일자
+                </td>
+                <td>
+                    ${silage.productionDate}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    무게
+                </td>
+                <td>
+                    ${silage.weight}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    개수
+                </td>
+                <td>
+                    ${silage.count}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    단가
+                </td>
+                <td>
+                    ${silage.unitPrice}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    가격
+                </td>
+                <td>
+                    ${silage.count * silage.unitPrice}
+                </td>
+            </tr>
+        </table>
+        <c:choose>
+            <c:when test="${auth == 1}">
+                <table>
+                    <tr>
+                        <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
+                    </tr>
+                </table>
+            </c:when>
+            <c:when test="${auth == silage.sellerCode}">
+                <table>
+                    <tr>
+                        <td><button type="submit" formaction="/bsa/silages/${silage.silageCode}/form" formmethod="get">수정</button></td>
+                        <td><input type="submit" value="삭제"></td>
+                        <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
+                    </tr>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <table>
+                    <tr>
+                        <td><button type="submit" formaction="/bsa/transactions/${silage.silageCode}" formmethod="post">구매</button></td>
+                        <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
+                    </tr>
+                </table>
+            </c:otherwise>
+        </c:choose>
 
-    <table border="1">
-        <tr>
-            <td>
-                상품 번호
-            </td>
-            <td>
-                ${silage.silageCode}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                판매자 아이디
-            </td>
-            <td>
-                ${silage.id}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                등록 일시
-            </td>
-            <td>
-                ${silage.enrollDateTime}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                제조 일자
-            </td>
-            <td>
-                ${silage.productionDate}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                무게
-            </td>
-            <td>
-                ${silage.weight}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                개수
-            </td>
-            <td>
-                ${silage.count}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                단가
-            </td>
-            <td>
-                ${silage.unitPrice}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                가격
-            </td>
-            <td>
-                ${silage.count * silage.unitPrice}
-            </td>
-        </tr>
-    </table>
+
+    </form>
 </body>
 </html>

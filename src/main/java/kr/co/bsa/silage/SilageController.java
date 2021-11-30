@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Controller
+@RequestMapping("/bsa")
 public class SilageController {
     @Autowired
     private SilageService silageService;
@@ -39,7 +40,7 @@ public class SilageController {
 //                        );
         silageService.insertSilage(silage, 3);
 
-        return new ModelAndView(new RedirectView("/silages"));
+        return new ModelAndView(new RedirectView("/bsa/silages"));
     }
 
     //forward /WEB-INF/jsp/silage/mySilage.jsp
@@ -78,11 +79,14 @@ public class SilageController {
 
     //forward /WEB-INF/jsp/silage/view.jsp
     @GetMapping("/silages/{silageCode}")
-    public ModelAndView searchSilage(Silage silage) {
+    public ModelAndView searchSilage(Silage silage, HttpSession session) {
         Silage afterSilage = silageService.selectSilage(silage);
+
+        System.out.println(String.valueOf(session.getAttribute("memberCode")));
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("silage", afterSilage);
+        mav.addObject("auth",session.getAttribute("memberCode"));
         mav.setViewName("silage/view");
 
         return mav;
@@ -91,7 +95,13 @@ public class SilageController {
     //forward /WEB-INF/jsp/silage/edit.jsp
     @GetMapping("/silages/{silageCode}/form")
     public ModelAndView editSilageForm(Silage silage) {
-        return null;
+        silage = silageService.selectSilage(silage);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("silage", silage);
+        mav.setViewName("silage/edit");
+
+        return mav;
     }
 
     //redirect /bsa/silages
