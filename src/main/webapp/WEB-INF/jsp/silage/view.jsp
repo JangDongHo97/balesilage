@@ -103,7 +103,7 @@
             <c:otherwise>
                 <table>
                     <tr>
-                        <td><button type="submit" formaction="/bsa/transactions/${silage.silageCode}" formmethod="post">구매</button></td>
+                        <td><a href="/bsa/purchases/notice/${silage.silageCode}"><input type="button" value="구매"/></a></td>
                         <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
                     </tr>
                 </table>

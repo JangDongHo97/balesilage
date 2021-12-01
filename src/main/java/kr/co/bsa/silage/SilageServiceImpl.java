@@ -38,21 +38,25 @@ public class SilageServiceImpl implements SilageService {
     }
 
     @Override
+    @Transactional
     public List<Silage> selectSilageList(DateCommand dateCommand) {
         return silageMapper.selectAll(dateCommand);
     }
 
     @Override
+    @Transactional
     public Silage selectSilage(Silage silage) {
         return silageMapper.select(silage);
     }
 
     @Override
+    @Transactional
     public void updateSilage(Silage silage) {
         silageMapper.update(silage);
     }
 
     @Override
+    @Transactional
     public void deleteSilage(Silage silage) {
         silageMapper.delete(silage);
     }
