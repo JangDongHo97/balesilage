@@ -54,7 +54,7 @@
                 <td>
                     무게
                 </td>
-                <td>
+                <td style="text-align: right">
                     ${silage.weight}
                 </td>
             </tr>
@@ -62,7 +62,7 @@
                 <td>
                     개수
                 </td>
-                <td>
+                <td style="text-align: right">
                     ${silage.count}
                 </td>
             </tr>
@@ -70,7 +70,7 @@
                 <td>
                     단가
                 </td>
-                <td>
+                <td style="text-align: right">
                     ${silage.unitPrice}
                 </td>
             </tr>
@@ -78,7 +78,7 @@
                 <td>
                     가격
                 </td>
-                <td>
+                <td style="text-align: right">
                     ${silage.count * silage.unitPrice}
                 </td>
             </tr>
@@ -94,7 +94,7 @@
             <c:when test="${auth == silage.sellerCode}">
                 <table>
                     <tr>
-                        <td><button type="submit" formaction="/bsa/silages/${silage.silageCode}/form" formmethod="get">수정</button></td>
+                        <td><a href="/bsa/silages/form/${silage.silageCode}"><input type="button" value="수정"></a></td>
                         <td><input type="submit" value="삭제"></td>
                         <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
                     </tr>

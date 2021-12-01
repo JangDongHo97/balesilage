@@ -20,11 +20,12 @@
     </insert>
 
     <select id="selectAll"
-            parameterType="Transaction"
+            parameterType="kr.co.bsa.common.DateCommand"
             resultType="Transaction">
         SELECT
             TRANSACTION_CODE
             , SILAGE_CODE
+            , ID
             , SELLER_CODE
             , BUYER_CODE
             , BANK_NAME
@@ -33,7 +34,14 @@
             , TRANSACTION_DATETIME
             , DEPOSIT_STATUS
             , REMIT_STATUS
-        FROM TRANSACTION
+        FROM TRANSACTION INNER JOIN MEMBER
+        ON TRANSACTION.BUYER_CODE = MEMBER.MEMBER_CODE;
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+            </if>
+        </where>
+        ORDER BY TRANSACTION_DATETIME
     </select>
 
     <select id="select"

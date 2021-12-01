@@ -44,11 +44,15 @@ public class SilageServiceImpl implements SilageService {
 
     @Override
     public Silage selectSilage(Silage silage) {
+        Silage s = silageMapper.select(silage);
+        System.out.println(s.getSellerCode());
+
         return silageMapper.select(silage);
     }
 
     @Override
     public void updateSilage(Silage silage) {
+
         silageMapper.update(silage);
     }
 

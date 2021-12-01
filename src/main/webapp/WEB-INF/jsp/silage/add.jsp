@@ -12,10 +12,15 @@
 </head>
 <body>
     <form action="/bsa/silages" method="post">
+        <jsp:include page="../top/top.jsp"/>
+        <h4>곤포 사일리지 등록</h4>
+        <h6>곤포 사일리지 정보 입력</h6>
+        <hr>
+
         <table border="1">
             <tr>
-                <td>제조일자</td>
-                <td><input type="text" name="productionDate" placeholder="8자리로 입력해 주세요." required> ex) 20211121</td>
+                <td>제조 일자</td>
+                <td><input type="date" name="productionDate" placeholder="제조 일자를 선택해주세요." required> ex) 2021-11-21</td>
             </tr>
             <tr>
                 <td>무게</td>

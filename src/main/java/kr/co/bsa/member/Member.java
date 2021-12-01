@@ -5,12 +5,10 @@ import java.io.Serializable;
 
 public class Member implements Serializable {
     private int memberCode;
-
     @NotBlank
     private String id;
     @NotBlank
     private String password;
-
     private String name;
     private String phone;
     private String address;

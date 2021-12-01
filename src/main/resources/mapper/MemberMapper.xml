@@ -19,7 +19,7 @@
         FROM MEMBER
         <where>
             <if test="id != null">
-                AND ID = #{memberId}
+                AND ID = #{id}
             </if>
             <if test="memberCode > 0">
                 AND MEMBER_CODE = #{memberCode}

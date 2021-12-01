@@ -1,5 +1,6 @@
 package kr.co.bsa.transaction;
 
+import kr.co.bsa.common.DateCommand;
 import kr.co.bsa.silage.Silage;
 import kr.co.bsa.silage.SilageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/purchaseList.jsp
     @GetMapping("/purchases")
-    public ModelAndView searchPurchaseList(Transaction transaction) {
+    public ModelAndView searchPurchaseList(Transaction transaction, DateCommand dateCommand) {
         ModelAndView mav = new ModelAndView("/transactino/purchaseList");
-        List<Transaction> transactions = transactionService.selectTransactionList();
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
         mav.addObject("transactions", transactions);
 
         return mav;
@@ -70,9 +71,9 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/list.jsp
     @GetMapping("/transactions")
-    public ModelAndView searchTransactionList() {
+    public ModelAndView searchTransactionList(DateCommand dateCommand) {
         ModelAndView mav = new ModelAndView("/transactino/list");
-        List<Transaction> transactions = transactionService.selectTransactionList();
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
         mav.addObject("transactions", transactions);
 
         return mav;

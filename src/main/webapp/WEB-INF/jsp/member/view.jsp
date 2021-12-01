@@ -18,7 +18,7 @@
         <td colspan="5"><a href="bsa/purchase"><input type="text" value="구매 내역"></a></td>
         <td><a href="bsa/auth"><input type="button" value="계정관리"></a></td>
         <td><a href="/logout"><input type="button" value="로그아웃"></a></td>
-    <tr>
+    </tr>
 </table>
     <form action="/members" method="POST">
         <table>

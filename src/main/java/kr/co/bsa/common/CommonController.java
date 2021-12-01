@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -92,14 +93,14 @@ public class CommonController {
     }
 
     //forward /WEB-INF/jsp/common/auth.jsp
-    @GetMapping("/auth")
+    @GetMapping("/bsa/auth")
     public ModelAndView checkAuth() {
         ModelAndView mav = new ModelAndView("common/auth");
         return mav;
     }
 
     //redirect /bsa/member/{memberCode}/form
-    @PostMapping("/auth")
+    @PostMapping("/bsa/auth")
     public ModelAndView checkAuth(Member member, HttpSession session) {
         member.setMemberCode((int) session.getAttribute("memberCode"));
         if(loginService.auth(member)) {

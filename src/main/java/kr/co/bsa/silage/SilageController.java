@@ -3,6 +3,8 @@ package kr.co.bsa.silage;
 import kr.co.bsa.common.DateCommand;
 import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberService;
+import kr.co.bsa.transaction.Transaction;
+import kr.co.bsa.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class SilageController {
     private SilageService silageService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private TransactionService transactionService;
 
     //forward /WEB-INF/jsp/silage/add.jsp
     @GetMapping("/silages/form")
@@ -38,15 +42,24 @@ public class SilageController {
 //        int memberCode = Integer.valueOf(
 //                                    String.valueOf(session.getAttribute("memberCode"))
 //                        );
-        silageService.insertSilage(silage, 3);
+        silageService.insertSilage(silage, (Integer)session.getAttribute("memberCode"));
 
-        return new ModelAndView(new RedirectView("/silages"));
+        return new ModelAndView(new RedirectView("/bsa/silages"));
     }
 
     //forward /WEB-INF/jsp/silage/mySilage.jsp
-    @GetMapping("/searchMySilage")
-    public ModelAndView searchMySilage() {
-        return null;
+    @GetMapping("/silages/mine")
+    public ModelAndView searchMySilage(DateCommand dateCommand,HttpSession session) {
+        List<Silage> silages = silageService.selectSilageList(dateCommand);
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("silages",silages);
+        mav.addObject("transactions",transactions);
+        mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
+        mav.setViewName("silage/mySilage");
+
+        return mav;
     }
 
     //forward /WEB-INF/jsp/silage/main.jsp
@@ -71,8 +84,16 @@ public class SilageController {
 
     @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    public List<Silage> searchSilageScope(@RequestBody(required = false) DateCommand dateCommand) {
+        System.out.println(dateCommand.getStartDate() + "~" + dateCommand.getEndDate());
+
+        return silageService.selectSilageList(dateCommand);
+    }
+
+    @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
     public Member searchSilagePlace(@RequestBody(required = false) Member member) {
-        System.out.println("아이디 : " + member.getId());
+        System.out.println(member.getId());
 
         return memberService.selectMember(member);
     }
@@ -91,13 +112,18 @@ public class SilageController {
     }
 
     //forward /WEB-INF/jsp/silage/edit.jsp
-    @GetMapping("/silages/{silageCode}/form")
+    @GetMapping("/silages/form/{silageCode}")
     public ModelAndView editSilageForm(Silage silage) {
         silage = silageService.selectSilage(silage);
 
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("silage", silage);
-        mav.setViewName("silage/edit");
+        ModelAndView mav = null;
+        if(silage.getTransactionStatus() == 'Y'){
+            mav = new ModelAndView();
+            mav.addObject("silage", silage);
+            mav.setViewName("silage/edit");
+        } else {
+            mav = new ModelAndView(new RedirectView("/bsa/silages/" + silage.getSilageCode()));
+        }
 
         return mav;
     }
@@ -105,7 +131,8 @@ public class SilageController {
     //redirect /bsa/silages
     @PutMapping("/silages")
     public ModelAndView editSilage(Silage silage) {
-        ModelAndView mav = new ModelAndView("bsa/silages");
+        ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
+        System.out.println(silage);
         silageService.updateSilage(silage);
         return mav;
     }
@@ -113,7 +140,7 @@ public class SilageController {
     //redirect /bsa/silages
     @DeleteMapping("/silages")
     public ModelAndView removeSilage(Silage silage) {
-        ModelAndView mav = new ModelAndView("/bsa/silages");
+        ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
         silageService.deleteSilage(silage);
         return mav;
     }
