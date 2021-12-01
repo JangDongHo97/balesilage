@@ -72,7 +72,6 @@ public class MemberController {
         member.setMemberCode(memberCode);
         member = memberService.selectMember(member);
         Account account = accountService.selectAccount(member);
-        logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@" + account);
         mav.addObject("member", member);
         mav.addObject("account", account);
         return mav;
