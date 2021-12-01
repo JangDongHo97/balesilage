@@ -34,7 +34,7 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public boolean auth(Member member) {
         Member afterMember = memberMapper.select(member);
-        if (afterMember.getPassword().equals(member.getPassword())) {
+        if ((afterMember.getPassword()).equals(member.getPassword())) {
             return true;
         }
         return false;

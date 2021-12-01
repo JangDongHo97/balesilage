@@ -9,7 +9,7 @@
 <%@ page isELIgnored="false"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>곤포 사일리지 수정화면</title>
 </head>
 <body>
     <form action="/silages" method="post">

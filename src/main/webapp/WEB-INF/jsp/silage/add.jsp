@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>곤포 사일리지 등록화면</title>
 </head>
 <body>
     <form action="/bsa/silages" method="post">

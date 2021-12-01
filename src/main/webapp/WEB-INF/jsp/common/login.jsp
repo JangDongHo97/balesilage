@@ -18,15 +18,11 @@
         </script>
     </head>
     <body>
-        <table>
-            <tr>
-                <td> <a href ="/bsa/silages">메인</a></td>
-                <td><input type="text" value="         등록 내역" onclick="needLogin()"></td>
-                <td><input type="text" value="         구매 내역" onclick="needLogin()"></td>
-            </tr>
-        </table>
+    <jsp:include page="../top/top.jsp"/>
         <table>
             <form action="/login" method="POST">
+                <h4>로그인</h4>
+                <hr>
                 <tr>
                     <td>ID : <input type="text" name="id"/> </td>
                 </tr>

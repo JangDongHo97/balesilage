@@ -66,12 +66,15 @@ public class MemberController {
     }
 
     //forward /WEB-INF/jsp/member/edit.jsp
-    @GetMapping("/members/{memberCode}/form")
-    public ModelAndView editMemberForm(Member member, @PathVariable int no) {
+    @GetMapping("/members/form/{memberCode}")
+    public ModelAndView editMemberForm(Member member, @PathVariable int memberCode) {
         ModelAndView mav = new ModelAndView("/member/edit");
-        member.setMemberCode(no);
-        memberService.selectMember(member);
+        member.setMemberCode(memberCode);
+        member = memberService.selectMember(member);
+        Account account = accountService.selectAccount(member);
+        logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@" + account);
         mav.addObject("member", member);
+        mav.addObject("account", account);
         return mav;
     }
 

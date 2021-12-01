@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.bsa.account.AccountMapper">
     <!--매핑 구문-->
     <select id="select"
-            parameterType="Account"
+            parameterType="Member"
             resultType="Account">
         SELECT
         ACCOUNT_CODE
@@ -15,8 +15,8 @@
         , ACCOUNT_NO
         FROM ACCOUNT
         <where>
-            <if test="accountCode > 0">
-                AND ACCOUNT_CODE = #{accountNo}
+            <if test="memberCode > 0">
+                AND MEMBER_CODE = #{memberCode}
             </if>
         </where>
     </select>

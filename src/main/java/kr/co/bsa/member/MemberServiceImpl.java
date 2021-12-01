@@ -3,8 +3,6 @@ package kr.co.bsa.member;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 @Service
 public class MemberServiceImpl implements MemberService{
     @Autowired
@@ -13,12 +11,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void insertMember(Member member) {
         memberMapper.insert(member);
-    }
-
-    @Override
-    public List<Member> selectMemberList() {
-        List<Member> members = memberMapper.select();
-        return members;
     }
 
     @Override

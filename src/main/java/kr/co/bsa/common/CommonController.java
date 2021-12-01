@@ -6,13 +6,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -50,7 +48,7 @@ public class CommonController {
                     mav = new ModelAndView(new RedirectView("/bsa/silages"));
                     logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@회원처리");
                     logger.debug(afterMember);
-                    session.setAttribute("memberCode", member.getMemberCode());
+                    session.setAttribute("memberCode", afterMember.getMemberCode());
 
                     //관리자일 시
                 } else if(afterMember.getMemberStatus() == 'A') {
@@ -96,7 +94,7 @@ public class CommonController {
     //forward /WEB-INF/jsp/common/auth.jsp
     @GetMapping("/auth")
     public ModelAndView checkAuth() {
-        ModelAndView mav = new ModelAndView("/common/auth");
+        ModelAndView mav = new ModelAndView("common/auth");
         return mav;
     }
 
@@ -105,9 +103,10 @@ public class CommonController {
     public ModelAndView checkAuth(Member member, HttpSession session) {
         member.setMemberCode((int) session.getAttribute("memberCode"));
         if(loginService.auth(member)) {
-            ModelAndView mav = new ModelAndView("/bsa/member/{memberCode}/form");
+            ModelAndView mav = new ModelAndView(new RedirectView("/members/form/" + member.getMemberCode()));
+            return mav;
         }
-        ModelAndView mav = new ModelAndView("/common/auth");
+        ModelAndView mav = new ModelAndView("common/auth");
         return mav;
     }
 }

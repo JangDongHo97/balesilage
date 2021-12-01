@@ -18,7 +18,7 @@
              , MEMBER_STATUS
         FROM MEMBER
         <where>
-            <if test="memberId != null">
+            <if test="id != null">
                 AND ID = #{memberId}
             </if>
             <if test="memberCode > 0">

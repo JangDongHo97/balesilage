@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>곤포 사일리지 상세조회화면</title>
 </head>
 <body>
     <jsp:include page="../top/top.jsp"/>
