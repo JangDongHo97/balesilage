@@ -7,16 +7,15 @@
     <insert id="insert"
             parameterType="Transaction">
         INSERT INTO TRANSACTION
-            (TRANSACTION_CODE, SILAGE_CODE, SELLER_CODE, BUYER_CODE, BANK_NAME, ACCOUNT_NO, TOTAL_PRICE)
+            (SILAGE_CODE, SELLER_CODE, BUYER_CODE, BANK_NAME, ACCOUNT_NO, TOTAL_PRICE, TRANSACTION_DATETIME)
         VALUES
-            (#{transactionCode}
-            , #{silageCode}
+            (#{silageCode}
             , #{sellerCode}
             , #{buyerCode}
             , #{bankName}
             , #{accountNo}
             , #{totalPrice}
-            , TRANSACTION_DATETIME(NOW(),'%Y-%m-%d %H:%i:%s'))
+            , STR_TO_DATE(NOW(),'%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <select id="selectAll"

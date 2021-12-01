@@ -1,5 +1,8 @@
 package kr.co.bsa.transaction;
 
+import kr.co.bsa.account.Account;
+import kr.co.bsa.account.AccountService;
+import kr.co.bsa.member.Member;
 import kr.co.bsa.common.DateCommand;
 import kr.co.bsa.silage.Silage;
 import kr.co.bsa.silage.SilageService;
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,11 +22,32 @@ public class TransactionController {
     private TransactionServiceImpl transactionService;
     @Autowired
     private SilageService silageService;
+    @Autowired
+    private AccountService accountService;
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
-    @GetMapping("/purchases/notice")
-    public ModelAndView alertPurchase(Transaction transaction) {
+    @GetMapping("/purchases/notice/{silageCode}")
+    public ModelAndView alertPurchase(Transaction transaction, @PathVariable int silageCode, HttpSession session) {
         ModelAndView mav = new ModelAndView("transaction/notice");
+
+        //구매하려는 silage 조회
+        Silage silage = new Silage();
+        silage.setSilageCode(silageCode);
+        silage = silageService.selectSilage(silage);
+
+        //판매자 계좌정보 조회
+        Member seller = new Member();
+        seller.setMemberCode(silage.getSellerCode());
+        Account sellerAccount = accountService.selectAccount(seller);
+
+        transaction.setSilageCode(silage.getSilageCode());
+        transaction.setSellerCode(silage.getSellerCode());
+        transaction.setBuyerCode((Integer) session.getAttribute("memberCode"));
+        transaction.setBankName(sellerAccount.getBankName());
+        transaction.setAccountNo(sellerAccount.getAccountNo());
+        transaction.setTotalPrice(silage.getUnitPrice() * silage.getCount());
+
+        mav.addObject("transaction", transaction);
 
         return mav;
     }
@@ -48,22 +73,9 @@ public class TransactionController {
     }
 
     //redirect /bsa/silages
-    @PostMapping("/transactions/{silageCode}")
-    public ModelAndView enrollTransaction(Transaction transaction, @PathVariable int silageCode, HttpSession session) {
-        ModelAndView mav = new ModelAndView("bsa/silages");
-
-        //transaction 객체에 사일리지 코드 삽입
-        transaction.setSilageCode(silageCode);
-
-        //transaction 객체에 구매자 삽입
-        transaction.setBuyerCode((Integer) session.getAttribute("memberCode"));
-
-        //transaction 객체에 판매자 삽입
-        Silage silage = new Silage();
-        silage.setSilageCode(silageCode);
-        silage = silageService.selectSilage(silage);
-        transaction.setSellerCode(silage.getSellerCode());
-
+    @PostMapping("/transactions")
+    public ModelAndView enrollTransaction(Transaction transaction) {
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         transactionService.insertTransaction(transaction);
 
         return mav;

@@ -17,14 +17,8 @@
         </script>
     </head>
     <body>
+    <jsp:include page="../top/top.jsp"/>
         <table>
-            <tr>
-                <td colspan="5"> <a href ="/bsa/silages">메인</a></td>
-                <td colspan="5"><input type="text" value="등록 내역" onclick="needLogin()"></td>
-                <td colspan="5"><input type="text" value="구매 내역" onclick="needLogin()"></td>
-                <td><a href="/login"><input type="button" value="로그인"></a></td>
-                <td><a href="/members/form"><input type="button" value="회원가입"></a></td>
-            </tr>
             <h4>회원가입</h4>
             <hr>
             <tr>
