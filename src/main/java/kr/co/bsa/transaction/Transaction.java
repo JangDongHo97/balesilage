@@ -7,7 +7,8 @@ public class Transaction implements Serializable {
     private int silageCode;
     private int sellerCode;
     private int buyerCode;
-    private String buyerId;
+    private String id;
+    private String sellerId;
     private String bankName;
     private String accountNo;
     private int totalPrice;
@@ -50,12 +51,20 @@ public class Transaction implements Serializable {
         this.buyerCode = buyerCode;
     }
 
-    public String getBuyerId() {
-        return buyerId;
+    public String getId() {
+        return id;
     }
 
-    public void setBuyerId(String buyerId) {
-        this.buyerId = buyerId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 
     public String getBankName() {
@@ -113,7 +122,8 @@ public class Transaction implements Serializable {
                 ", silageCode=" + silageCode +
                 ", sellerCode=" + sellerCode +
                 ", buyerCode=" + buyerCode +
-                ", buyerId='" + buyerId + '\'' +
+                ", id='" + id + '\'' +
+                ", sellerId='" + sellerId + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", accountNo='" + accountNo + '\'' +
                 ", totalPrice=" + totalPrice +
