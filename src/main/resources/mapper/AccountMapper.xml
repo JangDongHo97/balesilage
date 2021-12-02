@@ -32,8 +32,8 @@
     <update id="update"
             parameterType="Account">
         UPDATE ACCOUNT
-        SET BANK_NAME = #{bankName},
-            ACCOUNT_NO = #{accountNo}
-        WHERE MEMBER_CODE = memberCode
+        SET BANK_NAME = #{bankName}
+            , ACCOUNT_NO = #{accountNo}
+        WHERE MEMBER_CODE = #{memberCode}
     </update>
 </mapper>

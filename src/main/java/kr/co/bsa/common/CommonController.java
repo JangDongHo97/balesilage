@@ -104,7 +104,7 @@ public class CommonController {
     public ModelAndView checkAuth(Member member, HttpSession session) {
         member.setMemberCode((int) session.getAttribute("memberCode"));
         if(loginService.auth(member)) {
-            ModelAndView mav = new ModelAndView(new RedirectView("/members/form/" + member.getMemberCode()));
+            ModelAndView mav = new ModelAndView(new RedirectView("/members/" + member.getMemberCode()));
             return mav;
         }
         ModelAndView mav = new ModelAndView("common/auth");

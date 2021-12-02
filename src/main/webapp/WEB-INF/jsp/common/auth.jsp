@@ -12,7 +12,7 @@
 </head>
 <body>
     <p>계정 관리의 권한을 확인하기 위해 자신의 비밀번호를 입력해주세요</p>
-    <form action="/auth" method=post>
+    <form action="/bsa/auth" method=post>
         <table>
             <tr>
                 <td>PW : <input type="password" name="password"/> </td>

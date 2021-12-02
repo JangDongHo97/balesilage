@@ -2,6 +2,7 @@ package kr.co.bsa.member;
 
 import kr.co.bsa.account.Account;
 import kr.co.bsa.account.AccountService;
+import org.apache.ibatis.jdbc.Null;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,6 @@ public class MemberController {
     @Autowired
     private AccountService accountService;
 
-    private Logger logger = LogManager.getLogger(MemberController.class);
-
     //forward /WEB-INF/jsp/member/add.jsp
     @GetMapping("/members/form")
     public ModelAndView enrollMember() {
@@ -34,12 +33,8 @@ public class MemberController {
 
     //redirect /bsa/silages
     @PostMapping("/members")
-    public ModelAndView enrollMember(@Valid Member member, Account account,
-                                     BindingResult bindingResult, HttpSession session) {
+    public ModelAndView enrollMember(@Valid Member member, Account account, HttpSession session) {
         ModelAndView mav = null;
-
-        logger.debug(member);
-        logger.debug(account);
 
         try {
             mav = new ModelAndView(new RedirectView("/bsa/silages"));
@@ -57,7 +52,7 @@ public class MemberController {
     //forward /WEB-INF/jsp/member/view.jsp
     @GetMapping("/members/{memberCode}")
     public ModelAndView searchMember(Member member) {
-        ModelAndView mav = new ModelAndView("/member/view");
+        ModelAndView mav = new ModelAndView("member/view");
         member = memberService.selectMember(member);
         Account account = accountService.selectAccount(member);
         mav.addObject("member", member);
@@ -68,7 +63,7 @@ public class MemberController {
     //forward /WEB-INF/jsp/member/edit.jsp
     @GetMapping("/members/form/{memberCode}")
     public ModelAndView editMemberForm(Member member, @PathVariable int memberCode) {
-        ModelAndView mav = new ModelAndView("/member/edit");
+        ModelAndView mav = new ModelAndView("member/edit");
         member.setMemberCode(memberCode);
         member = memberService.selectMember(member);
         Account account = accountService.selectAccount(member);
@@ -78,10 +73,22 @@ public class MemberController {
     }
 
     //redirect /bsa/member/{memberCode}
-    @PutMapping("/members")
-    public ModelAndView editMember(Member member) {
-        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/member/{" + member.getMemberCode() + "}"));
+    @PutMapping("/members/{memberCode}")
+    public ModelAndView editMember(Member member, @PathVariable int memberCode, Account account) {
+        ModelAndView mav = new ModelAndView(new RedirectView("/members/" + member.getMemberCode()));
+        
+        //회원정보 수정
+        member.setMemberCode(memberCode);
         memberService.updateMember(member);
+        
+        //계정정보 등록 or 수정
+        try {
+            accountService.selectAccount(member).getAccountCode();
+            accountService.updateAccount(account);
+        } catch (NullPointerException e) {
+            accountService.insertAccount(account);
+        }
+
         mav.addObject("member", member);
         return mav;
     }

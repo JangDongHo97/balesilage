@@ -12,7 +12,7 @@
 </head>
 <body>
     <jsp:include page="../top/top.jsp"/>
-    <form action="/members" method="POST">
+    <form action="/members/form/${member.memberCode}" method="GET">
         <table>
             <tr>
                 <td>ID: </td>

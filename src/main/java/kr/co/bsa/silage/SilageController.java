@@ -132,7 +132,6 @@ public class SilageController {
     @PutMapping("/silages")
     public ModelAndView editSilage(Silage silage) {
         ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
-        System.out.println(silage);
         silageService.updateSilage(silage);
         return mav;
     }

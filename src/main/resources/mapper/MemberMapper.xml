@@ -42,10 +42,10 @@
     <update id="update"
             parameterType="Member">
         UPDATE MEMBER
-        SET PASSWORD = #{password},
-            NAME = #{name},
-            PHONE = #{phone},
-            ADDRESS = #{address}
+        SET PASSWORD = #{password}
+            , NAME = #{name}
+            , PHONE = #{phone}
+            , ADDRESS = #{address}
         WHERE MEMBER_CODE = #{memberCode}
     </update>
 </mapper>

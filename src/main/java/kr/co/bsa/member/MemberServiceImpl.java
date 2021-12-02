@@ -16,6 +16,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member selectMember(Member member) {
         member = memberMapper.select(member);
+        member.setAddress(member.getAddress().trim());
         return member;
     }
 

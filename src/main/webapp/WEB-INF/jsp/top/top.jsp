@@ -42,7 +42,7 @@
                     <td><a href="/bsa/searchMySilage"><input type="button" value="등록 내역"></a></td>
                     <td><a href="/bsa/purchases"><input type="button" value="구매 내역"></a></td>
 
-                    <td><a href="/auth"><input type="button" value="계정 관리"></a></td>
+                    <td><a href="/bsa/auth"><input type="button" value="계정 관리"></a></td>
                     <td><a href="/logout"><input type="button" value="로그아웃"></a></td>
                 </tr>
             </table>

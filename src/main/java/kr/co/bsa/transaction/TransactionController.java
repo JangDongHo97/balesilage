@@ -84,7 +84,7 @@ public class TransactionController {
     //forward /WEB-INF/jsp/transaction/list.jsp
     @GetMapping("/transactions")
     public ModelAndView searchTransactionList(DateCommand dateCommand) {
-        ModelAndView mav = new ModelAndView("/transactino/list");
+        ModelAndView mav = new ModelAndView("/transaction/list");
         List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
         mav.addObject("transactions", transactions);
 
