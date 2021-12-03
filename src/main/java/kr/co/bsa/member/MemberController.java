@@ -35,18 +35,25 @@ public class MemberController {
     @PostMapping("/members")
     public ModelAndView enrollMember(@Valid Member member, Account account, HttpSession session) {
         ModelAndView mav = null;
-
         try {
             mav = new ModelAndView(new RedirectView("/bsa/silages"));
-            memberService.insertMember(member);
-            member = memberService.selectMember(member);
-            account.setMemberCode(member.getMemberCode());
-            accountService.insertAccount(account);
+            Member afteMmember = memberService.selectMember(member);
+            if(afteMmember == null) {
+                memberService.insertMember(member);
+                if(account.getAccountNo() != null) {
+                    account.setMemberCode(member.getMemberCode());
+                    accountService.insertAccount(account);
+                }
+
+                return mav;
+            }
+            return mav;
         } catch (DuplicateKeyException e) {
             mav = new ModelAndView(new RedirectView("/members/form"));
             session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");
+
+            return mav;
         }
-        return mav;
     }
 
     //forward /WEB-INF/jsp/member/view.jsp
@@ -80,6 +87,15 @@ public class MemberController {
         //회원정보 수정
         member.setMemberCode(memberCode);
         memberService.updateMember(member);
+
+        Account afterAccount = accountService.selectAccount(member);
+        if(afterAccount == null){
+            accountService.insertAccount(account);
+        } else {
+            if(account.getAccountNo() == null) {
+
+            }
+        }
         
         //계정정보 등록 or 수정
         try {

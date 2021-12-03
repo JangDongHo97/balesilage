@@ -1,5 +1,7 @@
 package kr.co.bsa.silage;
 
+import kr.co.bsa.account.Account;
+import kr.co.bsa.account.AccountService;
 import kr.co.bsa.common.DateCommand;
 import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberService;
@@ -26,22 +28,32 @@ public class SilageController {
     private MemberService memberService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private AccountService accountService;
 
     //forward /WEB-INF/jsp/silage/add.jsp
     @GetMapping("/silages/form")
-    public ModelAndView enrollSilage() {
+    public ModelAndView enrollSilage(HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("silage/add");
 
+        int memberCode = (Integer)session.getAttribute("memberCode");
+        Member member = new Member();
+        member.setMemberCode(memberCode);
+
+        Account account = accountService.selectAccount(member);
+        if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
+            System.out.println("@@@@@@@@@@@@@@" + account.getBankName());
+            System.out.println("##############" + account.getAccountNo());
+            mav.setViewName("silage/add");
+            return mav;
+        }
+        mav.setViewName("redirect:/bsa/silages");
         return mav;
     }
 
     //redirect /bsa/silages
     @PostMapping("/silages")
     public ModelAndView enrollSilage(Silage silage, HttpSession session) {
-//        int memberCode = Integer.valueOf(
-//                                    String.valueOf(session.getAttribute("memberCode"))
-//                        );
         silageService.insertSilage(silage, (Integer)session.getAttribute("memberCode"));
 
         return new ModelAndView(new RedirectView("/bsa/silages"));

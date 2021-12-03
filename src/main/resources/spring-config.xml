@@ -18,6 +18,21 @@
         <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
     </mvc:view-resolvers>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/bsa/**"/>
+            <mvc:exclude-mapping path="/bsa/login"/>
+            <mvc:exclude-mapping path="/bsa/error404"/>
+            <mvc:exclude-mapping path="/bsa/error505"/>
+            <mvc:exclude-mapping path="/bsa/members/form"/>
+            <mvc:exclude-mapping path="/bsa/members"/>
+            <mvc:exclude-mapping path="/bsa/silages/place"/>
+            <mvc:exclude-mapping path="/bsa/silages"/>
+            <mvc:exclude-mapping path="/bsa/members"/>
+            <bean class="kr.co.bsa.common.LoginCheckIntercepter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <context:component-scan base-package="kr.co.bsa"/>
 
 </beans>

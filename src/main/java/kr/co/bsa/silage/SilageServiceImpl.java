@@ -3,6 +3,7 @@ package kr.co.bsa.silage;
 import kr.co.bsa.account.Account;
 import kr.co.bsa.account.AccountMapper;
 import kr.co.bsa.common.DateCommand;
+import kr.co.bsa.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,7 @@ public class SilageServiceImpl implements SilageService {
         } else {
             silage.setSellerCode(memberCode);
             silageMapper.insert(silage);
-//            Account account = new Account();
-//            account.setMemberCode(memberCode);
-//            if(accountMapper.select(account) != null) {
-//                silage.setSellerCode(memberCode);
-//                silageMapper.insert(silage);
-//            }
+
             return;
         }
     }

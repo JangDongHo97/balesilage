@@ -48,6 +48,7 @@
             </c:forEach>
         </table>
     </div>
+    <a href="/bsa/silages/form"><input type="button" value="곤포 사일리지 등록"></a>
 
     <div id="map" style="width:500px;height:400px;"></div>
     <%--지도 조회--%>
@@ -188,6 +189,5 @@
             xmlHttp.send(parseDateScope);
         }
     </script>
-    <a href="/bsa/silages/form">곤포 사일리지 등록</a>
 </body>
 </html>
