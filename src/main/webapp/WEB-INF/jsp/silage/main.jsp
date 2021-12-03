@@ -74,7 +74,11 @@
                                                 <div><td style="text-align: right">${silage.count}</td></div>
                                                 <div><td style="text-align: right">${silage.unitPrice}</td></div>
                                                 <div><td style="text-align: right">${silage.unitPrice * silage.count}</td></div>
-                                                <div><td style="text-align: right"><input type="button" value="위치보기" onclick="viewLocation('${silage.id}')"></td></div>
+                                                <div class="row">
+                                                    <td style="text-align: right"><input type="button" value="위치보기" onclick="viewLocation('${silage.id}')"><br>
+                                                        <a href="/bsa/silages/${silage.silageCode}"><input type="button" value="상세조회"></a>
+                                                    </td>
+                                                </div>
                                             </tr>
                                         </c:if>
                                     </c:forEach>
@@ -174,8 +178,8 @@
 
     var geocoder = new kakao.maps.services.Geocoder();
 
-    <c:forEach items="${addresses}" var="address">
-    geocoder.addressSearch('${address}', function(result, status) {
+    <c:forEach items="${silages}" var="silage">
+    geocoder.addressSearch('${silage.address}', function(result, status) {
 
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
@@ -190,7 +194,7 @@
 
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">곤포 사일리지</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">${silage.id}</div>'
             });
             infowindow.open(map, marker);
 

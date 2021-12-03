@@ -41,11 +41,9 @@ public class SilageController {
         member.setMemberCode(memberCode);
 
         Account account = accountService.selectAccount(member);
-        if(account != null){
-            if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
-                mav.setViewName("silage/add");
-                return mav;
-            }
+        if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
+            mav.setViewName("silage/add");
+            return mav;
         }
         mav.setViewName("redirect:/bsa/silages");
         return mav;
@@ -76,17 +74,9 @@ public class SilageController {
     @GetMapping("/silages")
     public ModelAndView searchSilageList(DateCommand dateCommand) {
         List<Silage> silages = silageService.selectSilageList(dateCommand);
-        List<String> addressList = new ArrayList<String>();
-
-        Iterator<Silage> iter = silages.iterator();
-        while(iter.hasNext()) {
-            Silage silageIter = iter.next();
-            addressList.add(silageIter.getAddress());
-        }
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("silages",silages);
-        mav.addObject("addresses", addressList);
         mav.setViewName("silage/main");
 
         return mav;

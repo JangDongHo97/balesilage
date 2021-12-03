@@ -43,7 +43,6 @@ public class SilageServiceImpl implements SilageService {
     @Transactional
     public Silage selectSilage(Silage silage) {
         Silage s = silageMapper.select(silage);
-        System.out.println(s.getSellerCode());
 
         return silageMapper.select(silage);
     }
