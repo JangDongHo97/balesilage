@@ -96,7 +96,7 @@
                     </a>
                 </div>
                 <div class="topbar-one__left">
-                    <a href="/login"><span class="fa-stack fa-lg">
+                    <a href="/bsa/login"><span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 로그인 </a>
@@ -226,7 +226,7 @@
                 </div>
                 <div class="topbar-one__left">
 
-                    <a href="/logout"><span class="fa-stack fa-lg">
+                    <a href="/bsa/logout"><span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 로그아웃 </a>
@@ -346,7 +346,7 @@
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 계정관리 </a>
 
-                    <a href="/logout"><span class="fa-stack fa-lg">
+                    <a href="/bsa/logout"><span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 로그아웃 </a>

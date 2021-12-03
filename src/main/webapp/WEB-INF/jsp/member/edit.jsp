@@ -17,7 +17,7 @@
             <td colspan="15">곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</td>
         </tr>
     </table>
-    <form action="/members/${member.memberCode}" method="POST">
+    <form action="/bsa/members/${member.memberCode}" method="POST">
         <input type="hidden" name="_method" value="put">
         <input type="hidden" name="memberId" value="${member.id}"/>
         <table>

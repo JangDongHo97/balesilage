@@ -41,11 +41,11 @@ public class SilageController {
         member.setMemberCode(memberCode);
 
         Account account = accountService.selectAccount(member);
-        if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
-            System.out.println("@@@@@@@@@@@@@@" + account.getBankName());
-            System.out.println("##############" + account.getAccountNo());
-            mav.setViewName("silage/add");
-            return mav;
+        if(account != null){
+            if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
+                mav.setViewName("silage/add");
+                return mav;
+            }
         }
         mav.setViewName("redirect:/bsa/silages");
         return mav;
@@ -95,16 +95,12 @@ public class SilageController {
     @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Silage> searchSilageScope(@RequestBody(required = false) DateCommand dateCommand) {
-        System.out.println(dateCommand.getStartDate() + "~" + dateCommand.getEndDate());
-
         return silageService.selectSilageList(dateCommand);
     }
 
     @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Member searchSilagePlace(@RequestBody(required = false) Member member) {
-        System.out.println(member.getId());
-
         return memberService.selectMember(member);
     }
 

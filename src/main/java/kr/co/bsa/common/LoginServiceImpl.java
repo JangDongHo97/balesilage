@@ -18,14 +18,12 @@ public class LoginServiceImpl implements LoginService{
     @Transactional
     @Override
     public Member login(Member member) {
-        List<Member> members = memberMapper.select();
+        Member members = memberMapper.select(member);
 
-        for (int i = 0; i < members.size(); i ++ ) {
-            //id, password 검증
-            if (members.get(i).getId().equals(member.getId()) &&
-                    members.get(i).getPassword().equals(member.getPassword())) {
-                member = members.get(i);
-                return member;
+        if(members != null) {
+            if(member.getId().equals(members.getId())
+                    && member.getPassword().equals(members.getPassword())){
+                return members;
             }
         }
         return null;

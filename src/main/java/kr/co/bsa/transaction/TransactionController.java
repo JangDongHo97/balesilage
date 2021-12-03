@@ -31,15 +31,13 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice/{silageCode}")
-    public ModelAndView alertPurchase(Transaction transaction, @PathVariable int silageCode, HttpSession session) {
-        ModelAndView mav = new ModelAndView("transaction/notice");
-
-        //구매하려는 silage 조회
+    public ModelAndView alertPurchase(Transaction transaction
+                                    , @PathVariable int silageCode
+                                    , HttpSession session) {
         Silage silage = new Silage();
         silage.setSilageCode(silageCode);
         silage = silageService.selectSilage(silage);
 
-        //판매자 계좌정보 조회
         Member seller = new Member();
         seller.setMemberCode(silage.getSellerCode());
         Account sellerAccount = accountService.selectAccount(seller);
@@ -51,6 +49,7 @@ public class TransactionController {
         transaction.setAccountNo(sellerAccount.getAccountNo());
         transaction.setTotalPrice(silage.getUnitPrice() * silage.getCount());
 
+        ModelAndView mav = new ModelAndView("transaction/notice");
         mav.addObject("transaction", transaction);
 
         return mav;
@@ -123,7 +122,6 @@ public class TransactionController {
 
         return mav;
     }
-
     //-
     @PutMapping("/transactions/deposit")
     @ResponseBody

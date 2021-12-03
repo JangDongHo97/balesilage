@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 
 <jsp:include page="/WEB-INF/jsp/top/top.jsp"/>
 <div class="preloader" style="display: none;">
@@ -24,30 +26,27 @@
                             <div class="leaf">
                                 <img src="/assets/images/resources/leaf.png" alt="">
                             </div>
-                            <div id="errorMsg" style="height: 10px; width: 200px"></div>
-                            <script>
-                                function check() {
-                                    if(${sessionScope.loginErrorMsg != null}) {
-                                        document.getElementById("errorMsg").innerHTML="<font color='red'>${sessionScope.loginErrorMsg} </font>";
-                                    }
-                                }
-                            </script>
+                            <div id="errorMsg" style="height: 100px; width: 200px; color: red">
+                                <c:if test="${sessionScope.loginErrorMsg != null}">
+                                    ${sessionScope.loginErrorMsg}
+                                </c:if>
+                            </div>
                         </div>
-                        <form action="/login" method="POST" class="contact-one__form">
+                        <form name="loginForm" action="/bsa/login" method="POST" class="contact-one__form">
                             <div class="row low-gutters">
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <input type="text" name="id" placeholder="아이디">
+                                        <input type="text" name="id" id="memberId" placeholder="아이디">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <input type="password" name="password" placeholder="비밀번호">
+                                        <input type="password" name="password" id="memberPw" placeholder="비밀번호">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group contact__btn">
-                                        <button type="submit" class="thm-btn contact-one__btn" onclick="check();">로그인</button>
+                                        <button type="button" class="thm-btn contact-one__btn" onclick=check()>로그인</button>
                                     </div>
                                 </div>
                             </div>
@@ -74,5 +73,22 @@
         </div><!-- /.side-menu__content -->
     </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div><!-- /.side-menu__block-inner -->
 </div><!-- /.side-menu__block -->
+
+
+
+<script type="text/javascript">
+    function check() {
+        var id = document.getElementById("memberId").value;
+        var pw = document.getElementById("memberPw").value;
+
+        if(!id || !pw) {
+            document.getElementById("errorMsg").innerHTML = "<font color='red'>로그인 정보를 입력해주세요. </font>";
+        } else {
+            loginForm.submit();
+        }
+    }
+
+</script>
+
 </body>
 </html>

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/bsa")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -49,7 +50,7 @@ public class MemberController {
             }
             return mav;
         } catch (DuplicateKeyException e) {
-            mav = new ModelAndView(new RedirectView("/members/form"));
+            mav = new ModelAndView(new RedirectView("/bsa/members/form"));
             session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");
 
             return mav;
@@ -59,9 +60,10 @@ public class MemberController {
     //forward /WEB-INF/jsp/member/view.jsp
     @GetMapping("/members/{memberCode}")
     public ModelAndView searchMember(Member member) {
-        ModelAndView mav = new ModelAndView("member/view");
         member = memberService.selectMember(member);
         Account account = accountService.selectAccount(member);
+
+        ModelAndView mav = new ModelAndView("member/view");
         mav.addObject("member", member);
         mav.addObject("account", account);
         return mav;
@@ -82,7 +84,7 @@ public class MemberController {
     //redirect /bsa/member/{memberCode}
     @PutMapping("/members/{memberCode}")
     public ModelAndView editMember(Member member, @PathVariable int memberCode, Account account) {
-        ModelAndView mav = new ModelAndView(new RedirectView("/members/" + member.getMemberCode()));
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/members/" + member.getMemberCode()));
         
         //회원정보 수정
         member.setMemberCode(memberCode);
