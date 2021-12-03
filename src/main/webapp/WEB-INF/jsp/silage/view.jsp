@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>곤포 사일리지 상세조회화면</title>
@@ -17,6 +18,8 @@
     <form action="/bsa/silages" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="silageCode" value="${silage.silageCode}">
+        <h4>곤포 사일리지 정보</h4>
+        <hr>
         <table border="1">
             <tr>
                 <td>
@@ -83,6 +86,25 @@
                 </td>
             </tr>
         </table>
+        <c:if test="${not empty transaction}">
+            <h4>곤포 사일리지 거래 정보</h4>
+            <hr>
+            <table border="1">
+                <tr>
+                    <td>거래 번호</td>
+                    <td>${transaction.transactionCode}</td>
+                </tr>
+                <tr>
+                    <td>구매자 아이디</td>
+                    <td>${transaction.id}</td>
+                </tr>
+                <tr>
+                    <td>거래 일시</td>
+                    <td>${transaction.transactionDateTime}</td>
+                </tr>
+            </table>
+        </c:if>
+
         <c:choose>
             <c:when test="${auth == 1}">
                 <table>
@@ -92,13 +114,22 @@
                 </table>
             </c:when>
             <c:when test="${auth == silage.sellerCode}">
-                <table>
-                    <tr>
-                        <td><a href="/bsa/silages/form/${silage.silageCode}"><input type="button" value="수정"></a></td>
-                        <td><input type="submit" value="삭제"></td>
-                        <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
-                    </tr>
-                </table>
+                <c:if test="${fn:contains(silage.transactionStatus,'Y')}">
+                    <table>
+                        <tr>
+                            <td><a href="/bsa/silages/form/${silage.silageCode}"><input type="button" value="수정"></a></td>
+                            <td><input type="submit" value="삭제"></td>
+                            <td><a href="/bsa/silages"><input type="button" value="목록"></a></td>
+                        </tr>
+                    </table>
+                </c:if>
+                <c:if test="${fn:contains(silage.transactionStatus,'N')}">
+                    <table>
+                        <tr>
+                            <td><a href="/bsa/silages/mine"><input type="button" value="목록"></a></td>
+                        </tr>
+                    </table>
+                </c:if>
             </c:when>
             <c:otherwise>
                 <table>
@@ -109,8 +140,6 @@
                 </table>
             </c:otherwise>
         </c:choose>
-
-
     </form>
 </body>
 </html>

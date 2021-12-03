@@ -4,9 +4,11 @@ import kr.co.bsa.account.Account;
 import kr.co.bsa.account.AccountService;
 import kr.co.bsa.member.Member;
 import kr.co.bsa.common.DateCommand;
+import kr.co.bsa.member.MemberService;
 import kr.co.bsa.silage.Silage;
 import kr.co.bsa.silage.SilageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +26,8 @@ public class TransactionController {
     private SilageService silageService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MemberService memberService;
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice/{silageCode}")
@@ -54,20 +58,43 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/purchaseList.jsp
     @GetMapping("/purchases")
-    public ModelAndView searchPurchaseList(Transaction transaction, DateCommand dateCommand) {
-        ModelAndView mav = new ModelAndView("/transactino/purchaseList");
+    public ModelAndView searchPurchaseList(DateCommand dateCommand, HttpSession session) {
         List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
         mav.addObject("transactions", transactions);
+        mav.setViewName("/transaction/purchaseList");
 
         return mav;
+    }
+
+    @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
+        return transactionService.selectTransactionList(dateCommand);
     }
 
     //forward /WEB-INF/jsp/transaction/purchaseView.jsp
     @GetMapping("/purchases/{transactionCode}")
     public ModelAndView searchPurchase(Transaction transaction) {
-        ModelAndView mav = new ModelAndView("transaction/purchaseView");
-        transactionService.selectTransaction(transaction);
+        transaction = transactionService.selectTransaction(transaction);
+
+        int sellerCode = transaction.getSellerCode();
+        Member member = new Member();
+        member.setMemberCode(sellerCode);
+        member = memberService.selectMember(member);
+
+        int silageCode = transaction.getSilageCode();
+        Silage silage = new Silage();
+        silage.setSilageCode(silageCode);
+        silage = silageService.selectSilage(silage);
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("transaction", transaction);
+        mav.addObject("member", member);
+        mav.addObject("silage", silage);
+        mav.setViewName("transaction/purchaseView");
 
         return mav;
     }
@@ -77,6 +104,12 @@ public class TransactionController {
     public ModelAndView enrollTransaction(Transaction transaction) {
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         transactionService.insertTransaction(transaction);
+
+        Silage silage = new Silage();
+        silage.setSilageCode(transaction.getSilageCode());
+        silage.setTransactionStatus('N');
+
+        silageService.updateSilage(silage);
 
         return mav;
     }
@@ -91,58 +124,75 @@ public class TransactionController {
         return mav;
     }
 
-    //forward /WEB-INF/jsp/transaction/view.jsp
-    @GetMapping("/transactions/{transactionCode}")
-    public ModelAndView searchTransaction(Transaction transaction) {
-        ModelAndView mav = new ModelAndView("/transaction/view");
-        transaction = transactionService.selectTransaction(transaction);
-        mav.addObject("transaction", transaction);
-
-        return mav;
-    }
-
     //-
     @PutMapping("/transactions/deposit")
-    public ModelAndView editDeposit(Transaction transaction) {
-        ModelAndView mav = new ModelAndView("/transactions");
+    @ResponseBody
+    public Transaction editDeposit(@RequestBody Transaction transaction) {
+        Transaction afterTransaction = transactionService.selectTransaction(transaction);
         if(transaction.isDepositStatus()) {
-            transaction.setDepositStatus(false);
-        } else if(!transaction.isDepositStatus()) {
-            transaction.setDepositStatus(true);
-        }
-        mav.addObject("transaction", transaction);
+            afterTransaction.setDepositStatus(false);
 
-        return mav;
+            transactionService.updateTransaction(afterTransaction);
+        } else {
+            afterTransaction.setDepositStatus(true);
+
+            transactionService.updateTransaction(afterTransaction);
+        }
+
+        return afterTransaction;
     }
 
     //-
     @PutMapping("/transactions/remit")
-    public ModelAndView editRemit(Transaction transaction) {
-        ModelAndView mav = new ModelAndView("/transactions");
-        if(transaction.isRemitStatus()) {
-            transaction.setRemitStatus(false);
-        } else if(!transaction.isRemitStatus()) {
-            transaction.setRemitStatus(true);
-        }
-        mav.addObject("transaction", transaction);
+    @ResponseBody
+    public Transaction editRemit(@RequestBody Transaction transaction) {
+        Transaction afterTransaction = transactionService.selectTransaction(transaction);
+        if(afterTransaction.isDepositStatus()) {
+            if(transaction.isRemitStatus()) {
+                afterTransaction.setRemitStatus(false);
 
-        return mav;
+                transactionService.updateTransaction(afterTransaction);
+            } else {
+                afterTransaction.setRemitStatus(true);
+
+                transactionService.updateTransaction(afterTransaction);
+            }
+        }
+
+        return afterTransaction;
     }
 
     //redirect /bsa/silages
     @DeleteMapping("/transactions")
     public ModelAndView removeTransaction(Transaction transaction) {
-        ModelAndView mav = new ModelAndView("/bsa/transaction");
-
         //silage 객체에 거래 상태 Y로 변경
+        transaction = transactionService.selectTransaction(transaction);
+
         Silage silage = new Silage();
         silage.setSilageCode(transaction.getSilageCode());
-        silage = silageService.selectSilage(silage);
         silage.setTransactionStatus('Y');
         silageService.updateSilage(silage);
 
         transactionService.deleteTransaction(transaction);
 
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/purchases"));
+
         return mav;
+    }
+
+    @DeleteMapping(value="/transactions", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody()
+    public List<Transaction> removeAdminTransaction(@RequestBody Transaction transaction) {
+        //silage 객체에 거래 상태 Y로 변경
+        transaction = transactionService.selectTransaction(transaction);
+
+        Silage silage = new Silage();
+        silage.setSilageCode(transaction.getSilageCode());
+        silage.setTransactionStatus('Y');
+        silageService.updateSilage(silage);
+
+        transactionService.deleteTransaction(transaction);
+
+        return transactionService.selectTransactionList(new DateCommand());
     }
 }

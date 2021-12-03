@@ -1,4 +1,5 @@
 <%--
+
   Created by IntelliJ IDEA.
   User: aaajd
   Date: 2021-11-27
@@ -6,6 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>내 곤포 사일리지</title>
@@ -14,7 +18,7 @@
 <jsp:include page="../top/top.jsp"/>
 <table>
     <tr>
-        <td><input type="date" id="startDate">~<input type="date" id="endDate"><input type="button" value="검색" onclick="searchDateScope()"></td>
+        <td><input type="date" id="startDate">~<input type="date" id="endDate"><input type="button" value="검색" onclick="searchDateScope('${memberCode}')"></td>
     </tr>
 </table>
     <div id="silageList">
@@ -22,31 +26,31 @@
             <tr>
                 <th>번호</th>
                 <th>상품번호</th>
-                <th>구매자ID</th>
-                <th>무게</th>
-                <th>개수</th>
-                <th>단가</th>
+                <th>등록 일시</th>
                 <th>가격</th>
-                <th>비고</th>
+                <th>판매 상태</th>
             </tr>
             <c:forEach items="${silages}" var="silage" varStatus="status">
-                <tr>
-                    <td>${status.count}</td>
-                    <td><a href="/bsa/silages/${silage.silageCode}">${silage.silageCode}</a></td>
-                    <td><input type="hidden" id="memberId" value="${silage.id}">${silage.id}</td>
-                    <td>${silage.enrollDateTime}</td>
-                    <td style="text-align: right">${silage.weight}</td>
-                    <td style="text-align: right">${silage.count}</td>
-                    <td style="text-align: right">${silage.unitPrice}</td>
-                    <td style="text-align: right">${silage.unitPrice * silage.count}</td>
-                    <td><input type="button" value="위치보기" onclick="viewLocation('${silage.id}')"></td>
-                </tr>
+                <c:if test="${silage.sellerCode == memberCode}">
+                    <tr>
+                        <td>${status.count}</td>
+                        <td><a href="/bsa/silages/${silage.silageCode}"/>${silage.silageCode}</td>
+                        <td>${silage.enrollDateTime}</td>
+                        <td style="text-align: right">${silage.unitPrice * silage.count}</td>
+                        <c:if test="${fn:contains(silage.transactionStatus,'Y')}">
+                            <td style="text-align: center">판매중</td>
+                        </c:if>
+                        <c:if test="${fn:contains(silage.transactionStatus,'N')}">
+                            <td style="text-align: center">판매 완료</td>
+                        </c:if>
+                    </tr>
+                </c:if>
             </c:forEach>
         </table>
     </div>
 
     <script type="text/javascript">
-        function searchDateScope() {
+        function searchDateScope(memberCode) {
             var xmlHttp = new XMLHttpRequest();
             var dateScope = {
                 startDate : document.getElementById("startDate").value
@@ -64,27 +68,27 @@
                     var script = "";
                     script += "<table border='1' style='width: 100%;'>";
                     script += "    <tr>";
-                    script += "        <th>일련번호</th>";
-                    script += "        <th>판매자id</th>";
+                    script += "        <th>번호</th>";
+                    script += "        <th>상품번호</th>";
                     script += "        <th>등록 일시</th>";
-                    script += "        <th>무게</th>";
-                    script += "        <th>개수</th>";
-                    script += "        <th>단가</th>";
                     script += "        <th>가격</th>";
-                    script += "        <th>비고</th>";
+                    script += "        <th>판매 상태</th>";
                     script += "    </tr>";
 
                     for (var i = 0; i < storage.length; i++) {
-                        script += "    <tr>";
-                        script += "        <td><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
-                        script += "        <td>" + storage[i].id + "</td>";
-                        script += "        <td>" + storage[i].enrollDateTime + "</td>";
-                        script += "        <td>" + storage[i].weight + "</td>";
-                        script += "        <td>" + storage[i].count + "</td>";
-                        script += "        <td>" + storage[i].unitPrice + "</td>";
-                        script += "        <td>" + (storage[i].count * storage[i].unitPrice) + "</td>";
-                        script += "        <td><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation()\"></td>";
-                        script += "    </tr>";
+                        if(storage[i].sellerCode === memberCode) {
+                            script += "    <tr>";
+                            script += "        <td>" + (i+1) + "</td>";
+                            script += "        <td><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
+                            script += "        <td>" + storage[i].enrollDateTime + "</td>";
+                            script += "        <td>" + (storage[i].count * storage[i].unitPrice) + "</td>";
+                            if(storage[i].transactionStatus === 'Y'){
+                                script += "        <td>판매중</td>";
+                            } else {
+                                script += "        <td>판매 완료</td>";
+                            }
+                            script += "    </tr>";
+                        }
                     }
                     script += "</table>";
 

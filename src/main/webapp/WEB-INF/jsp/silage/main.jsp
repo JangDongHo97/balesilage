@@ -163,16 +163,18 @@
                     script += "    </tr>";
 
                     for (var i = 0; i < storage.length; i++) {
-                        script += "    <tr>";
-                        script += "        <td><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
-                        script += "        <td>" + storage[i].id + "</td>";
-                        script += "        <td>" + storage[i].enrollDateTime + "</td>";
-                        script += "        <td>" + storage[i].weight + "</td>";
-                        script += "        <td>" + storage[i].count + "</td>";
-                        script += "        <td>" + storage[i].unitPrice + "</td>";
-                        script += "        <td>" + (storage[i].count * storage[i].unitPrice) + "</td>";
-                        script += "        <td><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation()\"></td>";
-                        script += "    </tr>";
+                        if(storage[i].transactionStatus == 'Y'){
+                            script += "    <tr>";
+                            script += "        <td><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
+                            script += "        <td>" + storage[i].id + "</td>";
+                            script += "        <td>" + storage[i].enrollDateTime + "</td>";
+                            script += "        <td>" + storage[i].weight + "</td>";
+                            script += "        <td>" + storage[i].count + "</td>";
+                            script += "        <td>" + storage[i].unitPrice + "</td>";
+                            script += "        <td>" + (storage[i].count * storage[i].unitPrice) + "</td>";
+                            script += "        <td><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "\')\"></td>";
+                            script += "    </tr>";
+                        }
                     }
                     script += "</table>";
 

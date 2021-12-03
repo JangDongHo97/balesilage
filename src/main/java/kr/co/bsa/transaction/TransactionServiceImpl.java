@@ -18,18 +18,21 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public List<Transaction> selectTransactionList(DateCommand dateCommand) {
-        List<Transaction> transactions = transactionMapper.selectAll();
+        List<Transaction> transactions = transactionMapper.selectAll(dateCommand);
         return transactions;
     }
 
     @Override
     public Transaction selectTransaction(Transaction transaction) {
-        Transaction afterTransaction = transactionMapper.select(transaction);
-        return afterTransaction;
+        transaction = transactionMapper.select(transaction);
+        return transaction;
     }
 
     @Override
     public void updateTransaction(Transaction transaction) {
+        System.out.println("deposit------>" + transaction.isDepositStatus());
+        System.out.println("remit------>" + transaction.isDepositStatus());
+
         transactionMapper.update(transaction);
     }
 

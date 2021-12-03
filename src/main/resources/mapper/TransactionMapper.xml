@@ -21,51 +21,67 @@
     <select id="selectAll"
             parameterType="kr.co.bsa.common.DateCommand"
             resultType="Transaction">
-        SELECT
-            TRANSACTION_CODE
-            , SILAGE_CODE
-            , ID
-            , SELLER_CODE
-            , BUYER_CODE
-            , BANK_NAME
-            , ACCOUNT_NO
-            , TOTAL_PRICE
-            , TRANSACTION_DATETIME
-            , DEPOSIT_STATUS
-            , REMIT_STATUS
-        FROM TRANSACTION INNER JOIN MEMBER
-        ON TRANSACTION.BUYER_CODE = MEMBER.MEMBER_CODE;
-        <where>
-            <if test="startDate != null and endDate != null">
-                AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
-            </if>
-        </where>
+                SELECT
+                    TRANSACTION_CODE
+                    , SILAGE_CODE
+                    , ID
+                    , BUYER_CODE
+                    , (SELECT ID FROM MEMBER WHERE MEMBER_CODE = TRANSACTION.SELLER_CODE) SELLER_ID
+                    , SELLER_CODE
+                    , BANK_NAME
+                    , ACCOUNT_NO
+                    , TOTAL_PRICE
+                    , TRANSACTION_DATETIME
+                    , DEPOSIT_STATUS
+                    , REMIT_STATUS
+                FROM TRANSACTION INNER JOIN MEMBER
+                ON TRANSACTION.BUYER_CODE = MEMBER.MEMBER_CODE
+                <where>
+                    <if test="startDate != null and endDate != null">
+                        AND TRANSACTION_DATETIME BETWEEN #{startDate} AND #{endDate}
+                    </if>
+                </where>
         ORDER BY TRANSACTION_DATETIME
     </select>
 
     <select id="select"
             parameterType="Transaction"
             resultType="Transaction">
-        SELECT
-            TRANSACTION_CODE
-             , SILAGE_CODE
-             , SELLER_CODE
-             , BUYER_CODE
-             , BANK_NAME
-             , ACCOUNT_NO
-             , TOTAL_PRICE
-             , TRANSACTION_DATETIME
-             , DEPOSIT_STATUS
-             , REMIT_STATUS
-        FROM TRANSACTION
+                SELECT
+                    TRANSACTION_CODE
+                    , SILAGE_CODE
+                    , ID
+                    , BUYER_CODE
+                    , (SELECT ID FROM MEMBER WHERE MEMBER_CODE = TRANSACTION.SELLER_CODE) SELLER_ID
+                    , SELLER_CODE
+                    , BANK_NAME
+                    , ACCOUNT_NO
+                    , TOTAL_PRICE
+                    , TRANSACTION_DATETIME
+                    , DEPOSIT_STATUS
+                    , REMIT_STATUS
+                FROM TRANSACTION INNER JOIN MEMBER
+                ON TRANSACTION.BUYER_CODE = MEMBER.MEMBER_CODE
+            <where>
+                <if test="silageCode > 0">
+                    AND SILAGE_CODE = #{silageCode}
+                </if>
+                <if test="transactionCode > 0">
+                    AND TRANSACTION_CODE = #{transactionCode}
+                </if>
+                <if test="sellerId > 0">
+                    AND SELLER_ID = #{sellerId}
+                </if>
+            </where>
+            ORDER BY TRANSACTION_DATETIME
     </select>
 
     <update id="update"
             parameterType="Transaction">
-        UPDATE TRANSACTION
-        SET DEPOSIT_STATUS = #{depositStatus}
-            REMIT_STATUS = #{remitStatus}
-        WHERE TRANSACTION_CODE = #{transactionCode}
+            UPDATE TRANSACTION
+            SET DEPOSIT_STATUS = #{depositStatus},
+                REMIT_STATUS = #{remitStatus}
+            WHERE TRANSACTION_CODE = #{transactionCode}
     </update>
 
     <delete id="delete"

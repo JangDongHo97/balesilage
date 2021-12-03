@@ -55,6 +55,9 @@ public class SilageServiceImpl implements SilageService {
     @Override
     @Transactional
     public void updateSilage(Silage silage) {
+        System.out.println(silage.getWeight());
+        System.out.println(silage.getCount());
+        System.out.println(silage.getUnitPrice());
 
         silageMapper.update(silage);
     }

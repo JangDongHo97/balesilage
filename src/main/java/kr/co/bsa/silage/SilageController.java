@@ -51,11 +51,9 @@ public class SilageController {
     @GetMapping("/silages/mine")
     public ModelAndView searchMySilage(DateCommand dateCommand,HttpSession session) {
         List<Silage> silages = silageService.selectSilageList(dateCommand);
-        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("silages",silages);
-        mav.addObject("transactions",transactions);
         mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
         mav.setViewName("silage/mySilage");
 
@@ -102,9 +100,15 @@ public class SilageController {
     @GetMapping("/silages/{silageCode}")
     public ModelAndView searchSilage(Silage silage, HttpSession session) {
         Silage afterSilage = silageService.selectSilage(silage);
+        int silageCode = silage.getSilageCode();
+
+        Transaction transaction = new Transaction();
+        transaction.setSilageCode(silageCode);
+        transaction = transactionService.selectTransaction(transaction);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("silage", afterSilage);
+        mav.addObject("transaction", transaction);
         mav.addObject("auth",session.getAttribute("memberCode"));
         mav.setViewName("silage/view");
 

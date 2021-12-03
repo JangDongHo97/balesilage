@@ -23,6 +23,7 @@
         SELECT
             SILAGE_CODE
             , ID
+            , SELLER_CODE
             , ADDRESS
             , ENROLL_DATETIME
             , UNIT_PRICE
@@ -55,18 +56,39 @@
              , TRANSACTION_STATUS
         FROM SILAGE INNER JOIN MEMBER
         ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
-        WHERE SILAGE_CODE=#{silageCode}
+        <where>
+            <if test="silageCode > 0">
+                AND SILAGE_CODE=#{silageCode}
+            </if>
+            <if test="sellerCode > 0">
+                AND SELLER_CODE=#{sellerCode}
+            </if>
+        </where>
     </select>
 
     <update id="update"
             parameterType="Silage">
-        UPDATE SILAGE
-        SET ENROLL_DATETIME = STR_TO_DATE(NOW(),'%Y-%m-%d %H:%i:%s')
-            ,PRODUCTION_DATE = STR_TO_DATE(#{productionDate},'%Y-%m-%d')
-            ,WEIGHT = #{weight}
-            ,COUNT = #{count}
-            ,UNIT_PRICE = #{unitPrice}
-        WHERE SILAGE_CODE = #{silageCode}
+        <if test="weight == 0 || weight == null">
+            <if test="transactionStatus == 'N'">
+                UPDATE SILAGE
+                SET TRANSACTION_STATUS = 'N'
+                WHERE SILAGE_CODE = #{silageCode}
+            </if>
+            <if test="transactionStatus == 'Y'">
+                UPDATE SILAGE
+                SET TRANSACTION_STATUS = 'Y'
+                WHERE SILAGE_CODE = #{silageCode}
+            </if>
+        </if>
+        <if test="weight > 0">
+            UPDATE SILAGE
+                SET ENROLL_DATETIME = STR_TO_DATE(NOW(),'%Y-%m-%d %H:%i:%s')
+                    ,PRODUCTION_DATE = STR_TO_DATE(#{productionDate},'%Y-%m-%d')
+                    ,WEIGHT = #{weight}
+                    ,COUNT = #{count}
+                    ,UNIT_PRICE = #{unitPrice}
+            WHERE SILAGE_CODE = #{silageCode}
+        </if>
     </update>
 
     <delete id="delete"
