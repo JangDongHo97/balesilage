@@ -76,14 +76,7 @@
     Object auth = session.getAttribute("memberCode");
     if(auth == null) {%>
 
-<script language="javascript">
-    function needLogin()
-    {
-        window.alert("로그인 해주세요");
-    }
-</script>
-
-<body style="font-family: 'Nanum Gothic', sans-serif";>>
+<body style="font-family: 'Nanum Gothic', sans-serif";>
 <div class="preloader" style="display: none;">
     <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
@@ -133,10 +126,10 @@
                                 <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                             <li class="dropdown">
-                                <a href=""> 등록 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                                <a href=""> 등록 내역 <button class="dropdown-btn" onclick="needLogin();"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                             <li class="dropdown">
-                                <a href=""> 구매 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                                <a href=""> 구매 내역 <button class="dropdown-btn" onclick="needLogin();"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -327,7 +320,7 @@
     <%
     } else {%>
 
-<body style="font-family: 'Nanum Gothic', sans-serif";>>
+<body style="font-family: 'Nanum Gothic', sans-serif";>
 <div class="preloader" style="display: none;">
     <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
@@ -456,3 +449,10 @@
 <%
     }
 %>
+
+<script>
+    function needLogin()
+    {
+        window.alert("로그인 해주세요");
+    }
+</script>

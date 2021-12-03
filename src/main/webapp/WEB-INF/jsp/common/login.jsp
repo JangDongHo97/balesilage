@@ -24,7 +24,7 @@
                             <div class="leaf">
                                 <img src="/assets/images/resources/leaf.png" alt="">
                             </div>
-                            <div id="errorMsg" style="height: 100px; width: 200px"></div>
+                            <div id="errorMsg" style="height: 10px; width: 200px"></div>
                             <script>
                                 function check() {
                                     if(${sessionScope.loginErrorMsg != null}) {
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group contact__btn">
-                                        <button type="submit" class="thm-btn contact-one__btn" onclick=check()>로그인</button>
+                                        <button type="submit" class="thm-btn contact-one__btn" onclick="check();">로그인</button>
                                     </div>
                                 </div>
                             </div>
