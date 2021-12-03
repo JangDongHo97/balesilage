@@ -126,10 +126,10 @@
                                 <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                             <li class="dropdown">
-                                <a href=""> 등록 내역 <button class="dropdown-btn" onclick="needLogin();"><i class="fa fa-angle-right"></i></button></a>
+                                <a href="" onclick='needLogin()'> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                             <li class="dropdown">
-                                <a href=""> 구매 내역 <button class="dropdown-btn" onclick="needLogin();"><i class="fa fa-angle-right"></i></button></a>
+                                <a href="" onclick='needLogin()'> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                             </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -149,10 +149,10 @@
                             <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                         </li>
                         <li class="dropdown">
-                            <a href=""> 등록 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                            <a href="" onclick='needLogin()'> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                         </li>
                         <li class="dropdown">
-                            <a href=""> 구매 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                            <a href="" onclick='needLogin()'> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -187,10 +187,10 @@
                     <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                 </li>
                 <li class="dropdown">
-                    <a href=""> 등록 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                    <a href="" onclick='needLogin()'> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                 </li>
                 <li class="dropdown">
-                    <a href=""> 구매 내역 <button class="dropdown-btn" onclick=needLogin()><i class="fa fa-angle-right"></i></button></a>
+                    <a href="" onclick='needLogin()'> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                 </li>
             </ul>
         </nav>
@@ -451,8 +451,9 @@
 %>
 
 <script>
-    function needLogin()
-    {
-        window.alert("로그인 해주세요");
+    function needLogin() {
+        if(sessionStorage.getItem("memberCode") === null) {
+            window.alert("로그인을 먼저 해주세요");
+        }
     }
 </script>

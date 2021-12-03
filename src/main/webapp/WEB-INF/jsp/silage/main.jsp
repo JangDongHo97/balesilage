@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/jsp/top/top.jsp"/>
 
 <div class="preloader" style="display: none; font-family: 'Nanum Gothic', sans-serif">
-    <img src="assets/images/loader.png" class="preloader__image" alt="">
+    <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
 
 <div class="page-wrapper">
@@ -35,13 +35,10 @@
                             <p>우리 주변에</p>
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 찾아보기</h3>
                             <div class="leaf">
-                                <img src="assets/images/resources/leaf.png" alt="">
+                                <img src="/assets/images/resources/leaf.png" alt="">
                             </div>
                         </div>
-                        <div class="have_questions_text">
-
-                        </div>
-
+                        <div class="have_questions_text"></div>
                     </div>
                 </div>
             </div>
@@ -49,17 +46,12 @@
     </section>
 
     <section class="contact_google_map_1">
-        <table>
-            <tr>
-                <td><input type="date" id="startDate">~<input type="date" id="endDate"><input type="button" value="검색" onclick="searchDateScope()"></td>
-            </tr>
-        </table>
         <div class="row">
             <div id="map" style="width:800px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
-            <section class="cart" style="width: 1100px;height: 800px; font-family: 'Nanum Gothic', sans-serif">
+            <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" style="margin: 0 auto;height: 800px;">
                         <div class="col-xl-12">
                             <div class="cart_table_box">
                                 <table class="cart_table">
@@ -104,7 +96,7 @@
     </section>
 
     <footer class="site-footer">
-        <div class="site-footer_farm_image"><img src="assets/images/resources/site-footer-farm.png" alt="Farm Image"></div>
+        <div class="site-footer_farm_image"><img src="/assets/images/resources/site-footer-farm.png" alt="Farm Image"></div>
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-xl-3 col-lg-3 col-md-6">
@@ -156,7 +148,7 @@
     <div class="side-menu__block-inner  mCustomScrollbar _mCS_1 mCS_no_scrollbar"><div id="mCSB_1" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
         <div class="side-menu__top justify-content-end">
 
-            <a href="#" class="side-menu__toggler side-menu__close-btn"><img src="assets/images/shapes/close-1-1.png" alt="" class="mCS_img_loaded"></a>
+            <a href="#" class="side-menu__toggler side-menu__close-btn"><img src="/assets/images/shapes/close-1-1.png" alt="" class="mCS_img_loaded"></a>
         </div><!-- /.side-menu__top -->
 
 
@@ -299,29 +291,4 @@
         xmlHttp.send(parseDateScope);
     }
 </script>
-
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/waypoints.min.js"></script>
-<script src="assets/js/jquery.counterup.min.js"></script>
-<script src="assets/js/TweenMax.min.js"></script>
-<script src="assets/js/wow.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
-<script src="assets/js/swiper.min.js"></script>
-<script src="assets/js/typed-2.0.11.js"></script>
-<script src="assets/js/vegas.min.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/bootstrap-select.min.js"></script>
-<script src="assets/js/countdown.min.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="assets/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/js/nouislider.min.js"></script>
-<script src="assets/js/isotope.js"></script>
-<script src="assets/js/appear.js"></script>
-
-<!-- template scripts -->
-<script src="assets/js/theme.js"></script>
-
 </body></html>
