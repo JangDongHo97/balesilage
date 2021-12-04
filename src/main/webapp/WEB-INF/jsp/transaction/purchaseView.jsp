@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>구매 내역 상세 화면</title>
-    <jsp:include page="../top/top.jsp"/>
+    <jsp:include page="../util/top.jsp"/>
 </head>
 <body>
     <h4>구매 내역</h4>
