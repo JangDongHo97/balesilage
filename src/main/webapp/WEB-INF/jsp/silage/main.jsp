@@ -47,24 +47,26 @@
 
     <section class="contact_google_map_1">
         <div class="row">
-            <div id="map" style="width:800px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
+            <div id="map" style="width:900px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
                     <div class="row" style="margin: 0 auto;height: 800px;">
                         <div class="col-xl-12">
-                            <div class="cart_table_box">
+                            <table class="cart_table">
+                                <thead class="cart_table_head">
+                                <tr>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">판매자</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">무게</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">개수</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">단가</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">가격</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">비고</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;">
                                 <table class="cart_table">
-                                    <thead class="cart_table_head">
-                                    <tr>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">판매자</th>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">무게</th>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">개수</th>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">단가</th>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">가격</th>
-                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">비고</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     <c:forEach items="${silages}" var="silage">
                                         <c:if test="${fn:contains(silage.transactionStatus,'Y')}">

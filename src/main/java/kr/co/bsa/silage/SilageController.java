@@ -88,6 +88,26 @@ public class SilageController {
         return silageService.selectSilageList(dateCommand);
     }
 
+    @PostMapping(value = "/silages/status", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage) {
+        char status = silage.getTransactionStatus();
+        List<Silage> silages = silageService.selectSilageList(new DateCommand());
+
+        List<Silage> afterSilages = new ArrayList<Silage>();
+        if(status != 0) {
+            Iterator<Silage> iterator = silages.iterator();
+            while (iterator.hasNext()) {
+                Silage s = iterator.next();
+                if(s.getTransactionStatus() == status) {
+                    afterSilages.add(s);
+                }
+            }
+            return afterSilages;
+        }
+        return silages;
+    }
+
     @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Member searchSilagePlace(@RequestBody(required = false) Member member) {
