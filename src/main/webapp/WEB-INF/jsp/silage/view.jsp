@@ -14,7 +14,7 @@
     <title>곤포 사일리지 상세조회화면</title>
 </head>
 <body>
-    <jsp:include page="../top/top.jsp"/>
+    <jsp:include page="../util/top.jsp"/>
     <form action="/bsa/silages" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="silageCode" value="${silage.silageCode}">

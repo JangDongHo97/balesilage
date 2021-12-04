@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -72,6 +74,25 @@ public class TransactionController {
     @ResponseBody
     public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
         return transactionService.selectTransactionList(dateCommand);
+    }
+
+    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
+        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        if(member.getId() != null) {
+            while(transactionIterator.hasNext()) {
+                Transaction iter = transactionIterator.next();
+                if(iter.getSellerId() == member.getId()){
+                    afterTransactions.add(iter);
+                }
+            }
+            return afterTransactions;
+        }
+        return transactions;
     }
 
     //forward /WEB-INF/jsp/transaction/purchaseView.jsp
