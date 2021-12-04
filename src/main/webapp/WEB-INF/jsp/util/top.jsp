@@ -94,7 +94,7 @@
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 로그인 </a>
 
-                    <a href="/members/form"><span class="fa-stack fa-lg">
+                    <a href="/bsa/members/form"><span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 회원가입 </a>

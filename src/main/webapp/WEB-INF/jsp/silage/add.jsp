@@ -57,17 +57,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="billing_input_box"></div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="billing_input_box"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-12"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -77,7 +66,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="place_order_btn" style="margin:10px">
-                                    <a href="/bsa/silages" class="thm-btn">취소</a>
+                                    <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
                                 </div>
                                 <div class="place_order_btn" style="margin:10px">
                                     <input type="submit" value="등록" class="thm-btn">

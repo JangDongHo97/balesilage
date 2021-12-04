@@ -21,7 +21,7 @@
         <table>
             <tr>
                 <td><input type="submit" value="확인"></td>
-                <td><a href="bsa/silages"><input type="button" value="취소"></a></td>
+                <td><a href="/bsa/silages"><input type="button" value="취소"></a></td>
             </tr>
         </table>
     </form>
