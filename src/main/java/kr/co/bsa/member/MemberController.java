@@ -45,7 +45,6 @@ public class MemberController {
                     account.setMemberCode(member.getMemberCode());
                     accountService.insertAccount(account);
                 }
-
                 return mav;
             }
             return mav;
