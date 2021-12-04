@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -445,7 +445,10 @@
 
 <script>
     function needLogin() {
-        if(sessionStorage.getItem("memberCode") === null) {
+        var memberCode = ${memberCode}
+        console.log('@@@@@@@@@@@@@@@@@@@@@' + memberCode);
+
+        if(memberCode == null) {
             window.alert("로그인을 먼저 해주세요");
         }
     }

@@ -28,9 +28,7 @@
             <div class="row">
                 <div class="col-xl-11" style="width: 300px">
                     <div class="have_questions">
-                        <div class="image_box">
-
-                        </div>
+                        <div class="image_box"></div>
                         <div class="block-title text-center">
                             <p>우리 주변에</p>
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 찾아보기</h3>
@@ -47,11 +45,11 @@
 
     <section class="contact_google_map_1">
         <div class="row">
-            <div id="map" style="width:900px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
+            <div id="map" style="margin: 40px; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
-                    <div class="row" style="margin: 0 auto;height: 800px;">
+                    <div class="row" style="margin: auto;height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">
@@ -92,7 +90,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="button_box">
-                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button">내 곤포 사일리지 등록하기</button></a>
+                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button" onclick=needLogin()>내 곤포 사일리지 등록하기</button></a>
                             </div>
                         </div>
                     </div>
