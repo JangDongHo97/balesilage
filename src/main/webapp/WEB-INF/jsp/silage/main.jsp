@@ -88,9 +88,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-11">
                             <div class="button_box">
-                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button" onclick=needLogin()>내 곤포 사일리지 등록하기</button></a>
+                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button" onclick=needLogin() style="width: 400px">내 곤포 사일리지 등록하기</button></a>
                             </div>
                         </div>
                     </div>

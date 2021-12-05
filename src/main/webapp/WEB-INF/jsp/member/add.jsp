@@ -78,7 +78,7 @@
         <div class="your_order">
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
-                    <div class="row">
+                    <div class="row" style="width: 175%">
                         <div class="col-sm-12">
                             <div class="place_order_btn" style="margin:10px">
                                 <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
