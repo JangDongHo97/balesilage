@@ -2,13 +2,9 @@ package kr.co.bsa.member;
 
 import kr.co.bsa.account.Account;
 import kr.co.bsa.account.AccountService;
-import org.apache.ibatis.jdbc.Null;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -37,9 +33,9 @@ public class MemberController {
     public ModelAndView enrollMember(@Valid Member member, Account account, HttpSession session) {
         ModelAndView mav = null;
         try {
-            mav = new ModelAndView(new RedirectView("/bsa/silages"));
             Member afteMmember = memberService.selectMember(member);
             if(afteMmember == null) {
+                mav = new ModelAndView(new RedirectView("/bsa/silages"));
                 memberService.insertMember(member);
                 if(account.getAccountNo() != null) {
                     account.setMemberCode(member.getMemberCode());
@@ -47,7 +43,11 @@ public class MemberController {
                 }
                 return mav;
             }
+            mav = new ModelAndView(new RedirectView("/bsa/members/form"));
+            session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");
+
             return mav;
+
         } catch (DuplicateKeyException e) {
             mav = new ModelAndView(new RedirectView("/bsa/members/form"));
             session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");

@@ -141,10 +141,10 @@
                                                 <a href="/bsa/silages/form/${silage.silageCode}" class="thm-btn" style="text-align: center">수정</a>
                                             </div>
                                         </div><div class="col-sm-3">
-                                        <div class="place_order_btn" style="margin:10px">
-                                            <input class="thm-btn" type="submit" value="삭제">
+                                            <div class="place_order_btn" style="margin:10px">
+                                                <input class="thm-btn" type="submit" value="삭제">
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="col-sm-3">
                                             <div class="place_order_btn" style="margin:10px">
                                                 <a href="/bsa/silages" class="thm-btn" style="text-align: center">목록</a>

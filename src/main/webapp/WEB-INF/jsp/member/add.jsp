@@ -18,7 +18,7 @@
 </section>
 
 <section class="checkout">
-    <form action="bsamembers" method="post" class="billing_details_form">
+    <form action="/bsa/members" method="post" class="billing_details_form">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
@@ -29,12 +29,15 @@
                         <h4 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</h4>
                     </div>
                     <div class="row">
-                        <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">아이디</h3>
+                        <div class="col-xl-5">
+                            <div style="width: 300px" >
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif">아이디</h3>
+                            </div>
                             <div class="billing_input_box">
                                 <input type="text" name="id" value="" id="id" placeholder="아이디는 유일해야합니다" required>
                             </div>
                         </div>
+                        <div class="col-xl-6" id="errorMsg" style="margin-top: 65px; margin-left: 10px"></div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">비밀번호</h3>
                             <div class="billing_input_box">
@@ -62,13 +65,13 @@
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">은행명</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="bankName" value="" id="bankName" required>
+                                <input type="text" name="bankName" value="" id="bankName">
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="accountNo" value="" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
+                                <input type="text" name="accountNo" value="" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요">
                             </div>
                         </div>
                     </div>
@@ -111,13 +114,6 @@
 </div><!-- /.side-menu__block -->
 
 <script type="text/javascript">
-    function total() {
-        if(document.getElementById("count").value && document.getElementById("unitPrice").value) {
-            document.getElementById("totalPrice").value
-                = parseInt(document.getElementById("count").value)
-                * parseInt(document.getElementById("unitPrice").value);
-        }
-    }
     var error = document.getElementById("errorMsg").innerHTML="<font color=red>${sessionScope.enrollErrorMsg}</font>";
 </script>
 

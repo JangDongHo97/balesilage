@@ -1,70 +1,3 @@
-
-    <table>
-        <tr>
-            <td colspan="15">곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</td>
-        </tr>
-    </table>
-    <form action="/bsa/members/${member.memberCode}" method="POST">
-        <input type="hidden" name="_method" value="put">
-        <input type="hidden" name="memberId" value="${member.id}"/>
-        <table>
-            <tr>
-                <td>ID: </td>
-                <td>${member.id}</td>
-            </tr>
-            <tr>
-                <td>PW: </td>
-                <td>
-                    <input type="password" name="password" value="${member.password}" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>이름: </td>
-                <td>
-                    <input type="text" name="name" value="${member.name}" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>전화번호: </td>
-                <td>
-                    <input type="text" name="phone" value="${member.phone}" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>주소: </td>
-                <td>
-                    <textarea rows="4" cols="40" name="address" required> ${member.address} </textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>은행명: </td>
-                <td>
-                    <input type="text" name="bankName" value="${account.bankName}"/>
-                </td>
-            </tr>
-            <tr>
-                <td>계좌번호: </td>
-                <td>
-                    <input type="text" name="accountNo" value="${account.accountNo}"/>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>
-                    <input type=submit value="저장"/>
-                </td>
-                <td>
-                    <a href="/bsa/silages"> <input type="button" value="취소"/> </a>
-                </td>
-            </tr>
-        </table>
-    </form>
-</body>
-</html>
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../util/top.jsp"/>
@@ -85,57 +18,60 @@
 </section>
 
 <section class="checkout">
-    <form action="bsamembers" method="post" class="billing_details_form">
+    <form action="/bsa/members/${member.memberCode}" method="post" class="billing_details_form">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="memberId" value="${member.id}"/>
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="billing_title">
-                        <h2 style="font-family: 'Nanum Gothic', sans-serif">회원 정보 입력</h2>
+                        <h2 style="font-family: 'Nanum Gothic', sans-serif">회원 정보 수정</h2>
                     </div>
                     <div class="billing_title">
-                        <h4 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</h4>
+                        <h4 style="font-family: 'Nanum Gothic', sans-serif">● 곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</h4>
+                        <h4 style="font-family: 'Nanum Gothic', sans-serif">● 아이디는 수정할 수 없습니다</h4>
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">아이디</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="id" value="" id="id" placeholder="아이디는 유일해야합니다" required>
+                                <input type="text" name="id" value="${member.id}" id="id"  readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">비밀번호</h3>
                             <div class="billing_input_box">
-                                <input type="password" name="password" value="" id="password" required>
+                                <input type="password" name="password" value="${member.password}" id="password" required>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">이름</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="name" value="" id="name" required>
+                                <input type="text" name="name" value="${member.name}" id="name" required>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">전화번호</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="phone" value="" id="phone" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
+                                <input type="text" name="phone" value="${member.phone}" id="phone" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">주소</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="address" value="" id="address" placeholder="상세주소를 제외한 도로명주소까지만 써주세요" required>
+                                <input type="text" name="address" value="${member.address}" id="address" placeholder="상세주소를 제외한 도로명주소까지만 써주세요" required>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">은행명</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="bankName" value="" id="bankName" required>
+                                <input type="text" name="bankName" value="${account.bankName}" id="bankName" required>
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="accountNo" value="" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
+                                <input type="text" name="accountNo" value="${account.accountNo}" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
                             </div>
                         </div>
                     </div>
@@ -151,7 +87,7 @@
                                 <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
                             </div>
                             <div class="place_order_btn" style="margin:10px">
-                                <input type="submit" value="회원가입" class="thm-btn">
+                                <input type="submit" value="저장" class="thm-btn">
                             </div>
                         </div>
                     </div>
@@ -176,16 +112,5 @@
 
     </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div><!-- /.side-menu__block-inner -->
 </div><!-- /.side-menu__block -->
-
-<script type="text/javascript">
-    function total() {
-        if(document.getElementById("count").value && document.getElementById("unitPrice").value) {
-            document.getElementById("totalPrice").value
-                = parseInt(document.getElementById("count").value)
-                * parseInt(document.getElementById("unitPrice").value);
-        }
-    }
-    var error = document.getElementById("errorMsg").innerHTML="<font color=red>${sessionScope.enrollErrorMsg}</font>";
-</script>
 
 <jsp:include page="../util/bottom.jsp"/>
