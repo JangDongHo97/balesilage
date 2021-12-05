@@ -16,30 +16,7 @@
 
     <section class="page-header" style="background-image: url(/assets/images/backgrounds/page-header-contact.jpg);">
         <div class="container">
-            <ul class="thm-breadcrumb list-unstyled" style="padding-top: 30%">
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="contact-one">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-11" style="width: 300px">
-                    <div class="have_questions">
-                        <div class="image_box"></div>
-                        <div class="block-title text-center">
-                            <p>우리 주변에</p>
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 찾아보기</h3>
-                            <div class="leaf">
-                                <img src="/assets/images/resources/leaf.png" alt="">
-                            </div>
-                        </div>
-                        <div class="have_questions_text"></div>
-                    </div>
-                </div>
-            </div>
+            <h2 style="font-family: 'Nanum Gothic', sans-serif; padding-top: 56px; padding-bottom: 56px;">곤포 사일리지 찾아보기</h2>
         </div>
     </section>
 
