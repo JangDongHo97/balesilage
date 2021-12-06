@@ -780,7 +780,7 @@ h6 {
     padding: 0px 110px;
     border-radius: 5px;
     color: #878986;
-    font-size: 16px;
+    font-size: 22px;
     line-height: 40px;
     font-weight: 500;
     text-transform: capitalize;
@@ -8661,7 +8661,7 @@ h6 {
     font-weight: 700;
     text-transform: uppercase;
     min-width: 100px;
-    padding: 34px 0px;
+    padding: 20px 0px;
     border: 0px solid #ededed;
     font-family: var(--heading-font);
 }
@@ -8671,7 +8671,7 @@ h6 {
 }
 .cart_table tbody tr td {
     min-width: 160px;
-    padding: 40px 20px 40px 0;
+    padding: 40px 5px 40px 0;
     border: 0px solid #ededed;
 }
 .cart_table tbody tr .colum_box {

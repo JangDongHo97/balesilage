@@ -16,27 +16,27 @@
 
     <section class="page-header" style="background-image: url(/assets/images/backgrounds/page-header-contact.jpg);">
         <div class="container">
-            <h2 style="font-family: 'Nanum Gothic', sans-serif; padding-top: 56px; padding-bottom: 56px;">곤포 사일리지 찾아보기</h2>
+            <h4 style="font-family: 'Nanum Gothic', sans-serif; text-align: center; padding-bottom: 7%; color: #fefefe ">곤포 사일리지 찾아보기</h4>
         </div>
     </section>
 
     <section class="contact_google_map_1">
         <div class="row">
-            <div id="map" style="margin: 40px; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
+            <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
-                    <div class="row" style="margin: auto;height: 800px; width: 1100px">
+                    <div class="row" style="margin-right: 4%; height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">
                                 <tr>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">판매자</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">무게</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">개수</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">단가</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">가격</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif">비고</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">판매자</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">무게</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">개수</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">단가</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">가격</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">비고</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -51,9 +51,9 @@
                                                 <div><td style="text-align: right">${silage.count}</td></div>
                                                 <div><td style="text-align: right">${silage.unitPrice}</td></div>
                                                 <div><td style="text-align: right">${silage.unitPrice * silage.count}</td></div>
-                                                <div class="row">
+                                                <div class="row" style="text-align: center">
                                                     <td style="text-align: right"><input type="button" value="위치보기" onclick="viewLocation('${silage.id}')"><br>
-                                                        <a href="/bsa/silages/${silage.silageCode}"><input type="button" value="상세조회"></a>
+                                                        <a href="/bsa/silages/${silage.silageCode}" onclick=needLogin()><input type="button" value="상세조회" ></a>
                                                     </td>
                                                 </div>
                                             </tr>
