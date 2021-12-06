@@ -9027,6 +9027,8 @@ h6 {
 }
 
 .billing_input_box input[type="text"],
+.billing_input_box input[type="date"],
+.billing_input_box input[type="password"],
 .billing_input_box input[type="email"],
 .billing_input_box input[type="tel"] {
     height: 80px;

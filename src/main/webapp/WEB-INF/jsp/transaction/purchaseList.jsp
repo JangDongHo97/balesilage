@@ -163,8 +163,10 @@
             var recentMemberCode = ${memberCode};
 
             var searchMemberId = {
-                sellerId : document.getElementById("searchMemberId").value
+                id : document.getElementById("searchMemberId").value
             };
+
+            console.log(searchMemberId);
 
             var parseSearchMember = JSON.stringify(searchMemberId);
 
