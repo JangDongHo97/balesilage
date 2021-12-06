@@ -344,15 +344,10 @@
                     <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
                     </span> 로그아웃 </a>
 
-                </div>
-
-            </div>
         </div>
     </div>
-</div>
-
-<header class="main-nav__header-one">
-    <nav class="header-navigation stricky original">
+    </div>
+    <nav class="header-navigation stricky stricked-menu">
         <div class="container clearfix">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="main-nav__left">
@@ -360,46 +355,28 @@
             </div>
             <div class="main-nav__main-navigation">
                 <ul class=" main-nav__navigation-box">
-                    <li class="dropdown">
-                        <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
+                    <li class="dropdown"style=" margin-left: 0px;">
+                        <a href="/bsa/silages"> 메인
+                            <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                        </a>
                     </li>
                     <li class="dropdown">
-                        <a href="/bsa/silages/mine"> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
+                        <a href="/bsa/silages/mine"style=" margin-left: 0px;"> 등록 내역
+                            <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                        </a>
                     </li>
                     <li class="dropdown">
-                        <a href="/bsa/purchases"> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
+                        <a href="/bsa/purchases"style=" margin-left: 0px;"> 구매 내역
+                            <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                        </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
-
             <div class="main-nav__right">
                 <i class="fas fa-tractor fa-2x"></i>
             </div>
         </div>
-    </nav><nav class="header-navigation stricky stricked-menu">
-    <div class="container clearfix">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="main-nav__left">
-            <i class="fas fa-tractor fa-2x"></i>
-        </div>
-        <div class="main-nav__main-navigation">
-            <ul class=" main-nav__navigation-box">
-                <li class="dropdown">
-                    <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-                <li class="dropdown">
-                    <a href="/bsa/silages/mine"> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-                <li class="dropdown">
-                    <a href="/bsa/purchases"> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-        <div class="main-nav__right">
-            <i class="fas fa-tractor fa-2x"></i>
-        </div>
-    </div>
-</nav>
+    </nav>
 </header>
 </div>
 </div><!-- /.page-wrapper -->
@@ -412,43 +389,66 @@
         <div class="cursor" style="top: 216px; left: 1631px;"></div>
         <div class="cursor-follower" style="top: 194px; left: 1609px;"></div>
     </div><!-- /.side-menu__block-overlay -->
-    <div class="side-menu__block-inner  mCustomScrollbar _mCS_1 mCS_no_scrollbar"><div id="mCSB_3" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_3_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
-        <div class="side-menu__top justify-content-end">
+    <div class="side-menu__block-inner  mCustomScrollbar _mCS_1 mCS_no_scrollbar">
+        <div id="mCSB_3" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" style="max-height: none;"
+             tabindex="0">
+            <div id="mCSB_3_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
+                 style="position:relative; top:0; left:0;" dir="ltr">
+                <div class="side-menu__top justify-content-end">
 
-            <a href="#" class="side-menu__toggler side-menu__close-btn"><img src="/assets/images/shapes/close-1-1.png" alt="" class="mCS_img_loaded"></a>
-        </div><!-- /.side-menu__top -->
+                    <a href="#" class="side-menu__toggler side-menu__close-btn"><img
+                            src="/assets/images/shapes/close-1-1.png" alt="" class="mCS_img_loaded"></a>
+                </div><!-- /.side-menu__top -->
 
-        <nav class="mobile-nav__container">
-            <!-- content is loading via js -->
+                <nav class="mobile-nav__container">
+                    <!-- content is loading via js -->
 
-            <ul class=" main-nav__navigation-box">
-                <li class="dropdown">
-                    <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-                <li class="dropdown">
-                    <a href="/bsa/silages/mine"> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-                <li class="dropdown">
-                    <a href="/bsa/purchases"> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
-                </li>
-            </ul>
-        </nav>
-        <div class="side-menu__sep"></div><!-- /.side-menu__sep -->
-        <div class="side-menu__content">
-        </div><!-- /.side-menu__content -->
-    </div><div id="mCSB_3_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_3_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px; display: block; max-height: 673px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div><!-- /.side-menu__block-inner -->
+                    <ul class=" main-nav__navigation-box">
+                        <li class="dropdown">
+                            <a href="/bsa/silages"> 메인
+                                <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/bsa/silages/mine"> 등록 내역
+                                <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/bsa/purchases"> 구매 내역
+                                <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="side-menu__sep"></div><!-- /.side-menu__sep -->
+                <div class="side-menu__content">
+                </div><!-- /.side-menu__content -->
+            </div>
+            <div id="mCSB_3_scrollbar_vertical"
+                 class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;">
+                <div class="mCSB_draggerContainer">
+                    <div id="mCSB_3_dragger_vertical" class="mCSB_dragger"
+                         style="position: absolute; min-height: 30px; height: 0px; top: 0px; display: block; max-height: 673px;">
+                        <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+                    </div>
+                    <div class="mCSB_draggerRail"></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.side-menu__block-inner -->
 </div><!-- /.side-menu__block -->
 
-<%
+    <%
     }
 %>
 
 <script>
     function needLogin() {
         var memberCode = ${memberCode}
-        console.log('@@@@@@@@@@@@@@@@@@@@@' + memberCode);
+            console.log('@@@@@@@@@@@@@@@@@@@@@' + memberCode);
 
-        if(memberCode == null) {
+        if (memberCode == null) {
             window.alert("로그인을 먼저 해주세요");
         }
     }
