@@ -71,10 +71,10 @@
             ORDER BY UNIT_PRICE DESC
         </if>
         <if test="count == 1">
-            ORDER BY UNIT_PRICE
+            ORDER BY COUNT
         </if>
         <if test="count == 2">
-            ORDER BY UNIT_PRICE DESC
+            ORDER BY COUNT DESC
         </if>
     </select>
 

@@ -83,13 +83,28 @@ public class TransactionController {
 
     @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
-        return transactionService.selectTransactionList(dateCommand);
+    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand
+                                                                                    , HttpSession session) {
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        while (transactionIterator.hasNext()) {
+            Transaction iter = transactionIterator.next();
+
+            if(iter.getBuyerCode() == (Integer)session.getAttribute("memberCode")) {
+                afterTransactions.add(iter);
+            }
+        }
+
+        return afterTransactions;
     }
 
     @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member) {
+    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member, HttpSession session) {
+        int presentMember = (Integer)session.getAttribute("memberCode");
+
         List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
         List<Transaction> afterTransactions = new ArrayList<Transaction>();
 
@@ -97,7 +112,8 @@ public class TransactionController {
         if(member.getId() != null) {
             while(transactionIterator.hasNext()) {
                 Transaction iter = transactionIterator.next();
-                if(iter.getSellerId().equals(member.getId())){
+                if(iter.getSellerId().equals(member.getId())
+                        && iter.getBuyerCode() == presentMember){
                     afterTransactions.add(iter);
                 }
             }
