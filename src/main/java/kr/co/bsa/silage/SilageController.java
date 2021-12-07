@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,9 +66,18 @@ public class SilageController {
     @GetMapping("/silages/mine")
     public ModelAndView searchMySilage(DateCommand dateCommand,HttpSession session) {
         List<Silage> silages = silageService.selectSilageList(dateCommand);
+        List<Silage> afterSilages = new ArrayList<Silage>();
+
+        Iterator<Silage> silageIterator = silages.iterator();
+        while (silageIterator.hasNext()) {
+            Silage iter = silageIterator.next();
+            if(iter.getSellerCode() == (Integer)session.getAttribute("memberCode")) {
+                afterSilages.add(iter);
+            }
+        }
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("silages", silages);
+        mav.addObject("silages",afterSilages);
         mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
         mav.setViewName("silage/mySilage");
 
@@ -76,10 +86,24 @@ public class SilageController {
 
     //forward /WEB-INF/jsp/silage/main.jsp
     @GetMapping("/silages")
-    public ModelAndView searchSilageList(DateCommand dateCommand) {
+    public ModelAndView searchSilageList(DateCommand dateCommand, HttpSession session) {
         List<Silage> silages = silageService.selectSilageList(dateCommand);
-
         ModelAndView mav = new ModelAndView();
+
+        try{
+            int memberCode = (Integer)session.getAttribute("memberCode");
+            Member member = new Member();
+            member.setMemberCode(memberCode);
+            member = memberService.selectMember(member);
+
+            mav.addObject("member", member);
+        } catch (NullPointerException e) {
+            mav.addObject("silages",silages);
+            mav.setViewName("silage/main");
+
+            return mav;
+        }
+
         mav.addObject("silages",silages);
         mav.setViewName("silage/main");
 
@@ -118,10 +142,38 @@ public class SilageController {
         return silages;
     }
 
+    @PostMapping(value = "/silages/order", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Silage> searchSilageOrderBy(@RequestBody(required = false) String orderStandard) {
+        System.out.println("@@@@시작" + orderStandard);
+
+        int orderCode;
+
+//        System.out.println("@@@@@@" + orderStandard);
+//
+//        if(orderStandard.equals("unitP1")) {
+//            orderCode = 1;
+//            silage.setUnitPrice(orderCode);
+//        } else if(orderStandard.equals("unitP2")){
+//            orderCode = 2;
+//            silage.setUnitPrice(orderCode);
+//        } else if(orderStandard.equals("count1")){
+//            orderCode = 1;
+//            silage.setCount(orderCode);
+//        } else if(orderStandard.equals("count2")){
+//            orderCode = 2;
+//            silage.setCount(orderCode);
+//        }
+
+//        List<Silage> silages = silageService.selectSilage(silage);
+
+        return null;
+    }
+
     //forward /WEB-INF/jsp/silage/view.jsp
     @GetMapping("/silages/{silageCode}")
     public ModelAndView searchSilage(Silage silage, HttpSession session) {
-        Silage afterSilage = silageService.selectSilage(silage);
+        List<Silage> afterSilages = silageService.selectSilage(silage);
         int silageCode = silage.getSilageCode();
 
         Transaction transaction = new Transaction();
@@ -129,7 +181,7 @@ public class SilageController {
         transaction = transactionService.selectTransaction(transaction);
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("silage", afterSilage);
+        mav.addObject("silage", afterSilages.get(0));
         mav.addObject("transaction", transaction);
         mav.addObject("auth",session.getAttribute("memberCode"));
         mav.setViewName("silage/view");
@@ -140,13 +192,13 @@ public class SilageController {
     //forward /WEB-INF/jsp/silage/edit.jsp
     @GetMapping("/silages/form/{silageCode}")
     public ModelAndView editSilageForm(Silage silage) {
-        List<Silage> silages = silageService.selectSilage(silage);
+        silage = silageService.selectSilage(silage).get(0);
 
         ModelAndView mav = null;
 
         if(silage.getTransactionStatus() == 'Y'){
             mav = new ModelAndView();
-            mav.addObject("silage", silages.get(0));
+            mav.addObject("silage", silage);
             mav.setViewName("silage/edit");
         } else {
             mav = new ModelAndView(new RedirectView("/bsa/silages/" + silage.getSilageCode()));

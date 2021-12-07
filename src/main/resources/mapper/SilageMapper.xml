@@ -64,7 +64,21 @@
                 AND SELLER_CODE=#{sellerCode}
             </if>
         </where>
+        <if test="unitPrice == 1">
+            ORDER BY UNIT_PRICE
+        </if>
+        <if test="unitPrice == 2">
+            ORDER BY UNIT_PRICE DESC
+        </if>
+        <if test="count == 1">
+            ORDER BY UNIT_PRICE
+        </if>
+        <if test="count == 2">
+            ORDER BY UNIT_PRICE DESC
+        </if>
     </select>
+
+
 
     <update id="update"
             parameterType="Silage">

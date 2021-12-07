@@ -37,8 +37,6 @@ public class SilageServiceImpl implements SilageService {
     @Override
     @Transactional
     public List<Silage> selectSilage(Silage silage) {
-        List<Silage> s = silageMapper.select(silage);
-
         return silageMapper.select(silage);
     }
 

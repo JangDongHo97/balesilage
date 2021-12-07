@@ -29,6 +29,13 @@
     </section>
 
     <section class="contact_google_map_1">
+        정렬 <select name="orderSelect" id="order">
+            <option value="">-선택-</option>
+            <option value="unitP1">단가 낮은순</option>
+            <option value="unitP2">단가 높은순</option>
+            <option value="count1">개수 낮은순</option>
+            <option value="count2">개수 높은순</option>
+        </select>
         <div class="row">
             <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
@@ -48,7 +55,7 @@
                                 </tr>
                                 </thead>
                             </table>
-                            <div style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;">
+                            <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;">
                                 <table class="cart_table">
                                     <tbody>
                                     <c:forEach items="${silages}" var="silage">
@@ -97,8 +104,17 @@
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
     var geocoder = new kakao.maps.services.Geocoder();
+
+    var firstPlace;
+
+    if(${member.address != null}) {
+        geocoder.addressSearch('${member.address}', function (result, status) {
+            if(status === kakao.maps.services.Status.OK) {
+                firstPlace = new kakao.maps.LatLng(result[0].y, result[0].x);
+            }
+        });
+    }
 
     <c:forEach items="${silages}" var="silage">
     geocoder.addressSearch('${silage.address}', function(result, status) {
@@ -120,8 +136,11 @@
             });
             infowindow.open(map, marker);
 
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
+            if(${member.address == null}) {
+                map.setCenter(coords);
+            } else {
+                map.setCenter(firstPlace);
+            }
         }
     });
     </c:forEach>
@@ -164,57 +183,71 @@
 
     }
 
-    function searchDateScope() {
-        var xmlHttp = new XMLHttpRequest();
-        var dateScope = {
-            startDate : document.getElementById("startDate").value
-            , endDate : document.getElementById("endDate").value
+    var selectEvent = document.getElementById("order");
+    selectEvent.addEventListener('change', orderBy);
+
+    function orderBy() {
+        var standard = {
+            orderStandard : document.getElementById("order").value
         };
-        var parseDateScope = JSON.stringify(dateScope);
+
+        // if(document.getElementById("order").value == 'unitP1'
+        //     || document.getElementById("order").value == 'unitP1') {
+        //     standard = {
+        //         unitPrice : document.getElementById("order").value
+        //     }
+        // } else {
+        //     standard = {
+        //         count : document.getElementById("order").value
+        //     }
+        // }
+
+
+        var jsonOrder = JSON.stringify(standard);
+
+        console.log(jsonOrder);
+
+        var xmlHttp = new XMLHttpRequest();
 
         var inputJson = document.getElementById("silageList");
 
         xmlHttp.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 let storage = xmlHttp.response;
-
+                console.log(storage);
                 var script = "";
-                script += "<table border='1' style='width: 100%;'>";
-                script += "    <tr>";
-                script += "        <th>일련번호</th>";
-                script += "        <th>판매자id</th>";
-                script += "        <th>등록 일시</th>";
-                script += "        <th>무게</th>";
-                script += "        <th>개수</th>";
-                script += "        <th>단가</th>";
-                script += "        <th>가격</th>";
-                script += "        <th>비고</th>";
-                script += "    </tr>";
+
+                script += "<table class=\"cart_table\">";
+                script += "    <tbody>";
 
                 for (var i = 0; i < storage.length; i++) {
                     if(storage[i].transactionStatus == 'Y'){
                         script += "    <tr>";
-                        script += "        <td><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
-                        script += "        <td>" + storage[i].id + "</td>";
-                        script += "        <td>" + storage[i].enrollDateTime + "</td>";
-                        script += "        <td>" + storage[i].weight + "</td>";
-                        script += "        <td>" + storage[i].count + "</td>";
-                        script += "        <td>" + storage[i].unitPrice + "</td>";
-                        script += "        <td>" + (storage[i].count * storage[i].unitPrice) + "</td>";
-                        script += "        <td><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "\')\"></td>";
+                        script += "        <div><td style=\"text-align: center\"><input type=\"hidden\" id=\"memberId\" value=\"" + storage[i].id + "\">" + storage[i].id + "</td></div>";
+                        script += "        <div><td style=\"text-align: right\">" + storage[i].weight + "</td></div>";
+                        script += "        <div><td style=\"text-align: right\">" + storage[i].count + "</td></div>";
+                        script += "        <div><td style=\"text-align: right\">" + storage[i].unitPrice + "</td></div>";
+                        script += "        <div><td style=\"text-align: right\">" + (storage[i].count * storage[i].unitPrice) + "</td></div>";
+                        script += "        <div class=\"row\" style=\"text-align: center\">";
+                        script += "            <td style=\"text-align: right\"><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "<br>";
+                        script += "                <a href=\"/bsa/silages/" + storage[i].silageCode + "\" onclick=needLogin()><input type=\"button\" value=\"상세조회\" ></a>";
+                        script += "            </td>";
+                        script += "        </div>";
                         script += "    </tr>";
                     }
                 }
+
+                script += "    </tbody>";
                 script += "</table>";
 
                 inputJson.innerHTML = script;
 
             }
         };
-        xmlHttp.open('POST', 'http://localhost/bsa/silages');
-        xmlHttp.responseType = 'json';
+        xmlHttp.open('POST', 'http://localhost/bsa/silages/order');
+        // xmlHttp.responseType = 'json';
         xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-        xmlHttp.send(parseDateScope);
+        xmlHttp.send(jsonOrder);
     }
     </script>
 

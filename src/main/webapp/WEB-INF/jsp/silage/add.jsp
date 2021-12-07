@@ -23,37 +23,38 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12">
                         <div class="billing_title">
-                            <h2 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 정보 입력</h2>
+                            <h2 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px;">곤포 사일리지 정보 입력</h2>
+
                         </div>
                         <div class="row">
-                            <div class="col-xl-12">
-                                <h3 style="font-family: 'Nanum Gothic', sans-serif">제조일자</h3>
-                                <div class="billing_input_box">
-                                    <input type="text" name="productionDate" value="" id="productionDate" placeholder="8자리로 입력해주세요" required> ex)20211121
+                            <div class="col-xl-5">
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif;margin-left: 110px;">제조일자</h3>
+                                <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
+                                    <input type="date" name="productionDate" value="" id="productionDate" placeholder="날짜를 입력해주세요" required>
                                 </div>
                             </div>
-                            <div class="col-xl-12">
-                                <h3 style="font-family: 'Nanum Gothic', sans-serif">무게</h3>
-                                <div class="billing_input_box">
-                                    <input type="text" name="weight" value="" id="weight" placeholder="무게를 입력해주세요" required> kg
+                            <div class="col-xl-5">
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif;margin-left: 110px;">무게</h3>
+                                <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
+                                    <input type="text" name="weight" value="" id="weight" placeholder="무게를 입력해주세요" required>
                                 </div>
                             </div>
-                            <div class="col-xl-12">
-                                <h3 style="font-family: 'Nanum Gothic', sans-serif">개수</h3>
-                                <div class="billing_input_box">
-                                    <input type="text" name="count" value="" id="count" placeholder="개수를 입력해주세요" onkeyup="total();" required> 개
+                            <div class="col-xl-5">
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px; margin-top: 10px;">개수</h3>
+                                <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
+                                    <input type="text" name="count" value="" id="count" placeholder="개수를 입력해주세요" onkeyup="total();" required>
                                 </div>
                             </div>
-                            <div class="col-xl-12">
-                                <h3 style="font-family: 'Nanum Gothic', sans-serif">단가</h3>
-                                <div class="billing_input_box">
-                                    <input type="text" name="unitPrice" value="" id="unitPrice" placeholder="단가를 입력해주세요" onkeyup="total();" required> 원
+                            <div class="col-xl-5">
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px; margin-top: 10px;">단가</h3>
+                                <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
+                                    <input type="text" name="unitPrice" value="" id="unitPrice" placeholder="단가를 입력해주세요" onkeyup="total();" required>
                                 </div>
                             </div>
-                            <div class="col-xl-12">
-                                <h3 style="font-family: 'Nanum Gothic', sans-serif">가격</h3>
-                                <div class="billing_input_box">
-                                    <input type="text" name="totalPrice" id="totalPrice" readonly> 원
+                            <div class="col-xl-5">
+                                <h3 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px; margin-top: 10px;">가격</h3>
+                                <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
+                                    <input type="text" name="totalPrice" id="totalPrice" readonly>
                                 </div>
                             </div>
                         </div>

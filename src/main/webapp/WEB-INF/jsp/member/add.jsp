@@ -83,10 +83,12 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="row" style="width: 175%">
                         <div class="col-sm-12">
-                            <div class="place_order_btn" style="margin:10px">
-                                <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
+                            <div class="place_order_btn" style="margin:10px;">
+                                <a href="/bsa/silages" class="thm-btn" style="text-align: center; padding-left: 68.5px; padding-right: 68.5px;">
+                                    취소
+                                </a>
                             </div>
-                            <div class="place_order_btn" style="margin:10px">
+                            <div class="place_order_btn" style="margin:10px;">
                                 <input type="submit" value="회원가입" class="thm-btn">
                             </div>
                         </div>

@@ -8657,8 +8657,7 @@ h6 {
 
 .cart_table_head tr th {
     color: var(--thm-black);
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 20px;    font-weight: 700;
     text-transform: uppercase;
     min-width: 100px;
     padding: 20px 0px;
@@ -8966,7 +8965,7 @@ h6 {
 .checkout {
     position: relative;
     display: block;
-    padding: 110px 0 120px;
+    padding: 50px 0 120px;
 }
 
 .billing_title {
@@ -8984,7 +8983,7 @@ h6 {
     line-height: 26px;
 }
 .billing_title h2 {
-    font-size: 50px;
+    font-size: 35px;
     color: var(--thm-black);
     line-height: 60px;
     margin: 0;

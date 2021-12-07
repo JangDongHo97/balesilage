@@ -79,32 +79,30 @@
                         </tr>
                         </thead>
                     </table>
-                    <div id="silageList" style="position:relative; width:101.5%; height:60%; overflow-y:auto; overflow-x:auto;">
+                    <div id="silageList" style="position:relative; width:101.5%; height:120%; overflow-y:auto; overflow-x:auto;">
                         <table class="cart_table">
                             <tbody style="text-align: center">
                             <c:forEach items="${transactions}" var="transaction" varStatus="status">
-                                <c:if test="${transaction.buyerCode == memberCode}">
-                                    <tr>
-                                        <td class="colum_box" style="padding: 40 0 40 0">
-                                                ${status.count}
-                                        </td>
-                                        <td class="title"  style="padding: 40 0 40 0">
-                                                ${transaction.sellerId}
-                                        </td>
-                                        <td class="pro_qty" style="padding: 40 0 40 0">
-                                                ${transaction.silageCode}
-                                        </td>
-                                        <td class="pro_price" style="padding: 40 0 40 0">
-                                                ${transaction.transactionDateTime}
-                                        </td>
-                                        <td class="pro_sub_total" style="padding: 40 0 40 0">
-                                                ${transaction.totalPrice}
-                                        </td>
-                                        <td class="pro_sub_total" style="padding: 40 0 40 0">
-                                            <a href="/bsa/purchases/${transaction.transactionCode}"><input type="button" value="상세 조회"></a>
-                                        </td>
-                                    </tr>
-                                </c:if>
+                                <tr>
+                                    <td class="colum_box" style="padding: 40 0 40 0">
+                                            ${status.count}
+                                    </td>
+                                    <td class="title"  style="padding: 40 0 40 0">
+                                            ${transaction.sellerId}
+                                    </td>
+                                    <td class="pro_qty" style="padding: 40 0 40 0">
+                                            ${transaction.silageCode}
+                                    </td>
+                                    <td class="pro_price" style="padding: 40 0 40 0">
+                                            ${transaction.transactionDateTime}
+                                    </td>
+                                    <td class="pro_sub_total" style="padding: 40 0 40 0">
+                                            ${transaction.totalPrice}
+                                    </td>
+                                    <td class="pro_sub_total" style="padding: 40 0 40 0">
+                                        <a href="/bsa/purchases/${transaction.transactionCode}"><input type="button" value="상세 조회"></a>
+                                    </td>
+                                </tr>
                             </c:forEach>
 
                             </tbody>
@@ -134,16 +132,14 @@
                     script += "    <tbody style=\"text-align: center\">";
 
                     for (var i = 0; i < storage.length; i++) {
-                        if(storage[i].buyerCode == memberCode) {
-                            script += "    <tr>";
-                            script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                            script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
-                            script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
-                            script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
-                            script += "    </tr>";
-                        }
+                        script += "    <tr>";
+                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
+                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
+                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
+                        script += "    </tr>";
                     }
 
                     script += "    </tbody>";
@@ -166,8 +162,6 @@
                 id : document.getElementById("searchMemberId").value
             };
 
-            console.log(searchMemberId);
-
             var parseSearchMember = JSON.stringify(searchMemberId);
 
             var xmlHttp = new XMLHttpRequest();
@@ -178,23 +172,19 @@
                 if(this.readyState == 4 && this.status == 200) {
                     let storage = xmlHttp.response;
 
-                    console.log(storage);
-
                     var script = "";
                     script += "<table class=\"cart_table\">";
                     script += "    <tbody style=\"text-align: center\">";
 
                     for (var i = 0; i < storage.length; i++) {
-                        if(storage[i].buyerCode == recentMemberCode) {
-                            script += "    <tr>";
-                            script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                            script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
-                            script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
-                            script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
-                            script += "    </tr>";
-                        }
+                        script += "    <tr>";
+                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
+                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
+                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
+                        script += "    </tr>";
                     }
 
                     script += "    </tbody>";

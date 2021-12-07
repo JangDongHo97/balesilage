@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">상품번호</h3>
-                            <div class="billing_input_box">
+                            <div class="billing_input_box" stle>
                                 <input type="text" name="silageCode" value="${silage.silageCode}" id="silageCode"  readonly>
                             </div>
                         </div>
