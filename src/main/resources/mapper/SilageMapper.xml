@@ -94,6 +94,13 @@
     <delete id="delete"
             parameterType="Silage">
         DELETE FROM SILAGE
-        WHERE SILAGE_CODE = #{silageCode}
+        <where>
+            <if test="silageCode > 0">
+                AND SILAGE_CODE=#{silageCode}
+            </if>
+            <if test="sellerCode > 0">
+                AND SELLER_CODE = #{sellerCode} AND TRANSACTION_STATUS = 'Y'
+            </if>
+        </where>
     </delete>
 </mapper>

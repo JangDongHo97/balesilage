@@ -29,7 +29,7 @@
                         <h4 style="font-family: 'Nanum Gothic', sans-serif">곤포 사일리지 판매를 희망하는 경우, 은행명과 계좌번호를 입력해주세요</h4>
                     </div>
                     <div class="row">
-                        <div class="col-xl-5">
+                        <div class="col-xl-8">
                             <div style="width: 300px" >
                                 <h3 style="font-family: 'Nanum Gothic', sans-serif">아이디</h3>
                             </div>
@@ -37,38 +37,38 @@
                                 <input type="text" name="id" value="" id="id" placeholder="아이디는 유일해야합니다" required>
                             </div>
                         </div>
-                        <div class="col-xl-6" id="errorMsg" style="margin-top: 65px; margin-left: 10px"></div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-3" id="errorMsg" style="margin-top: 65px; margin-left: 10px"></div>
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">비밀번호</h3>
                             <div class="billing_input_box">
                                 <input type="password" name="password" value="" id="password" required>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">이름</h3>
                             <div class="billing_input_box">
                                 <input type="text" name="name" value="" id="name" required>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">전화번호</h3>
                             <div class="billing_input_box">
                                 <input type="text" name="phone" value="" id="phone" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">주소</h3>
                             <div class="billing_input_box">
                                 <input type="text" name="address" value="" id="address" placeholder="상세주소를 제외한 도로명주소까지만 써주세요" required>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">은행명</h3>
                             <div class="billing_input_box">
                                 <input type="text" name="bankName" value="" id="bankName">
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h3>
                             <div class="billing_input_box">
                                 <input type="text" name="accountNo" value="" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요">

@@ -20,6 +20,7 @@ public class AccountServiceImpl implements AccountService{
     @Transactional
     public Account selectAccount(Member member) {
         Account account = accountMapper.select(member);
+
         return account;
     }
 

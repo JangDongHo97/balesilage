@@ -7,7 +7,6 @@ import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberService;
 import kr.co.bsa.transaction.Transaction;
 import kr.co.bsa.transaction.TransactionService;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -68,7 +67,7 @@ public class SilageController {
         List<Silage> silages = silageService.selectSilageList(dateCommand);
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("silages",silages);
+        mav.addObject("silages", silages);
         mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
         mav.setViewName("silage/mySilage");
 
@@ -85,6 +84,12 @@ public class SilageController {
         mav.setViewName("silage/main");
 
         return mav;
+    }
+
+    @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Member searchSilagePlace(@RequestBody(required = false) Member member) {
+        return memberService.selectMember(member);
     }
 
     @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -113,12 +118,6 @@ public class SilageController {
         return silages;
     }
 
-    @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Member searchSilagePlace(@RequestBody(required = false) Member member) {
-        return memberService.selectMember(member);
-    }
-
     //forward /WEB-INF/jsp/silage/view.jsp
     @GetMapping("/silages/{silageCode}")
     public ModelAndView searchSilage(Silage silage, HttpSession session) {
@@ -141,17 +140,17 @@ public class SilageController {
     //forward /WEB-INF/jsp/silage/edit.jsp
     @GetMapping("/silages/form/{silageCode}")
     public ModelAndView editSilageForm(Silage silage) {
-        silage = silageService.selectSilage(silage);
+        List<Silage> silages = silageService.selectSilage(silage);
 
         ModelAndView mav = null;
+
         if(silage.getTransactionStatus() == 'Y'){
             mav = new ModelAndView();
-            mav.addObject("silage", silage);
+            mav.addObject("silage", silages.get(0));
             mav.setViewName("silage/edit");
         } else {
             mav = new ModelAndView(new RedirectView("/bsa/silages/" + silage.getSilageCode()));
         }
-
         return mav;
     }
 
@@ -160,6 +159,7 @@ public class SilageController {
     public ModelAndView editSilage(Silage silage) {
         ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
         silageService.updateSilage(silage);
+
         return mav;
     }
 
@@ -168,6 +168,7 @@ public class SilageController {
     public ModelAndView removeSilage(Silage silage) {
         ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
         silageService.deleteSilage(silage);
+
         return mav;
     }
 }

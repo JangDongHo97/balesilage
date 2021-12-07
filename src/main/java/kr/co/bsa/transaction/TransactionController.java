@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/bsa")
 public class TransactionController {
     @Autowired
-    private TransactionServiceImpl transactionService;
+    private TransactionService transactionService;
     @Autowired
     private SilageService silageService;
     @Autowired
@@ -33,9 +33,7 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice/{silageCode}")
-    public ModelAndView alertPurchase(Transaction transaction
-                                    , @PathVariable int silageCode
-                                    , HttpSession session) {
+    public ModelAndView alertPurchase(Transaction transaction, @PathVariable int silageCode, HttpSession session) {
         Silage silage = new Silage();
         silage.setSilageCode(silageCode);
         silage = silageService.selectSilage(silage);
@@ -70,30 +68,7 @@ public class TransactionController {
         return mav;
     }
 
-    @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
-        return transactionService.selectTransactionList(dateCommand);
-    }
 
-    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
-        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
-
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        if(member.getId() != null) {
-            while(transactionIterator.hasNext()) {
-                Transaction iter = transactionIterator.next();
-                if(iter.getSellerId() == member.getId()){
-                    afterTransactions.add(iter);
-                }
-            }
-            return afterTransactions;
-        }
-        return transactions;
-    }
 
     //forward /WEB-INF/jsp/transaction/purchaseView.jsp
     @GetMapping("/purchases/{transactionCode}")
@@ -143,6 +118,7 @@ public class TransactionController {
 
         return mav;
     }
+
     //-
     @PutMapping("/transactions/deposit")
     @ResponseBody
@@ -177,7 +153,6 @@ public class TransactionController {
                 transactionService.updateTransaction(afterTransaction);
             }
         }
-
         return afterTransaction;
     }
 
@@ -218,5 +193,30 @@ public class TransactionController {
         transactionService.deleteTransaction(transaction);
 
         return transactionService.selectTransactionList(new DateCommand());
+    }
+
+    @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
+        return transactionService.selectTransactionList(dateCommand);
+    }
+
+    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
+        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        if(member.getId() != null) {
+            while(transactionIterator.hasNext()) {
+                Transaction iter = transactionIterator.next();
+                if(iter.getSellerId() == member.getId()){
+                    afterTransactions.add(iter);
+                }
+            }
+            return afterTransactions;
+        }
+        return transactions;
     }
 }

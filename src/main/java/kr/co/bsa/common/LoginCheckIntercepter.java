@@ -8,16 +8,19 @@ import javax.servlet.http.HttpSession;
 
 public class LoginCheckIntercepter extends HandlerInterceptorAdapter {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                             Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         HttpSession session = request.getSession(false);
+
         if(session != null) {
             Object memberCode = session.getAttribute("memberCode");
+
             if(memberCode != null) {
                 return true;
             }
         }
         response.sendRedirect("/bsa/silages");
+
         return false;
     }
 }

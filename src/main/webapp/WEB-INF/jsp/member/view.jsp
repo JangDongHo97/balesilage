@@ -18,10 +18,10 @@
 </section>
 
 <section class="checkout">
-    <form action="/bsa/members/form/${member.memberCode}" method="get" class="billing_details_form">
-        <input type="hidden" name="_method" value="put">
-        <input type="hidden" name="memberId" value="${member.id}"/>
-        <div class="container">
+    <form action="/bsa/members" method="post" class="billing_details_form">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="memberCode" value="${member.memberCode}"/>
+        <div class="container">`````
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="billing_title">
@@ -83,7 +83,10 @@
                                 <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
                             </div>
                             <div class="place_order_btn" style="margin:10px">
-                                <input type="submit" value="회원수정" class="thm-btn">
+                                <a href="/bsa/members/form/${member.memberCode}" class="thm-btn" style="text-align: center">수정</a>
+                            </div>
+                            <div class="place_order_btn" style="margin:10px">
+                                <input type="submit" value="회원탈퇴" class="thm-btn">
                             </div>
                         </div>
                     </div>

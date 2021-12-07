@@ -25,6 +25,7 @@ public class MemberController {
     @GetMapping("/members/form")
     public ModelAndView enrollMember() {
         ModelAndView mav = new ModelAndView("member/add");
+
         return mav;
     }
 
@@ -37,6 +38,7 @@ public class MemberController {
             if(afteMmember == null) {
                 mav = new ModelAndView(new RedirectView("/bsa/silages"));
                 memberService.insertMember(member);
+
                 if(account.getAccountNo() != null) {
                     account.setMemberCode(member.getMemberCode());
                     accountService.insertAccount(account);
@@ -65,6 +67,7 @@ public class MemberController {
         ModelAndView mav = new ModelAndView("member/view");
         mav.addObject("member", member);
         mav.addObject("account", account);
+
         return mav;
     }
 
@@ -74,9 +77,11 @@ public class MemberController {
         ModelAndView mav = new ModelAndView("member/edit");
         member.setMemberCode(memberCode);
         member = memberService.selectMember(member);
+
         Account account = accountService.selectAccount(member);
         mav.addObject("member", member);
         mav.addObject("account", account);
+
         return mav;
     }
 
@@ -105,16 +110,17 @@ public class MemberController {
         } catch (NullPointerException e) {
             accountService.insertAccount(account);
         }
-
         mav.addObject("member", member);
+
         return mav;
     }
 
     //redirect /bsa/silage
     @DeleteMapping("/members")
     public ModelAndView removeMember(Member member) {
-        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silage"));
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         memberService.deleteMember(member);
+
         return mav;
     }
 }

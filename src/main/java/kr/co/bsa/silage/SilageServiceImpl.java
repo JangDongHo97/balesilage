@@ -1,9 +1,6 @@
 package kr.co.bsa.silage;
 
-import kr.co.bsa.account.Account;
-import kr.co.bsa.account.AccountMapper;
 import kr.co.bsa.common.DateCommand;
-import kr.co.bsa.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +11,6 @@ import java.util.List;
 public class SilageServiceImpl implements SilageService {
     @Autowired
     private SilageMapper silageMapper;
-    @Autowired
-    private AccountMapper accountMapper;
 
     @Override
     @Transactional
@@ -41,8 +36,8 @@ public class SilageServiceImpl implements SilageService {
 
     @Override
     @Transactional
-    public Silage selectSilage(Silage silage) {
-        Silage s = silageMapper.select(silage);
+    public List<Silage> selectSilage(Silage silage) {
+        List<Silage> s = silageMapper.select(silage);
 
         return silageMapper.select(silage);
     }
