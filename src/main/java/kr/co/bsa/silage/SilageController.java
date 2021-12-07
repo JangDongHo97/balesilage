@@ -7,6 +7,7 @@ import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberService;
 import kr.co.bsa.transaction.Transaction;
 import kr.co.bsa.transaction.TransactionService;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -41,11 +42,15 @@ public class SilageController {
         member.setMemberCode(memberCode);
 
         Account account = accountService.selectAccount(member);
-        if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
-            mav.setViewName("silage/add");
-            return mav;
+
+        try {
+            if(!account.getBankName().trim().equals("") && !account.getAccountNo().trim().equals("")) {
+                mav.setViewName("silage/add");
+            }
+        } catch (NullPointerException e) {
+            mav.setViewName("redirect:/bsa/silages");
+            session.setAttribute("accountErrorMsg", "곤포 사일리지를 등록하시려면 계좌 정보를 등록해주세요");
         }
-        mav.setViewName("redirect:/bsa/silages");
         return mav;
     }
 

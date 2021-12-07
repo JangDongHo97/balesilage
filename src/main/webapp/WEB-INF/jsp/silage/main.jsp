@@ -5,6 +5,14 @@
 
 <jsp:include page="/WEB-INF/jsp/util/top.jsp"/>
 
+<script>
+    function checkAccount() {
+        if(${accountErrorMsg != null}) {
+            window.alert('${accountErrorMsg}');
+        }
+    }
+</script>
+
 <div class="preloader" style="display: none; font-family: 'Nanum Gothic', sans-serif">
     <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
@@ -67,7 +75,10 @@
                     <div class="row">
                         <div class="col-xl-11">
                             <div class="button_box">
-                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button" onclick=needLogin() style="width: 400px">내 곤포 사일리지 등록하기</button></a>
+                                <script>
+                                    checkAccount();
+                                </script>
+                                <a href="/bsa/silages/form"><button class="thm-btn checkout_btn" type="button" onclick="needLogin()" style="width: 400px">내 곤포 사일리지 등록하기</button></a>
                             </div>
                         </div>
                     </div>
