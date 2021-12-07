@@ -55,7 +55,7 @@
                             <table align="right">
                                 <tr>
                                     <td>
-                                        <input type="text" id="searchMemberId" placeholder="판매자ID 검색">
+                                        <input type="text" id="searchMemberId" placeholder="ID 검색">
                                         <input type="button" value="검색" onclick="searchMember()">
                                     </td>
                                 </tr>
@@ -216,6 +216,75 @@
             xmlHttp.responseType = 'json';
             xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
             xmlHttp.send(parseDateScope);
+        }
+
+        function searchMember() {
+            var searchMemberId = {
+                id : document.getElementById("searchMemberId").value
+            };
+
+            var parseSearchMember = JSON.stringify(searchMemberId);
+
+            console.log(parseSearchMember);
+
+            var xmlHttp = new XMLHttpRequest();
+
+            var inputJson = document.getElementById("silageList");
+
+            xmlHttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    storage = xmlHttp.response;
+                    console.log(storage);
+
+                    var script = "";
+                    script += "<table class=\"cart_table\">";
+                    script += "    <tbody style=\"text-align: center\">";
+
+                    for (var i = 0; i < storage.length; i++) {
+                        script += "    <tr>";
+                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                        script += "        <td class=\"title\"  style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].id + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].bankName) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].accountNo) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].transactionDateTime) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
+                        if(storage[i].depositStatus) {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + storage[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkDeposit(\'" + storage[i].transactionCode + "\',\'" + storage[i].depositStatus + "\')\">";
+                            script += "        </td>";
+                        } else {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + storage[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkDeposit(\'" + storage[i].transactionCode + "\',\'" + storage[i].depositStatus + "\')\">";
+                            script += "        </td>";
+                        }
+
+                        if(storage[i].remitStatus) {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + storage[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkRemit(\'" + storage[i].transactionCode + "\',\'" + storage[i].remitStatus + "\')\">";
+                            script += "        </td>";
+                        } else {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + storage[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkRemit(\'" + storage[i].transactionCode + "\',\'" + storage[i].remitStatus + "\')\">";
+                            script += "        </td>";
+                        }
+                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">";
+                        script += "            <input type=\"button\" value=\"거래 취소\" onclick=\"cancleTransaction(\'" + (storage[i].transactionCode) + "\')\">";
+                        script += "        </td>";
+                        script += "    </tr>";
+                    }
+
+                    script += "    </tbody>";
+                    script += "</table>";
+
+                    inputJson.innerHTML = script;
+                }
+            };
+            xmlHttp.open('POST', 'http://localhost/bsa/transactions/member');
+            xmlHttp.responseType = 'json';
+            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+            xmlHttp.send(parseSearchMember);
         }
 
         function checkDeposit(transCode, deposit){

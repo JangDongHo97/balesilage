@@ -35,6 +35,10 @@
             <div class="container">
                 <div class="row" >
                     <div class="col-xl-12">
+                        <div class="billing_title">
+                            <h2 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px;">등록내역</h2>
+
+                        </div>
                         <div class="input_box">
                             <div>
                                 <table>
@@ -88,28 +92,26 @@
                             <table class="cart_table">
                                 <tbody style="text-align: center">
                                     <c:forEach items="${silages}" var="silage" varStatus="status">
-                                        <c:if test="${silage.sellerCode == memberCode}">
-                                            <tr>
-                                                <td class="colum_box" style="padding: 40 0 40 0">
-                                                        ${status.count}
-                                                </td>
-                                                <td class="title" style="padding: 40 0 40 0">
-                                                    <a href="/bsa/silages/${silage.silageCode}">${silage.silageCode}</a>
-                                                </td>
-                                                <td class="pro_price">
-                                                        ${silage.enrollDateTime}
-                                                </td>
-                                                <td class="pro_qty" style="padding: 40 0 40 0">
-                                                        ${silage.unitPrice * silage.count}
-                                                </td>
-                                                <c:if test="${fn:contains(silage.transactionStatus,'Y')}">
-                                                    <td style="padding: 40 0 40 0">판매중</td>
-                                                </c:if>
-                                                <c:if test="${fn:contains(silage.transactionStatus,'N')}">
-                                                    <td style="padding: 40 0 40 0">판매 완료</td>
-                                                </c:if>
-                                            </tr>
-                                        </c:if>
+                                        <tr>
+                                            <td class="colum_box" style="padding: 40 0 40 0">
+                                                    ${status.count}
+                                            </td>
+                                            <td class="title" style="padding: 40 0 40 0">
+                                                <a href="/bsa/silages/${silage.silageCode}">${silage.silageCode}</a>
+                                            </td>
+                                            <td class="pro_price">
+                                                    ${silage.enrollDateTime}
+                                            </td>
+                                            <td class="pro_qty" style="padding: 40 0 40 0">
+                                                    ${silage.unitPrice * silage.count}
+                                            </td>
+                                            <c:if test="${fn:contains(silage.transactionStatus,'Y')}">
+                                                <td style="padding: 40 0 40 0">판매중</td>
+                                            </c:if>
+                                            <c:if test="${fn:contains(silage.transactionStatus,'N')}">
+                                                <td style="padding: 40 0 40 0">판매 완료</td>
+                                            </c:if>
+                                        </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
@@ -144,19 +146,17 @@
                     script += "    <tbody style=\"text-align: center\">";
 
                     for (var i = 0; i < storage.length; i++) {
-                        if(storage[i].sellerCode == memberCode) {
-                            script += "    <tr>";
-                            script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                            script += "        <td class=\"title\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
-                            script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].enrollDateTime + "</td>";
-                            script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].count * storage[i].unitPrice) + "</td>";
-                            if(storage[i].transactionStatus === 'Y'){
-                                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매중</td>";
-                            } else {
-                                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매 완료</td>";
-                            }
-                            script += "    </tr>";
+                        script += "    <tr>";
+                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].enrollDateTime + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].count * storage[i].unitPrice) + "</td>";
+                        if(storage[i].transactionStatus === 'Y'){
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매중</td>";
+                        } else {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매 완료</td>";
                         }
+                        script += "    </tr>";
                     }
                     script += "    </tbody>";
                     script += "</table>";
@@ -192,19 +192,17 @@
                     script += "    <tbody style=\"text-align: center\">";
 
                     for (var i = 0; i < storage.length; i++) {
-                        if(storage[i].sellerCode == RecentMemberCode) {
-                            script += "    <tr>";
-                            script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                            script += "        <td class=\"title\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
-                            script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].enrollDateTime + "</td>";
-                            script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].count * storage[i].unitPrice) + "</td>";
-                            if(storage[i].transactionStatus === 'Y'){
-                                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매중</td>";
-                            } else {
-                                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매 완료</td>";
-                            }
-                            script += "    </tr>";
+                        script += "    <tr>";
+                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/silages/" + storage[i].silageCode + "\">" + storage[i].silageCode + "</a></td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].enrollDateTime + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].count * storage[i].unitPrice) + "</td>";
+                        if(storage[i].transactionStatus === 'Y'){
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매중</td>";
+                        } else {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매 완료</td>";
                         }
+                        script += "    </tr>";
                     }
                     script += "    </tbody>";
                     script += "</table>";

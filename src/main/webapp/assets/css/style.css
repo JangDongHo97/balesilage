@@ -780,7 +780,7 @@ h6 {
     padding: 0px 110px;
     border-radius: 5px;
     color: #878986;
-    font-size: 16px;
+    font-size: 22px;
     line-height: 40px;
     font-weight: 500;
     text-transform: capitalize;
@@ -8657,11 +8657,10 @@ h6 {
 
 .cart_table_head tr th {
     color: var(--thm-black);
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 20px;    font-weight: 700;
     text-transform: uppercase;
     min-width: 100px;
-    padding: 34px 0px;
+    padding: 20px 0px;
     border: 0px solid #ededed;
     font-family: var(--heading-font);
 }
@@ -8671,7 +8670,7 @@ h6 {
 }
 .cart_table tbody tr td {
     min-width: 160px;
-    padding: 40px 20px 40px 0;
+    padding: 40px 5px 40px 0;
     border: 0px solid #ededed;
 }
 .cart_table tbody tr .colum_box {
@@ -8966,7 +8965,7 @@ h6 {
 .checkout {
     position: relative;
     display: block;
-    padding: 110px 0 120px;
+    padding: 50px 0 120px;
 }
 
 .billing_title {
@@ -8984,7 +8983,7 @@ h6 {
     line-height: 26px;
 }
 .billing_title h2 {
-    font-size: 50px;
+    font-size: 35px;
     color: var(--thm-black);
     line-height: 60px;
     margin: 0;

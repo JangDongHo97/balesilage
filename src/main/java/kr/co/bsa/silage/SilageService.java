@@ -8,7 +8,7 @@ import java.util.List;
 public interface SilageService {
     public void insertSilage(Silage silage, int memberCode);
     public List<Silage> selectSilageList(DateCommand dateCommand);
-    public Silage selectSilage (Silage silage);
+    public List<Silage> selectSilage (Silage silage);
     public void updateSilage(Silage silage);
     public void deleteSilage(Silage silage);
 }
