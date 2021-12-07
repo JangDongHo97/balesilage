@@ -236,6 +236,11 @@ public class TransactionController {
         //silage 객체에 거래 상태 Y로 변경
         transaction = transactionService.selectTransaction(transaction);
 
+
+        List pages = new ArrayList();
+        int page[] = new int[5];
+        pages.add(page);
+
         Silage silage = new Silage();
         silage.setSilageCode(transaction.getSilageCode());
         silage.setTransactionStatus('Y');

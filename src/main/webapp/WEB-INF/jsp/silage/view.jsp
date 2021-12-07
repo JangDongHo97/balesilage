@@ -136,16 +136,16 @@
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="row" style="width: 210%">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-8">
                                             <div class="place_order_btn" style="margin:10px">
                                                 <a href="/bsa/silages/form/${silage.silageCode}" class="thm-btn" style="text-align: center">수정</a>
                                             </div>
-                                        </div><div class="col-sm-3">
+                                        </div><div class="col-sm-2">
                                             <div class="place_order_btn" style="margin:10px">
                                                 <input class="thm-btn" type="submit" value="삭제">
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <div class="place_order_btn" style="margin:10px">
                                                 <a href="/bsa/silages" class="thm-btn" style="text-align: center">목록</a>
                                             </div>
