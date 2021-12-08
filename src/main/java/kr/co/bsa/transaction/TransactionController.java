@@ -79,67 +79,6 @@ public class TransactionController {
         return mav;
     }
 
-    @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand
-                                                                                    , HttpSession session) {
-        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
-
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        while (transactionIterator.hasNext()) {
-            Transaction iter = transactionIterator.next();
-
-            if(iter.getBuyerCode() == (Integer)session.getAttribute("memberCode")) {
-                afterTransactions.add(iter);
-            }
-        }
-
-        return afterTransactions;
-    }
-
-    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member, HttpSession session) {
-        int presentMember = (Integer)session.getAttribute("memberCode");
-
-        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
-
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        if(member.getId() != null) {
-            while(transactionIterator.hasNext()) {
-                Transaction iter = transactionIterator.next();
-                if(iter.getSellerId().equals(member.getId())
-                        && iter.getBuyerCode() == presentMember){
-                    afterTransactions.add(iter);
-                }
-            }
-            return afterTransactions;
-        }
-        return transactions;
-    }
-
-    @PostMapping(value = "/transactions/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
-        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
-
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        if(member.getId() != null) {
-            while(transactionIterator.hasNext()) {
-                Transaction iter = transactionIterator.next();
-                if(iter.getSellerId().equals(member.getId())
-                        || iter.getId().equals(member.getId())){
-                    afterTransactions.add(iter);
-                }
-            }
-            return afterTransactions;
-        }
-        return transactions;
-    }
-
     //forward /WEB-INF/jsp/transaction/purchaseView.jsp
     @GetMapping("/purchases/{transactionCode}")
     public ModelAndView searchPurchase(Transaction transaction) {
@@ -189,6 +128,25 @@ public class TransactionController {
         return mav;
     }
 
+    //redirect /bsa/silages
+    @DeleteMapping("/transactions")
+    public ModelAndView removeTransaction(Transaction transaction) {
+        //silage 객체에 거래 상태 Y로 변경
+        transaction = transactionService.selectTransaction(transaction);
+
+        Silage silage = new Silage();
+        silage.setSilageCode(transaction.getSilageCode());
+        silage.setTransactionStatus('Y');
+        silageService.updateSilage(silage);
+
+        transactionService.deleteTransaction(transaction);
+
+        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/purchases"));
+
+        return mav;
+    }
+
+
     //-
     @PutMapping("/transactions/deposit")
     @ResponseBody
@@ -227,24 +185,6 @@ public class TransactionController {
         return afterTransaction;
     }
 
-    //redirect /bsa/silages
-    @DeleteMapping("/transactions")
-    public ModelAndView removeTransaction(Transaction transaction) {
-        //silage 객체에 거래 상태 Y로 변경
-        transaction = transactionService.selectTransaction(transaction);
-
-        Silage silage = new Silage();
-        silage.setSilageCode(transaction.getSilageCode());
-        silage.setTransactionStatus('Y');
-        silageService.updateSilage(silage);
-
-        transactionService.deleteTransaction(transaction);
-
-        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/purchases"));
-
-        return mav;
-    }
-
     @DeleteMapping(value="/transactions", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody()
     public List<Transaction> removeAdminTransaction(@RequestBody Transaction transaction) {
@@ -264,5 +204,77 @@ public class TransactionController {
         transactionService.deleteTransaction(transaction);
 
         return transactionService.selectTransactionList(new DateCommand());
+    }
+
+    @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand
+            , HttpSession session) {
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        while (transactionIterator.hasNext()) {
+            Transaction iter = transactionIterator.next();
+
+            if(iter.getBuyerCode() == (Integer)session.getAttribute("memberCode")) {
+                afterTransactions.add(iter);
+            }
+        }
+
+        return afterTransactions;
+    }
+
+    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member, HttpSession session) {
+        int presentMember = (Integer)session.getAttribute("memberCode");
+
+        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        if(member.getId() != null && !member.getId().equals("")) {
+            while(transactionIterator.hasNext()) {
+                Transaction iter = transactionIterator.next();
+
+                if(iter.getSellerId().equals(member.getId())
+                        && iter.getBuyerCode() == presentMember){
+                    afterTransactions.add(iter);
+                }
+            }
+
+            return afterTransactions;
+        } else {
+            while (transactionIterator.hasNext()) {
+                Transaction iter = transactionIterator.next();
+
+                if(iter.getBuyerCode() == (Integer)session.getAttribute("memberCode")) {
+                    afterTransactions.add(iter);
+                }
+            }
+
+            return afterTransactions;
+        }
+    }
+
+    @PostMapping(value = "/transactions/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
+        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
+        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+
+        Iterator<Transaction> transactionIterator = transactions.iterator();
+        if(member.getId() != null) {
+            while(transactionIterator.hasNext()) {
+                Transaction iter = transactionIterator.next();
+                if(iter.getSellerId().equals(member.getId())
+                        || iter.getId().equals(member.getId())){
+                    afterTransactions.add(iter);
+                }
+            }
+            return afterTransactions;
+        }
+        return transactions;
     }
 }

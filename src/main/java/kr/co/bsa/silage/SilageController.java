@@ -113,68 +113,6 @@ public class SilageController {
         return mav;
     }
 
-    @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Member searchSilagePlace(@RequestBody(required = false) Member member) {
-        return memberService.selectMember(member);
-    }
-
-    @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Silage> searchSilageScope(@RequestBody(required = false) DateCommand dateCommand) {
-        return silageService.selectSilageList(dateCommand);
-    }
-
-    @PostMapping(value = "/silages/status", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage, HttpSession session) {
-        char status = silage.getTransactionStatus();
-        int presentMember = (Integer) session.getAttribute("memberCode");
-        List<Silage> silages = silageService.selectSilageList(new DateCommand());
-
-        List<Silage> afterSilages = new ArrayList<Silage>();
-        if(status != 0) {
-            Iterator<Silage> iterator = silages.iterator();
-            while (iterator.hasNext()) {
-                Silage iterSilage = iterator.next();
-                if(iterSilage.getTransactionStatus() == status
-                        && iterSilage.getSellerCode() == presentMember) {
-                    afterSilages.add(iterSilage);
-                }
-            }
-
-            return afterSilages;
-        }
-
-        return silages;
-    }
-
-    @PostMapping(value = "/silages/order", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Silage> searchSilageOrderBy(@RequestBody(required = false)Map<String, String> orderMap) {
-        int orderCode;
-        String orderStandard = orderMap.get("orderStandard");
-        Silage silage = new Silage();
-
-        if(orderStandard.equals("unitP1")) {
-            orderCode = 1;
-            silage.setUnitPrice(orderCode);
-        } else if(orderStandard.equals("unitP2")){
-            orderCode = 2;
-            silage.setUnitPrice(orderCode);
-        } else if(orderStandard.equals("count1")){
-            orderCode = 1;
-            silage.setCount(orderCode);
-        } else if(orderStandard.equals("count2")){
-            orderCode = 2;
-            silage.setCount(orderCode);
-        }
-
-        List<Silage> silages = silageService.selectSilage(silage);
-
-        return silages;
-    }
-
     //forward /WEB-INF/jsp/silage/view.jsp
     @GetMapping("/silages/{silageCode}")
     public ModelAndView searchSilage(Silage silage, HttpSession session) {
@@ -227,5 +165,83 @@ public class SilageController {
         silageService.deleteSilage(silage);
 
         return mav;
+    }
+
+    @PostMapping(value = "/silages/place", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Member searchSilagePlace(@RequestBody(required = false) Member member) {
+        return memberService.selectMember(member);
+    }
+
+    @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Silage> searchSilageScope(@RequestBody(required = false) DateCommand dateCommand
+            , HttpSession session) {
+        int presentMember = (Integer) session.getAttribute("memberCode");
+        List<Silage> silages = silageService.selectSilageList(dateCommand);
+        List<Silage> afterSilages = new ArrayList<Silage>();
+
+        Iterator<Silage> iterator = silages.iterator();
+        while (iterator.hasNext()) {
+            Silage iterSilage = iterator.next();
+            if(iterSilage.getSellerCode() == presentMember) {
+                afterSilages.add(iterSilage);
+            }
+        }
+        return afterSilages;
+    }
+
+    @PostMapping(value = "/silages/status", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage
+            , HttpSession session) {
+        char status = silage.getTransactionStatus();
+        int presentMember = (Integer) session.getAttribute("memberCode");
+        List<Silage> silages = silageService.selectSilageList(new DateCommand());
+
+        System.out.println("@@@@@@@@@" + status);
+
+        List<Silage> afterSilages = new ArrayList<Silage>();
+        Iterator<Silage> iterator = silages.iterator();
+        while (iterator.hasNext()) {
+            Silage iterSilage = iterator.next();
+            if(status == 0) {
+                if(iterSilage.getSellerCode() == presentMember) {
+                    afterSilages.add(iterSilage);
+                }
+            } else {
+                if(iterSilage.getTransactionStatus() == status
+                        && iterSilage.getSellerCode() == presentMember) {
+                    afterSilages.add(iterSilage);
+                }
+            }
+        }
+        return afterSilages;
+    }
+
+    @PostMapping(value = "/silages/order", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Silage> searchSilageOrderBy(@RequestBody(required = false)Map<String, String> orderMap) {
+        int orderCode;
+        String orderStandard = orderMap.get("orderStandard");
+        Silage silage = new Silage();
+
+        if(orderStandard.equals("unitP1")) {
+            orderCode = 1;
+            silage.setUnitPrice(orderCode);
+        } else if(orderStandard.equals("unitP2")){
+            orderCode = 2;
+            silage.setUnitPrice(orderCode);
+        } else if(orderStandard.equals("count1")){
+            orderCode = 1;
+            silage.setCount(orderCode);
+        } else if(orderStandard.equals("count2")){
+            orderCode = 2;
+            silage.setCount(orderCode);
+        }
+
+        List<Silage> silages = silageService.selectSilage(silage);
+
+        return silages;
     }
 }
