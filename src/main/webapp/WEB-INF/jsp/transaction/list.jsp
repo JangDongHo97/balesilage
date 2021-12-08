@@ -115,12 +115,12 @@
                                     <c:choose>
                                         <c:when test="${transaction.depositStatus}">
                                             <td class="pro_sub_total" style="padding: 40 0 40 0" id="statusDeposit${transaction.transactionCode}">
-                                                <input type="button" style="color: red" value="취소" onclick="checkDeposit('${transaction.transactionCode}','${transaction.depositStatus}')">
+                                                <input type="button" style="color: red" id="deposit${transaction.transactionCode}" value="취소" onclick="checkDeposit('${transaction.transactionCode}','${transaction.depositStatus}')">
                                             </td>
                                         </c:when>
                                         <c:otherwise>
                                             <td class="pro_sub_total" style="padding: 40 0 40 0" id="statusDeposit${transaction.transactionCode}">
-                                                <input type="button" style="color: blue" value="확인" onclick="checkDeposit('${transaction.transactionCode}','${transaction.depositStatus}')">
+                                                <input type="button" style="color: blue" id="deposit${transaction.transactionCode}" value="확인" onclick="checkDeposit('${transaction.transactionCode}','${transaction.depositStatus}')">
                                             </td>
                                         </c:otherwise>
                                     </c:choose>
@@ -304,11 +304,11 @@
 
                     if(afterTransaction.depositStatus) {
                         depositScript += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + afterTransaction.transactionCode + "\">";
-                        depositScript += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkDeposit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.depositStatus + "\')\">";
+                        depositScript += "            <input type=\"button\" style=\"color: red\" id=\"deposit" + afterTransaction.transactionCode + "\" value=\"취소\" onclick=\"checkDeposit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.depositStatus + "\')\">";
                         depositScript += "        </td>";
                     } else {
                         depositScript += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + afterTransaction.transactionCode + "\">";
-                        depositScript += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkDeposit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.depositStatus + "\')\">";
+                        depositScript += "            <input type=\"button\" style=\"color: blue\" id=\"deposit" + afterTransaction.transactionCode + "\" value=\"확인\" onclick=\"checkDeposit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.depositStatus + "\')\">";
                         depositScript += "        </td>";
                     }
 
@@ -324,6 +324,14 @@
         }
 
         function checkRemit(transCode, remit){
+            var depositStatus = document.getElementById("deposit"+transCode).value;
+
+            console.log(document.getElementById("deposit"+transCode).value);
+
+            if(depositStatus == '확인') {
+                window.alert("입금 확인을 먼저 해주세요!")
+            }
+
             var xmlHttp = new XMLHttpRequest();
             var transaction = {
                 transactionCode : transCode,

@@ -70,26 +70,19 @@
                                 <input type="text" name="accountNo" value="${account.accountNo}" id="accountNo" readonly>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="your_order">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="row" style="width: 175%">
-                        <div class="col-sm-12">
-                            <div class="place_order_btn" style="margin:10px">
-                                <a href="/bsa/silages" class="thm-btn" style="text-align: center">취소</a>
-                            </div>
-                            <div class="place_order_btn" style="margin:10px">
-                                <input type="submit" value="회원수정" class="thm-btn">
+                        <div class="col-xl-12">
+                            <div class="col-sm-12">
+                                <div class="place_order_btn" style="margin:10px">
+                                    <a href="/bsa/silages" class="thm-btn" style="text-align: center;padding-left: 67px;padding-right: 67px;">취소</a>
+                                </div>
+                                <div class="place_order_btn" style="margin:10px">
+                                    <input type="submit" value="회원수정" class="thm-btn">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </form>
 </section>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SilageServiceImpl implements SilageService {
@@ -39,6 +40,7 @@ public class SilageServiceImpl implements SilageService {
         return silageMapper.selectAll(dateCommand);
     }
 
+
     @Override
     @Transactional
     public List<Silage> selectSilage(Silage silage) {
@@ -48,10 +50,6 @@ public class SilageServiceImpl implements SilageService {
     @Override
     @Transactional
     public void updateSilage(Silage silage) {
-        System.out.println(silage.getWeight());
-        System.out.println(silage.getCount());
-        System.out.println(silage.getUnitPrice());
-
         silageMapper.update(silage);
     }
 

@@ -17,10 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/bsa")
@@ -88,28 +85,72 @@ public class SilageController {
 
     //forward /WEB-INF/jsp/silage/main.jsp
     @GetMapping("/silages")
-    public ModelAndView searchSilageList(DateCommand dateCommand, HttpSession session) {
+    public ModelAndView mainForm() {
+
+        return new ModelAndView("silage/main");
+    }
+
+    @PostMapping(value = "/silages/list", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    //메인 폼을 보여주는 요청
+    public Map<String, Object> searchSilageList(@RequestBody(required = false) DateCommand dateCommand, HttpSession session) {
+
+        System.out.println(dateCommand);
+
+        int silageCount;
+        Map<String, Object> result = new HashMap<>();
+
+        DateCommand initCommand = new DateCommand();
+        initCommand.setPageNo(-1);
+        initCommand.setOrderStandard(dateCommand.getOrderStandard());
+
+        initCommand.setTransactionStatus('Y');
+
+        silageCount = silageService.selectSilageList(initCommand).size();
+
+        String navigatorHtml = getNavigator(silageCount, dateCommand.getPageNo());
+        result.put("navigator", navigatorHtml);
+
+        // 화면에 뿌려줄 데이터
+        dateCommand.setPageNo((dateCommand.getPageNo() * 10));
+        dateCommand.setTransactionStatus('Y');
         List<Silage> silages = silageService.selectSilageList(dateCommand);
-        ModelAndView mav = new ModelAndView();
+        result.put("silages", silages);
 
-        try{
-            int memberCode = (Integer)session.getAttribute("memberCode");
-            Member member = new Member();
-            member.setMemberCode(memberCode);
-            member = memberService.selectMember(member);
+//        try{
+//            int memberCode = (Integer)session.getAttribute("memberCode");
+//            Member member = new Member();
+//            member.setMemberCode(memberCode);
+//            member = memberService.selectMember(member);
+//
+//            result.put("member", member);
+//        } catch (NullPointerException e) {
+//            return result;
+//        }
 
-            mav.addObject("member", member);
-        } catch (NullPointerException e) {
-            mav.addObject("silages",silages);
-            mav.setViewName("silage/main");
+        return result;
 
-            return mav;
-        }
-
-        mav.addObject("silages",silages);
-        mav.setViewName("silage/main");
-
-        return mav;
+//        List<Silage> silages = silageService.selectSilageList(new DateCommand());
+//        ModelAndView mav = new ModelAndView();
+//
+//        try{
+//            int memberCode = (Integer)session.getAttribute("memberCode");
+//            Member member = new Member();
+//            member.setMemberCode(memberCode);
+//            member = memberService.selectMember(member);
+//
+//            mav.addObject("member", member);
+//        } catch (NullPointerException e) {
+//            mav.addObject("silages",silages);
+//            mav.setViewName("silage/main");
+//
+//            return null;
+//        }
+//
+//        mav.addObject("silages",silages);
+//        mav.setViewName("silage/main");
+//
+//        return null;
     }
 
     //forward /WEB-INF/jsp/silage/view.jsp
@@ -196,8 +237,6 @@ public class SilageController {
         int presentMember = (Integer) session.getAttribute("memberCode");
         List<Silage> silages = silageService.selectSilageList(new DateCommand());
 
-        System.out.println("@@@@@@@@@" + status);
-
         List<Silage> afterSilages = new ArrayList<Silage>();
         Iterator<Silage> iterator = silages.iterator();
         while (iterator.hasNext()) {
@@ -240,5 +279,78 @@ public class SilageController {
         List<Silage> silages = silageService.selectSilage(silage);
 
         return silages;
+    }
+
+    public String getNavigator(int allNo, int pageNo) {
+        StringBuffer navigator = new StringBuffer("");
+
+        if (pageNo== 0) {
+            navigator.append("<li class='pagenate_button page-item disabled' ><a id = 'firstPage' ");
+        } else {
+            navigator.append("<li class='pagenate_button page-item' ><a id = 'firstPage' ");
+        }
+
+        navigator.append("href='#' ");
+        navigator.append("aria-controls='datatable' ");
+        navigator.append("tabindex='0' ");
+        navigator.append("class='page-link' onclick='changePage(" + 0 + ")'>&laquo;</a></li> ");
+
+        if ((pageNo / 5) == 0) {
+            navigator.append("<li class='paginate_button page-item previous disabled' ");
+        } else {
+            navigator.append("<li class='paginate_button page-item previous' ");
+        }
+
+        navigator.append("id='datatable_previous'>");
+        navigator.append("<a href='#' id='backPage' ");
+        navigator.append("aria-controls='datatable'");
+        navigator.append("        data-dt-idx='0' tabindex='0'");
+        navigator.append("        class='page-link' onclick='changePage(" + (((pageNo / 5) * 5) - 5) + ")'>&lt;</a></li>");
+
+        int endPageNo = 0;
+
+        if (((allNo - 1) / 10) + 1 < ((pageNo / 5) * 5) + 5) {
+            endPageNo = (allNo - 1) / 10 + 1;
+        } else {
+            endPageNo = ((pageNo / 5) * 5) + 5;
+        }
+
+        int count = 1;
+        for (int i = ((pageNo / 5) * 5); i < endPageNo; i++) {
+            if (pageNo == i) {
+                navigator.append("<li class='paginate_button page-item active'><a href='#' onclick='changePage(" + i + ")'");
+            } else {
+                navigator.append("<li class='paginate_button page-item'><a href='#' onclick='changePage(" + i + ")'");
+            }
+
+            navigator.append(" aria-controls='datatable'");
+            navigator.append("        data-dt-idx='" + (count++) + "'");
+            navigator.append("        tabindex='0'");
+            navigator.append("        class='page-link' >" + (i + 1) + "</a></li>");
+        }
+
+        if (endPageNo < (allNo - 1) / 10 + 1) {
+            navigator.append("<li class='paginate_button page-item next' id='datatable_next'>");
+        } else {
+            navigator.append("<li class='paginate_button page-item next disabled' id='datatable_next'>");
+        }
+
+        navigator.append("        <a id='nextPage' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
+        navigator.append("        href='#' aria-controls='datatable' data-dt-idx='" + (count) + "'");
+        navigator.append("        tabindex='0' class='page-link' >&gt;</a></li>");
+
+        if (pageNo < (allNo - 1) / 10) {
+            navigator.append("<li class='pagenate_button page-item' >");
+        } else {
+            navigator.append("<li class='pagenate_button page-item disabled' >");
+        }
+
+        navigator.append("<a id='lastPage' onclick='changePage(" + ((allNo - 1) / 10) + ")' ");
+        navigator.append("href='#' ");
+        navigator.append(" aria-controls='datatable' ");
+        navigator.append("tabindex='0' ");
+        navigator.append("class='page-link'>&raquo;</a></li>");
+
+        return navigator.toString();
     }
 }

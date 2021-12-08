@@ -21,24 +21,41 @@
             parameterType="kr.co.bsa.common.DateCommand"
             resultType="Silage">
         SELECT
-            SILAGE_CODE
-            , ID
-            , SELLER_CODE
-            , ADDRESS
-            , ENROLL_DATETIME
-            , UNIT_PRICE
-            , COUNT
-            , WEIGHT
-            , PRODUCTION_DATE
-            , TRANSACTION_STATUS
+        SILAGE_CODE
+        , ID
+        , SELLER_CODE
+        , ADDRESS
+        , ENROLL_DATETIME
+        , UNIT_PRICE
+        , COUNT
+        , WEIGHT
+        , PRODUCTION_DATE
+        , TRANSACTION_STATUS
         FROM SILAGE INNER JOIN MEMBER
         ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
         <where>
             <if test="startDate != null and endDate != null">
                 AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
             </if>
+            <if test="transactionStatus == 'Y'">
+                AND TRANSACTION_STATUS=#{transactionStatus}
+            </if>
         </where>
-        ORDER BY SILAGE_CODE
+        <if test='orderStandard.equals("unitP1")'>
+            ORDER BY UNIT_PRICE
+        </if>
+        <if test='orderStandard.equals("unitP2")'>
+            ORDER BY UNIT_PRICE DESC
+        </if>
+        <if test='orderStandard.equals("count1")'>
+            ORDER BY COUNT
+        </if>
+        <if test='orderStandard.equals("count2")'>
+            ORDER BY COUNT DESC
+        </if>
+        <if test="pageNo != -1">
+            LIMIT #{pageNo}, 10
+        </if>
     </select>
 
     <select id="select"
@@ -77,8 +94,6 @@
             ORDER BY COUNT DESC
         </if>
     </select>
-
-
 
     <update id="update"
             parameterType="Silage">
