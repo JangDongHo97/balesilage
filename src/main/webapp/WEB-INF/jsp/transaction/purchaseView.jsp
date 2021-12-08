@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="billing_title">
-                        <h2 style="font-family: 'Nanum Gothic', sans-serif">구매 내역</h2>
+                        <h2 style="font-family: 'Nanum Gothic', sans-serif; color:black">구매 내역</h2>
                         <hr>
                         <h6 style="font-family: 'Nanum Gothic', sans-serif">구매 내역 상세 정보</h6>
                     </div>

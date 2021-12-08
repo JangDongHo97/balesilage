@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="/WEB-INF/jsp/util/top.jsp"/>
 
 <script>
     function checkAccount() {
-        if (${accountErrorMsg != null}) {
+        if(${accountErrorMsg != null}) {
             window.alert('${accountErrorMsg}');
         }
     }
@@ -15,8 +15,7 @@
 
 <div class="preloader" style="display: none; font-family: 'Nanum Gothic', sans-serif">
     <img src="/assets/images/loader.png" class="preloader__image" alt="">
-</div>
-<!-- /.preloader -->
+</div><!-- /.preloader -->
 
 <div class="page-wrapper">
     <div class="site-header__header-one-wrap">
@@ -25,54 +24,38 @@
 
     <section class="page-header" style="background-image: url(/assets/images/backgrounds/page-header-contact.jpg);">
         <div class="container">
-            <h4 style="font-family: 'Nanum Gothic', sans-serif; text-align: center; padding-bottom: 7%; color: #fefefe ">
-                곤포 사일리지 찾아보기</h4>
+            <h4 style="font-family: 'Nanum Gothic', sans-serif; text-align: center; padding-bottom: 7%; color: #fefefe ">곤포 사일리지 찾아보기</h4>
         </div>
     </section>
 
     <section class="contact_google_map_1">
-        정렬 <select name="orderSelect" id="order">
-        <option value="">-선택-</option>
-        <option value="unitP1">단가 낮은순</option>
-        <option value="unitP2">단가 높은순</option>
-        <option value="count1">개수 낮은순</option>
-        <option value="count2">개수 높은순</option>
-    </select>
+        <div class="shorting" style="position: absolute; right: 0; width: 15%; margin: 1%">
+            <div class="dropdown bootstrap-select">
+                <select class="selectpicker" name="orderSelect" id="order" data-width="100%" tabindex="-98">
+                    <option value="" selected="selected">-선택-</option>
+                    <option value="unitP1">단가 낮은순</option>
+                    <option value="unitP2">단가 높은순</option>
+                    <option value="count1">개수 낮은순</option>
+                    <option value="count2">개수 높은순</option>
+                </select>
+            </div>
+        </div>
         <div class="row">
-            <div id="map"
-                 style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
+            <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
-                    <div class="row" style="margin-right: 4%; height: 800px; width: 1100px">
+                    <div class="row" style="margin-right: 4%; margin-top: 4%; height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">
                                 <tr>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        판매자
-                                    </th>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        무게
-                                    </th>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        개수
-                                    </th>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        단가
-                                    </th>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        가격
-                                    </th>
-                                    <th colspan="1"
-                                        style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">
-                                        비고
-                                    </th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">판매자</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">무게</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">개수</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">단가</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">가격</th>
+                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">비고</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -102,57 +85,56 @@
         </div>
     </section>
 
-    <%--지도 조회--%>
-    <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0b4825b8dca8223449db80faff26514&libraries=services"></script>
-    <script>
-        var mapContainer = document.getElementById('map'),
-            mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
-                level: 8
-            };
+<%--지도 조회--%>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0b4825b8dca8223449db80faff26514&libraries=services"></script>
+<script>
+    var mapContainer = document.getElementById('map'),
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 8
+        };
 
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-        var geocoder = new kakao.maps.services.Geocoder();
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var geocoder = new kakao.maps.services.Geocoder();
 
-        var firstPlace;
+    var firstPlace;
 
-        if (${member.address != null}) {
-            geocoder.addressSearch('${member.address}', function (result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    firstPlace = new kakao.maps.LatLng(result[0].y, result[0].x);
-                }
-            });
-        }
-
-        <c:forEach items="${silages}" var="silage">
-        geocoder.addressSearch('${silage.address}', function (result, status) {
-
-            // 정상적으로 검색이 완료됐으면
-            if (status === kakao.maps.services.Status.OK && ${fn:contains(silage.transactionStatus,'Y')}) {
-
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${silage.id}</div>'
-                });
-                infowindow.open(map, marker);
-
-                if (${member.address == null}) {
-                    map.setCenter(coords);
-                } else {
-                    map.setCenter(firstPlace);
-                }
+    if(${member.address != null}) {
+        geocoder.addressSearch('${member.address}', function (result, status) {
+            if(status === kakao.maps.services.Status.OK) {
+                firstPlace = new kakao.maps.LatLng(result[0].y, result[0].x);
             }
         });
-        </c:forEach>
+    }
+
+    <c:forEach items="${silages}" var="silage">
+    geocoder.addressSearch('${silage.address}', function(result, status) {
+
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK && ${fn:contains(silage.transactionStatus,'Y')} ) {
+
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">${silage.id}</div>'
+            });
+            infowindow.open(map, marker);
+
+            if(${member.address == null}) {
+                map.setCenter(coords);
+            } else {
+                map.setCenter(firstPlace);
+            }
+        }
+    });
+    </c:forEach>
 
     </script>
     <script>
@@ -320,6 +302,5 @@
             xmlHttp.send(jsonOrder);
         }
     </script>
-
 
 <jsp:include page="/WEB-INF/jsp/util/bottom.jsp"/>

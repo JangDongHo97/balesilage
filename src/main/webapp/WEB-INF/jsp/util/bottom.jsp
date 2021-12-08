@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <footer class="site-footer">
-        <div class="site-footer_farm_image"><img src="/assets/images/resources/site-footer-farm.png" alt="Farm Image"></div>
+        <div class="site-footer_farm_image"><img src="/assets/images/resources/site-footer-farm.png" alt="Farm Image" style="margin-bottom:0%"></div>
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-xl-3 col-lg-3 col-md-6">

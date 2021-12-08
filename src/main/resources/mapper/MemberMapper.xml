@@ -46,6 +46,9 @@
             , NAME = #{name}
             , PHONE = #{phone}
             , ADDRESS = #{address}
+            <if test="memberStatus == 'N'">
+                , MEMBER_STATUS = #{memberStatus}
+            </if>
         WHERE MEMBER_CODE = #{memberCode}
     </update>
 </mapper>

@@ -7,7 +7,6 @@ import kr.co.bsa.member.Member;
 import kr.co.bsa.member.MemberService;
 import kr.co.bsa.transaction.Transaction;
 import kr.co.bsa.transaction.TransactionService;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -47,8 +46,10 @@ public class SilageController {
                 mav.setViewName("silage/add");
             }
         } catch (NullPointerException e) {
+            if (memberCode != 1) {
+                session.setAttribute("accountErrorMsg", "곤포 사일리지를 등록하시려면 계좌 정보를 등록해주세요");
+            }
             mav.setViewName("redirect:/bsa/silages");
-            session.setAttribute("accountErrorMsg", "곤포 사일리지를 등록하시려면 계좌 정보를 등록해주세요");
         }
         return mav;
     }
@@ -178,6 +179,7 @@ public class SilageController {
         silage = silageService.selectSilage(silage).get(0);
 
         ModelAndView mav = null;
+
         if(silage.getTransactionStatus() == 'Y'){
             mav = new ModelAndView();
             mav.addObject("silage", silage);
@@ -185,7 +187,6 @@ public class SilageController {
         } else {
             mav = new ModelAndView(new RedirectView("/bsa/silages/" + silage.getSilageCode()));
         }
-
         return mav;
     }
 
@@ -194,6 +195,7 @@ public class SilageController {
     public ModelAndView editSilage(Silage silage) {
         ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
         silageService.updateSilage(silage);
+
         return mav;
     }
 
@@ -202,6 +204,7 @@ public class SilageController {
     public ModelAndView removeSilage(Silage silage) {
         ModelAndView mav = new ModelAndView("redirect: /bsa/silages");
         silageService.deleteSilage(silage);
+
         return mav;
     }
 

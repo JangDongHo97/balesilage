@@ -768,7 +768,6 @@ h6 {
     list-style: none;
 }
 .main-nav__main-navigation .main-nav__navigation-box > li + li {
-    margin-left: 45px;
 }
 .main-nav__main-navigation .main-nav__navigation-box > li {
     position: relative;
@@ -3781,7 +3780,7 @@ h6 {
 }
 .site-footer_farm_image {
     position: absolute;
-    bottom: -22%;
+    bottom: 0%;
     right: -1%;
     opacity: 0.07;
 }
@@ -7688,9 +7687,9 @@ h6 {
     position: relative;
     display: block;
     width: 100%;
-    height: 80px;
+    height: 30px;
     border-radius: 5px;
-    background: var(--thm-base);
+    background: #f5f0e9;
     color: var(--thm-black);
     border: none;
     outline: none;
@@ -7704,9 +7703,9 @@ h6 {
     top: 0px;
     right: 9px;
     width: 60px;
-    height: 80px;
+    height: 30px;
     color: var(--thm-black);
-    background: var(--thm-base);
+    background: #f5f0e9;
     display: block;
     text-align: center;
     border: 0;

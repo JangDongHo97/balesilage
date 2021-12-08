@@ -64,11 +64,11 @@
         <title>500에러 페이지</title>
     </head>
     <body>
-        <div class="site-footer" style="background-color: #7ca374; width: 100vw; height: 100vh; align-items: center; justify-content: center; text-align: center">
+        <div class="site-footer" style="background-color: #404a3d; width: 100vw; height: 100vh; align-items: center; justify-content: center; text-align: center">
             <div class="site-footer_farm_image"><img src="/assets/images/resources/site-footer-farm.png" alt="Farm Image"></div>
             <div style="text-align: center; margin-top: 10%">
-                <h1 style="font-family: 'Nanum Gothic', sans-serif; color: #0b0b0b; margin-bottom: 50px">404 Error</h1>
-                <h2 style="font-family: 'Nanum Gothic', sans-serif; color: #0b0b0b">서버에 문제가 있습니다...</h2>
+                <h1 style="font-family: 'Nanum Gothic', sans-serif; color: #fefefe; margin-bottom: 50px">404 Error</h1>
+                <h2 style="font-family: 'Nanum Gothic', sans-serif; color: #fefefe">서버에 문제가 있습니다...</h2>
                 <a href="/bsa/silages"><input type="button" class="thm-btn" style="margin-top: 100px" value="돌아가기"/></a>
             </div>
         </div>

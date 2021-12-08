@@ -54,7 +54,7 @@
                             <div class="col-xl-5">
                                 <h3 style="font-family: 'Nanum Gothic', sans-serif; margin-left: 110px; margin-top: 10px;">가격</h3>
                                 <div class="billing_input_box" style="height: 60px;width: 80%;margin-bottom: 20px;margin-left: 110px;">
-                                    <input type="text" name="totalPrice" id="totalPrice" readonly>
+                                    <input type="text" name="totalPrice" id="totalPrice" placeholder="개수와 단가를 입력해주세요 readonly>
                                 </div>
                             </div>
                         </div>

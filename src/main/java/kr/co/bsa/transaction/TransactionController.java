@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/bsa")
 public class TransactionController {
     @Autowired
-    private TransactionServiceImpl transactionService;
+    private TransactionService transactionService;
     @Autowired
     private SilageService silageService;
     @Autowired
@@ -33,9 +33,7 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice/{silageCode}")
-    public ModelAndView alertPurchase(Transaction transaction
-                                    , @PathVariable int silageCode
-                                    , HttpSession session) {
+    public ModelAndView alertPurchase(Transaction transaction, @PathVariable int silageCode, HttpSession session) {
         Silage silage = new Silage();
         silage.setSilageCode(silageCode);
         List<Silage> silages = silageService.selectSilage(silage);
@@ -108,8 +106,6 @@ public class TransactionController {
     //redirect /bsa/silages
     @PostMapping("/transactions")
     public ModelAndView enrollTransaction(Transaction transaction) {
-        System.out.println(transaction);
-
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         transactionService.insertTransaction(transaction);
 
@@ -149,6 +145,7 @@ public class TransactionController {
 
         return mav;
     }
+
 
     //-
     @PutMapping("/transactions/deposit")

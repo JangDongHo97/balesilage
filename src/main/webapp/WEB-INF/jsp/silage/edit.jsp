@@ -99,6 +99,3 @@
 </script>
 
 <jsp:include page="../util/bottom.jsp"/>
-
-----------
-

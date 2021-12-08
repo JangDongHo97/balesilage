@@ -1,10 +1,8 @@
 package kr.co.bsa.common;
 
 import kr.co.bsa.member.Member;
-import kr.co.bsa.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +17,18 @@ import javax.validation.Valid;
 public class CommonController {
     @Autowired
     private LoginService loginService;
-    @Autowired
-    private MemberService memberService;
 
     //forward /WEB-INF/jsp/common/login.jsp
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView("common/login");
+
         return mav;
     }
 
     //redirect /bsa/silages
     @PostMapping("/login")
-    public ModelAndView login(@Valid Member member, BindingResult bindingResult, HttpSession session) {
+    public ModelAndView login(@Valid Member member, HttpSession session) {
         ModelAndView mav = null;
         Member afterMember = loginService.login(member);
         try {
@@ -62,6 +59,7 @@ public class CommonController {
     public ModelAndView logout(HttpSession session){
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         session.invalidate();
+
         return mav;
     }
 
@@ -69,6 +67,7 @@ public class CommonController {
     @GetMapping("/auth")
     public ModelAndView checkAuth() {
         ModelAndView mav = new ModelAndView("common/auth");
+
         return mav;
     }
 
@@ -78,9 +77,11 @@ public class CommonController {
         member.setMemberCode((int) session.getAttribute("memberCode"));
         if(loginService.auth(member)) {
             ModelAndView mav = new ModelAndView(new RedirectView("/bsa/members/" + member.getMemberCode()));
+
             return mav;
         }
         ModelAndView mav = new ModelAndView("common/auth");
+
         return mav;
     }
 }
