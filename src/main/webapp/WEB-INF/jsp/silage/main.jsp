@@ -29,19 +29,23 @@
     </section>
 
     <section class="contact_google_map_1">
-        정렬 <select name="orderSelect" id="order">
-            <option value="">-선택-</option>
-            <option value="unitP1">단가 낮은순</option>
-            <option value="unitP2">단가 높은순</option>
-            <option value="count1">개수 낮은순</option>
-            <option value="count2">개수 높은순</option>
-        </select>
+        <div class="shorting" style="position: absolute; right: 0; width: 15%; margin: 1%">
+            <div class="dropdown bootstrap-select">
+                <select class="selectpicker" name="orderSelect" id="order" data-width="100%" tabindex="-98">
+                    <option value="" selected="selected">-선택-</option>
+                    <option value="unitP1">단가 낮은순</option>
+                    <option value="unitP2">단가 높은순</option>
+                    <option value="count1">개수 낮은순</option>
+                    <option value="count2">개수 높은순</option>
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
                 <div class="container">
-                    <div class="row" style="margin-right: 4%; height: 800px; width: 1100px">
+                    <div class="row" style="margin-right: 4%; margin-top: 4%; height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">

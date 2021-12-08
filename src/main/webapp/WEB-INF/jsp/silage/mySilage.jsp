@@ -34,37 +34,45 @@
 
                         </div>
                         <div class="input_box">
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td style="padding:0 10 0 10; color:black">
-                                            등록 기간
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <table>
+                                        <tr>
+                                            <td style="padding:0 10 0 10; color:black">
+                                                등록 기간
+                                            </td>
+                                            <td>
+                                                <input type="date" id="startDate">
+                                            </td>
+                                            <td style="padding:0 10 0 10; color:black">
+                                                ~
+                                            </td>
+                                            <td>
+                                                <input type="date" id="endDate">
+                                            </td>
+                                            <td>
+                                                <input type="button" value="검색" onclick="searchDateScope('${memberCode}')">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xl-6" style="text-align: right">
+                                    <table>
+                                        <td style="vertical-align: top">
+                                            <div class="right">
+                                                <div class="shorting">
+                                                    <div class="dropdown bootstrap-select" style="width: 20%; right: 0; margin-right: 1%; position: absolute">
+                                                        <select class="selectpicker" data-width="100%" tabindex="100" name="transactionStatusSelect" id="status">
+                                                            <option value="" selected="selected">판매상태</option>
+                                                            <option value="Y">판매중</option>
+                                                            <option value="N">판매완료</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td>
-                                            <input type="date" id="startDate">
-                                        </td>
-                                        <td style="padding:0 10 0 10; color:black">
-                                            ~
-                                        </td>
-                                        <td>
-                                            <input type="date" id="endDate">
-                                        </td>
-                                        <td>
-                                            <input type="button" value="검색" onclick="searchDateScope('${memberCode}')">
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table align="right">
-                                    <tr>
-                                        <td>
-                                            <select name="transactionStatusSelect" id="status">
-                                                <option value="">판매상태</option>
-                                                <option value="Y">판매중</option>
-                                                <option value="N">판매 완료</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

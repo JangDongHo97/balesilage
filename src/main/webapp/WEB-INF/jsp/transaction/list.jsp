@@ -11,7 +11,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="../util/top.jsp"/>
 <div class="preloader" style="display: none;">
-    <img src="assets/images/loader.png" class="preloader__image" alt="">
+    <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
 
 <div class="page-wrapper">
@@ -23,17 +23,15 @@
     </section>
 
     <section class="cart">
-        <div class="container" style="font-family: 'Nanum Gothic', sans-serif ">
-            <div class="row" style="padding:0 0 20 20; margin-right: -25%; margin-left: -25%;">
-                <h1 style="font-family: 'Nanum Gothic', sans-serif; color:black">거래 내역</h1>
-                <hr>
-                <br/>
-            </div>
-            <div class="row" style="margin-right: -25%; margin-left: -25%;">
-                <div class="col-xl-12" style="padding-right: 5px;padding-left: 0px;">
-                    <div class="input_box">
-                        <div>
-                            <table>
+        <div class="col-xl-12">
+            <h1 style="font-family: 'Nanum Gothic', sans-serif; color:black; margin: 2%; margin-left: 6%">거래 내역</h1>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="input_box">
+                    <div class="row">
+                        <div class="col-xl-9">
+                            <table style="margin-left: 9%">
                                 <tr>
                                     <td style="padding:0 10 0 10; color:black">
                                         거래 기간
@@ -52,18 +50,20 @@
                                     </td>
                                 </tr>
                             </table>
-                            <table align="right">
-                                <tr>
-                                    <td>
-                                        <input type="text" id="searchMemberId" placeholder="ID 검색">
-                                        <input type="button" value="검색" onclick="searchMember()">
-                                    </td>
-                                </tr>
-                            </table>
+                        </div>
+                        <div class="col-xl-3" data-wow-delay="0.1s" data-wow-duration="1200ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 0.1s; animation-name: fadeInUp; text-align: right">
+                            <div class="sidebar-search-box" style="margin-right: 20%">
+                                <form class="search-form" action="#">
+                                    <input placeholder="ID 검색" type="text" id="searchMemberId">
+                                    <button type="submit" onclick="searchMember()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container" style="font-family: 'Nanum Gothic', sans-serif ">
             <div class="row" style="margin-right: -25%; margin-left: -25%;">
                 <div class="col-xl-12" style="padding-right: 0px; padding-left: 0px">
                     <table class="cart_table">
@@ -151,6 +151,8 @@
     <script type="text/javascript">
         //json요청 결과
         var storage;
+
+
 
         function searchDateScope() {
             var xmlHttp = new XMLHttpRequest();

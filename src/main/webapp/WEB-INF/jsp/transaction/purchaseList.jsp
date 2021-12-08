@@ -26,41 +26,43 @@
     <section class="cart" style="padding:50 0 120">
         <div class="container" style="font-family: 'Nanum Gothic', sans-serif">
             <div class="row" style="padding:0 0 20 20">
-                <h1 style="font-family: 'Nanum Gothic', sans-serif; color:black">구매 내역</h1>
+                <h2 style="font-family: 'Nanum Gothic', sans-serif; color:black">구매 내역</h2>
                 <hr>
                 <br/>
             </div>
             <div class="row" >
                 <div class="col-xl-12">
                     <div class="input_box">
-                        <div>
-                            <table>
-                                <tr>
-                                    <td style="padding:0 10 0 10; color:black">
-                                        구매 기간
-                                    </td>
-                                    <td>
-                                        <input type="date" id="startDate">
-                                    </td>
-                                    <td style="padding:0 10 0 10; color:black">
-                                        ~
-                                    </td>
-                                    <td>
-                                        <input type="date" id="endDate">
-                                    </td>
-                                    <td>
-                                        <input type="button" value="검색" onclick="searchDateScope('${memberCode}')">
-                                    </td>
-                                </tr>
-                            </table>
-                            <table align="right">
-                                <tr>
-                                    <td>
-                                        <input type="text" id="searchMemberId" placeholder="판매자ID 검색">
-                                        <input type="button" value="검색" onclick="searchMember()">
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="row">
+                            <div class="col-xl-9">
+                                <table>
+                                    <tr>
+                                        <td style="padding:0 10 0 10; color:black">
+                                            구매 기간
+                                        </td>
+                                        <td>
+                                            <input type="date" id="startDate">
+                                        </td>
+                                        <td style="padding:0 10 0 10; color:black">
+                                            ~
+                                        </td>
+                                        <td>
+                                            <input type="date" id="endDate">
+                                        </td>
+                                        <td>
+                                            <input type="button" value="검색" onclick="searchDateScope('${memberCode}')">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xl-3" data-wow-delay="0.1s" data-wow-duration="1200ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 0.1s; animation-name: fadeInUp; text-align: right">
+                                <div class="sidebar-search-box">
+                                    <form class="search-form" action="#">
+                                        <input placeholder="ID 검색" type="text" id="searchMemberId">
+                                        <button type="submit" onclick="searchMember()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

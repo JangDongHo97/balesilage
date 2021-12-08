@@ -198,15 +198,13 @@
     <%
     } else if(auth.equals(1)) {%>
 
-<body style="font-family: 'Nanum Gothic', sans-serif";>>
+<body style="font-family: 'Nanum Gothic', sans-serif";>
 <div class="preloader" style="display: none;">
     <img src="/assets/images/loader.png" class="preloader__image" alt="">
 </div><!-- /.preloader -->
 
 <div class="page-wrapper">
-
     <div class="site-header__header-one-wrap">
-
         <div class="topbar-one">
             <div class="topbar_bg" style="background-image: url(/assets/images/shapes/header-bg.png)"></div>
             <div class="container">
