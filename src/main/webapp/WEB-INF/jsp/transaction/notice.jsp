@@ -50,13 +50,13 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">은행명</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="bankName" value="국민" id="bankName" readonly>
+                                <input type="text"  value="국민" readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="accountNo" value="94160200050173" id="accountNo" readonly>
+                                <input type="text" value="94160200050173" readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
