@@ -3,6 +3,7 @@ package kr.co.bsa.common;
 import java.io.Serializable;
 
 public class DateCommand implements Serializable {
+    private int sellerCode;
     private String startDate;
     private String endDate;
     private String id;
@@ -11,6 +12,14 @@ public class DateCommand implements Serializable {
     private int pageNo;
 
     public DateCommand() {
+    }
+
+    public int getSellerCode() {
+        return sellerCode;
+    }
+
+    public void setSellerCode(int sellerCode) {
+        this.sellerCode = sellerCode;
     }
 
     public int getPageNo() {
@@ -64,10 +73,11 @@ public class DateCommand implements Serializable {
     @Override
     public String toString() {
         return "DateCommand{" +
-                "startDate='" + startDate + '\'' +
+                "sellerCode=" + sellerCode +
+                ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", id='" + id + '\'' +
-                ", transactionStatus='" + transactionStatus + '\'' +
+                ", transactionStatus=" + transactionStatus +
                 ", orderStandard='" + orderStandard + '\'' +
                 ", pageNo=" + pageNo +
                 '}';

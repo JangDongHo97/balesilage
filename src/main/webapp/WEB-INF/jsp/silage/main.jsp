@@ -138,6 +138,10 @@
 
     </script>
     <script>
+        var selectEvent = document.getElementById("order");
+        selectEvent.addEventListener('change', initPage);
+        selectEvent.addEventListener('change', search);
+
         var pageNo = 0;
         search();
 
@@ -209,8 +213,7 @@
         }
     </script>
     <script>
-        var selectEvent = document.getElementById("order");
-        selectEvent.addEventListener('change', orderBy);
+
 
         function viewLocation(x) {
             var xmlHttp = new XMLHttpRequest();

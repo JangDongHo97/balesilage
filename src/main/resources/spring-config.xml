@@ -30,6 +30,7 @@
             <mvc:exclude-mapping path="/bsa/silages"/>
             <mvc:exclude-mapping path="/bsa/members"/>
             <mvc:exclude-mapping path="/bsa/silages/order"/>
+            <mvc:exclude-mapping path="/bsa/silages/list"/>
             <bean class="kr.co.bsa.common.LoginCheckIntercepter"/>
         </mvc:interceptor>
     </mvc:interceptors>

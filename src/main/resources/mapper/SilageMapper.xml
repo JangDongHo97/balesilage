@@ -35,22 +35,27 @@
         ON SILAGE.SELLER_CODE = MEMBER.MEMBER_CODE
         <where>
             <if test="startDate != null and endDate != null">
-                AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+               <if test="!startDate.isEmpty() and !endDate.isEmpty()">
+                   AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+               </if>
             </if>
-            <if test="transactionStatus == 'Y'">
+            <if test="transactionStatus > 0">
                 AND TRANSACTION_STATUS=#{transactionStatus}
             </if>
+            <if test="sellerCode > 0">
+                AND SELLER_CODE=#{sellerCode}
+            </if>
         </where>
-        <if test='orderStandard.equals("unitP1")'>
+        <if test='"unitP1".equals(orderStandard)'>
             ORDER BY UNIT_PRICE
         </if>
-        <if test='orderStandard.equals("unitP2")'>
+        <if test='"unitP2".equals(orderStandard)'>
             ORDER BY UNIT_PRICE DESC
         </if>
-        <if test='orderStandard.equals("count1")'>
+        <if test='"count1".equals(orderStandard)'>
             ORDER BY COUNT
         </if>
-        <if test='orderStandard.equals("count2")'>
+        <if test='"count2".equals(orderStandard)'>
             ORDER BY COUNT DESC
         </if>
         <if test="pageNo != -1">
