@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/bsa")
@@ -126,50 +127,52 @@ public class SilageController {
 
     @PostMapping(value = "/silages/status", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage) {
+    public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage, HttpSession session) {
         char status = silage.getTransactionStatus();
+        int presentMember = (Integer) session.getAttribute("memberCode");
         List<Silage> silages = silageService.selectSilageList(new DateCommand());
 
         List<Silage> afterSilages = new ArrayList<Silage>();
         if(status != 0) {
             Iterator<Silage> iterator = silages.iterator();
             while (iterator.hasNext()) {
-                Silage s = iterator.next();
-                if(s.getTransactionStatus() == status) {
-                    afterSilages.add(s);
+                Silage iterSilage = iterator.next();
+                if(iterSilage.getTransactionStatus() == status
+                        && iterSilage.getSellerCode() == presentMember) {
+                    afterSilages.add(iterSilage);
                 }
             }
+
             return afterSilages;
         }
+
         return silages;
     }
 
     @PostMapping(value = "/silages/order", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Silage> searchSilageOrderBy(@RequestBody(required = false) String orderStandard) {
-        System.out.println("@@@@시작" + orderStandard);
-
+    public List<Silage> searchSilageOrderBy(@RequestBody(required = false)Map<String, String> orderMap) {
         int orderCode;
+        String orderStandard = orderMap.get("orderStandard");
+        Silage silage = new Silage();
 
-//        System.out.println("@@@@@@" + orderStandard);
-//
-//        if(orderStandard.equals("unitP1")) {
-//            orderCode = 1;
-//            silage.setUnitPrice(orderCode);
-//        } else if(orderStandard.equals("unitP2")){
-//            orderCode = 2;
-//            silage.setUnitPrice(orderCode);
-//        } else if(orderStandard.equals("count1")){
-//            orderCode = 1;
-//            silage.setCount(orderCode);
-//        } else if(orderStandard.equals("count2")){
-//            orderCode = 2;
-//            silage.setCount(orderCode);
-//        }
+        if(orderStandard.equals("unitP1")) {
+            orderCode = 1;
+            silage.setUnitPrice(orderCode);
+        } else if(orderStandard.equals("unitP2")){
+            orderCode = 2;
+            silage.setUnitPrice(orderCode);
+        } else if(orderStandard.equals("count1")){
+            orderCode = 1;
+            silage.setCount(orderCode);
+        } else if(orderStandard.equals("count2")){
+            orderCode = 2;
+            silage.setCount(orderCode);
+        }
 
-//        List<Silage> silages = silageService.selectSilage(silage);
+        List<Silage> silages = silageService.selectSilage(silage);
 
-        return null;
+        return silages;
     }
 
     //forward /WEB-INF/jsp/silage/view.jsp

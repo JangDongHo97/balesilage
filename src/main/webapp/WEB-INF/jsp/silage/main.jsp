@@ -191,18 +191,6 @@
             orderStandard : document.getElementById("order").value
         };
 
-        // if(document.getElementById("order").value == 'unitP1'
-        //     || document.getElementById("order").value == 'unitP1') {
-        //     standard = {
-        //         unitPrice : document.getElementById("order").value
-        //     }
-        // } else {
-        //     standard = {
-        //         count : document.getElementById("order").value
-        //     }
-        // }
-
-
         var jsonOrder = JSON.stringify(standard);
 
         console.log(jsonOrder);
@@ -214,7 +202,7 @@
         xmlHttp.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 let storage = xmlHttp.response;
-                console.log(storage);
+
                 var script = "";
 
                 script += "<table class=\"cart_table\">";
@@ -229,7 +217,7 @@
                         script += "        <div><td style=\"text-align: right\">" + storage[i].unitPrice + "</td></div>";
                         script += "        <div><td style=\"text-align: right\">" + (storage[i].count * storage[i].unitPrice) + "</td></div>";
                         script += "        <div class=\"row\" style=\"text-align: center\">";
-                        script += "            <td style=\"text-align: right\"><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "<br>";
+                        script += "            <td style=\"text-align: right\"><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "\')\"><br>";
                         script += "                <a href=\"/bsa/silages/" + storage[i].silageCode + "\" onclick=needLogin()><input type=\"button\" value=\"상세조회\" ></a>";
                         script += "            </td>";
                         script += "        </div>";
@@ -245,7 +233,7 @@
             }
         };
         xmlHttp.open('POST', 'http://localhost/bsa/silages/order');
-        // xmlHttp.responseType = 'json';
+        xmlHttp.responseType = 'json';
         xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
         xmlHttp.send(jsonOrder);
     }
