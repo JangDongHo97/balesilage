@@ -451,5 +451,9 @@
         if(memberCode == null) {
             window.alert("로그인을 먼저 해주세요");
         }
+
+        if(memberCode == 1) {
+            window.alert("관리자는 곤포 사일리지를 등록할 수 없습니다");
+        }
     }
 </script>

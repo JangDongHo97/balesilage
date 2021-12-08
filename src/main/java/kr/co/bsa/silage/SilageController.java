@@ -48,8 +48,10 @@ public class SilageController {
                 mav.setViewName("silage/add");
             }
         } catch (NullPointerException e) {
+            if (memberCode != 1) {
+                session.setAttribute("accountErrorMsg", "곤포 사일리지를 등록하시려면 계좌 정보를 등록해주세요");
+            }
             mav.setViewName("redirect:/bsa/silages");
-            session.setAttribute("accountErrorMsg", "곤포 사일리지를 등록하시려면 계좌 정보를 등록해주세요");
         }
         return mav;
     }

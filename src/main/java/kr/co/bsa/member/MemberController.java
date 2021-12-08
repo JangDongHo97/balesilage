@@ -46,13 +46,13 @@ public class MemberController {
                 return mav;
             }
             mav = new ModelAndView(new RedirectView("/bsa/members/form"));
-            session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");
+            session.setAttribute("enrollErrorMsg", "이미 사용 중인 아이디입니다");
 
             return mav;
 
         } catch (DuplicateKeyException e) {
             mav = new ModelAndView(new RedirectView("/bsa/members/form"));
-            session.setAttribute("enrollErrorMsg", "아이디가 중복입니다.");
+            session.setAttribute("enrollErrorMsg", "이미 사용 중인 아이디입니다");
 
             return mav;
         }

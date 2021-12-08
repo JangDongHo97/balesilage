@@ -250,23 +250,5 @@ public class TransactionController {
     public List<Transaction> searchTransactionScope(@RequestBody(required = false) DateCommand dateCommand) {
         return transactionService.selectTransactionList(dateCommand);
     }
-
-    @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Transaction> searchTransactionMember(@RequestBody(required = false) Member member) {
-        List<Transaction> transactions = transactionService.selectTransactionList(new DateCommand());
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
-
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        if(member.getId() != null) {
-            while(transactionIterator.hasNext()) {
-                Transaction iter = transactionIterator.next();
-                if(iter.getSellerId() == member.getId()){
-                    afterTransactions.add(iter);
-                }
-            }
-            return afterTransactions;
-        }
-        return transactions;
-    }
 }
+

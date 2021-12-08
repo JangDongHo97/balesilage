@@ -21,7 +21,7 @@
     <form action="/bsa/members" method="post" class="billing_details_form">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="memberCode" value="${member.memberCode}"/>
-        <div class="container">`````
+        <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="billing_title">
@@ -29,43 +29,43 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">아이디</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">아이디</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="id" value="${member.id}" id="id"  readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">비밀번호</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">비밀번호</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="password" value="${member.password}" id="password" readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">이름</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">이름</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="name" value="${member.name}" id="name" readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">전화번호</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">전화번호</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="phone" value="${member.phone}" id="phone" readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">주소</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">주소</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="address" value="${member.address}" id="address" readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">은행명</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">은행명</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="bankName" value="${account.bankName}" id="bankName" readonly>
                             </div>
                         </div>
                         <div class="col-xl-12">
-                            <h3 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h3>
+                            <h4 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h4>
                             <div class="billing_input_box">
                                 <input type="text" name="accountNo" value="${account.accountNo}" id="accountNo" readonly>
                             </div>
