@@ -68,25 +68,27 @@
                 <div class="col-xl-12" style="padding-right: 0px; padding-left: 0px">
                     <table class="cart_table">
                         <thead class="cart_table_head">
-                        <tr style="padding:20 0 20 0; text-align: center">
-                            <th style="font-family: 'Nanum Gothic', sans-serif">번호</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">상품 번호</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">구매자</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">판매자</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">은행명</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">계좌번호</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">거래일시</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">가격</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">입금확인</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">송금확인</th>
-                            <th style="font-family: 'Nanum Gothic', sans-serif">비고</th>
-                        </tr>
-                        </thead>
+                            <tr style="padding:20 0 20 0; text-align: center">
+                                <th style="font-family: 'Nanum Gothic', sans-serif">번호</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">상품 번호</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">구매자</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">판매자</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">은행명</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">계좌번호</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">거래일시</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">가격</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">입금확인</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">송금확인</th>
+                                <th style="font-family: 'Nanum Gothic', sans-serif">비고</th>
+                            </tr>
+                            </thead>
+                        <tbody id="silageList" style="text-align: center"></tbody>
                     </table>
-                    <div id="silageList" style="position:relative; width:101.49%; height:80%; overflow-y:auto">
-                    </div>
-                    <div id="pagingHtml">
-                    </div>
+                </div>
+            </div>
+            <div class="row" style="float : none; margin:0 auto;">
+                <div class="col-xl-4" style="padding-left: 42.5%; padding-top: 5%">
+                    <div id="pagingHtml" style="justify-content: center; margin:4% text-align:center;"></div>
                 </div>
             </div>
     </section>
@@ -133,8 +135,6 @@
             var navigatorHtml = rows.navigator;
 
             var script = "";
-            script += "<table class=\"cart_table\">";
-            script += "    <tbody style=\"text-align: center\">";
 
             for (var i = 0; i < showData.length; i++) {
                 script += "    <tr>";
@@ -170,8 +170,6 @@
                 script += "        </td>";
                 script += "    </tr>";
             }
-            script += "    </tbody>";
-            script += "</table>";
 
             $("#pagingHtml").html(navigatorHtml);
             $("#silageList").html(script);

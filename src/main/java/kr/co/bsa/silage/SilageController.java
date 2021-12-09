@@ -129,8 +129,25 @@ public class SilageController {
 
     //forward /WEB-INF/jsp/silage/main.jsp
     @GetMapping("/silages")
-    public ModelAndView mainForm() {
-        return new ModelAndView("silage/main");
+    public ModelAndView mainForm(HttpSession session) {
+        DateCommand dateCommand = new DateCommand();
+        dateCommand.setTransactionStatus('Y');
+        dateCommand.setPageNo(-1);
+        List<Silage> silages = silageService.selectSilageList(dateCommand);
+
+        Member member =  new Member();
+        if(session.getAttribute("memberCode") != null) {
+            member.setMemberCode((Integer)session.getAttribute("memberCode"));
+            member = memberService.selectMember(member);
+
+        }
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("member", member);
+        mav.addObject("silages", silages);
+        mav.setViewName("silage/main");
+
+        return mav;
     }
 
     @PostMapping(value = "/silages/list", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
