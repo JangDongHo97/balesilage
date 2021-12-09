@@ -57,10 +57,10 @@
                             </div>
                             <div class="col-xl-3" data-wow-delay="0.1s" data-wow-duration="1200ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 0.1s; animation-name: fadeInUp; text-align: right">
                                 <div class="sidebar-search-box">
-                                    <form class="search-form" action="#">
+                                    <div class="search-form">
                                         <input placeholder="ID 검색" type="text" id="searchMemberId">
-                                        <button id="searchButton" ><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
-                                    </form>
+                                        <button onclick="search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -88,97 +88,7 @@
             </div>
     </section>
 
-<%--    <script type="text/javascript">--%>
-<%--        function searchDateScope(memberCode) {--%>
-<%--            var xmlHttp = new XMLHttpRequest();--%>
-<%--            var dateScope = {--%>
-<%--                startDate : document.getElementById("startDate").value--%>
-<%--                , endDate : document.getElementById("endDate").value--%>
-<%--            };--%>
-<%--            var parseDateScope = JSON.stringify(dateScope);--%>
-
-<%--            var inputJson = document.getElementById("silageList");--%>
-
-<%--            xmlHttp.onreadystatechange = function() {--%>
-<%--                if(this.readyState == 4 && this.status == 200) {--%>
-<%--                    let storage = xmlHttp.response;--%>
-
-<%--                    var script = "";--%>
-<%--                    script += "<table class=\"cart_table\">";--%>
-<%--                    script += "    <tbody style=\"text-align: center\">";--%>
-
-<%--                    for (var i = 0; i < storage.length; i++) {--%>
-<%--                        script += "    <tr>";--%>
-<%--                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";--%>
-<%--                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";--%>
-<%--                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";--%>
-<%--                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";--%>
-<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";--%>
-<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";--%>
-<%--                        script += "    </tr>";--%>
-<%--                    }--%>
-
-<%--                    script += "    </tbody>";--%>
-<%--                    script += "</table>";--%>
-
-<%--                    inputJson.innerHTML = script;--%>
-
-<%--                }--%>
-<%--            };--%>
-<%--            xmlHttp.open('POST', 'http://localhost/bsa/purchases');--%>
-<%--            xmlHttp.responseType = 'json';--%>
-<%--            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");--%>
-<%--            xmlHttp.send(parseDateScope);--%>
-<%--        }--%>
-
-<%--        function searchMember() {--%>
-<%--            var recentMemberCode = ${memberCode};--%>
-
-<%--            var searchMemberId = {--%>
-<%--                id : document.getElementById("searchMemberId").value--%>
-<%--            };--%>
-
-<%--            var parseSearchMember = JSON.stringify(searchMemberId);--%>
-
-<%--            var xmlHttp = new XMLHttpRequest();--%>
-
-<%--            var inputJson = document.getElementById("silageList");--%>
-
-<%--            xmlHttp.onreadystatechange = function() {--%>
-<%--                if(this.readyState == 4 && this.status == 200) {--%>
-<%--                    let storage = xmlHttp.response;--%>
-
-<%--                    var script = "";--%>
-<%--                    script += "<table class=\"cart_table\">";--%>
-<%--                    script += "    <tbody style=\"text-align: center\">";--%>
-
-<%--                    for (var i = 0; i < storage.length; i++) {--%>
-<%--                        script += "    <tr>";--%>
-<%--                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";--%>
-<%--                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";--%>
-<%--                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";--%>
-<%--                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";--%>
-<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";--%>
-<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";--%>
-<%--                        script += "    </tr>";--%>
-<%--                    }--%>
-
-<%--                    script += "    </tbody>";--%>
-<%--                    script += "</table>";--%>
-
-<%--                    inputJson.innerHTML = script;--%>
-<%--                }--%>
-<%--            };--%>
-<%--            xmlHttp.open('POST', 'http://localhost/bsa/purchases/member');--%>
-<%--            xmlHttp.responseType = 'json';--%>
-<%--            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");--%>
-<%--            xmlHttp.send(parseSearchMember);--%>
-<%--        }--%>
-
-<%--    </script>--%>
     <script type="text/javascript">
-        var selectEvent = document.getElementById("searchButton");
-        selectEvent.addEventListener('click', search);
 
         var pageNo = 0;
         search();
