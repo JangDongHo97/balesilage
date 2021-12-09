@@ -53,10 +53,10 @@
                         </div>
                         <div class="col-xl-3" data-wow-delay="0.1s" data-wow-duration="1200ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 0.1s; animation-name: fadeInUp; text-align: right">
                             <div class="sidebar-search-box" style="margin-right: 20%">
-                                <form class="search-form" action="#">
+                                <div class="search-form">
                                     <input placeholder="ID 검색" type="text" id="searchMemberId">
                                     <button onclick="search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
