@@ -47,13 +47,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
 
-            <section class="cart" style="font-family: 'Nanum Gothic', sans-serif">
+            <section class="cart" style="font-family: 'Nanum Gothic', sans-serif; width: 55%">
                 <div class="container">
-                    <div class="row" style="margin-right: 4%; margin-top: 4%; height: 800px; width: 1100px">
+                    <div class="row" style="margin-right: 4%; margin-top: 8%; height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">
@@ -68,22 +66,20 @@
                                 </thead>
                             </table>
                             <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>
+                            <nav class="dataTable-pagination" style="justify-content: center">
+                                <ul id="pagingHtml" class="dataTable-pagination-list" style="justify-content: center; margin:4%">
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-
-                    <!-- 페이징 -->
-                    <div id="pagingHtml"></div>
-
-                    <div class="row">
-                        <div class="col-xl-11">
-                            <div class="button_box">
+                    <div class="row" style="justify-content: right">
+                        <div class="col-xl-7">
+                            <div class="button_box" style="margin-top:15%">
                                 <script>
                                     checkAccount();
                                 </script>
                                 <a href="/bsa/silages/form">
-                                    <button class="thm-btn checkout_btn" type="button" onclick="needLogin()"
-                                            style="width: 400px">내 곤포 사일리지 등록하기
-                                    </button>
+                                    <button class="thm-btn checkout_btn" type="button" onclick="needLogin()" style="width: 400px">내 곤포 사일리지 등록하기</button>
                                 </a>
                             </div>
                         </div>
