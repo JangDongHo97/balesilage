@@ -58,6 +58,9 @@
         <if test='"count2".equals(orderStandard)'>
             ORDER BY COUNT DESC
         </if>
+        <if test='"".equals(orderStandard)'>
+            ORDER BY ENROLL_DATETIME
+        </if>
         <if test="pageNo != -1">
             LIMIT #{pageNo}, 10
         </if>

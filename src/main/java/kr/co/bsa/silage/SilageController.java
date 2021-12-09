@@ -86,7 +86,7 @@ public class SilageController {
 
         silageCount = silageService.selectSilageList(initCommand).size();
 
-        String navigatorHtml = getNavigator(silageCount, dateCommand.getPageNo());
+        String navigatorHtml = navigator.getNavigator(silageCount, dateCommand.getPageNo());
 
         dateCommand.setPageNo((dateCommand.getPageNo() * 10));
         dateCommand.setSellerCode((Integer)session.getAttribute("memberCode"));
@@ -142,7 +142,7 @@ public class SilageController {
 
         DateCommand initCommand = new DateCommand();
         initCommand.setPageNo(-1);
-        initCommand.setOrderStandard(dateCommand.getOrderStandard());
+        initCommand.setOrderStandard(dateCommand.getOrderStandard().trim());
         initCommand.setTransactionStatus('Y');
 
         silageCount = silageService.selectSilageList(initCommand).size();

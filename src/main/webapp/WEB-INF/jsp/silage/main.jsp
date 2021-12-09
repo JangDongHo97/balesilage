@@ -257,58 +257,6 @@
 
 
         }
-
-        function orderBy() {
-            var standard = {
-                orderStandard: document.getElementById("order").value
-            };
-
-            var jsonOrder = JSON.stringify(standard);
-
-            console.log(jsonOrder);
-
-            var xmlHttp = new XMLHttpRequest();
-
-            var inputJson = document.getElementById("silageList");
-
-            xmlHttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    let storage = xmlHttp.response;
-
-                    var script = "";
-
-                    script += "<table class=\"cart_table\">";
-                    script += "    <tbody>";
-
-                    for (var i = 0; i < storage.length; i++) {
-                        if (storage[i].transactionStatus == 'Y') {
-                            script += "    <tr>";
-                            script += "        <div><td style=\"text-align: center\"><input type=\"hidden\" id=\"memberId\" value=\"" + storage[i].id + "\">" + storage[i].id + "</td></div>";
-                            script += "        <div><td style=\"text-align: right\">" + storage[i].weight + "</td></div>";
-                            script += "        <div><td style=\"text-align: right\">" + storage[i].count + "</td></div>";
-                            script += "        <div><td style=\"text-align: right\">" + storage[i].unitPrice + "</td></div>";
-                            script += "        <div><td style=\"text-align: right\">" + (storage[i].count * storage[i].unitPrice) + "</td></div>";
-                            script += "        <div class=\"row\" style=\"text-align: center\">";
-                            script += "            <td style=\"text-align: right\"><input type=\"button\" value=\"위치보기\" onclick=\"viewLocation(\'" + storage[i].id + "\')\"><br>";
-                            script += "                <a href=\"/bsa/silages/" + storage[i].silageCode + "\" onclick=needLogin()><input type=\"button\" value=\"상세조회\" ></a>";
-                            script += "            </td>";
-                            script += "        </div>";
-                            script += "    </tr>";
-                        }
-                    }
-
-                    script += "    </tbody>";
-                    script += "</table>";
-
-                    inputJson.innerHTML = script;
-
-                }
-            };
-            xmlHttp.open('POST', 'http://localhost/bsa/silages/order');
-            xmlHttp.responseType = 'json';
-            xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xmlHttp.send(jsonOrder);
-        }
     </script>
 
 <jsp:include page="/WEB-INF/jsp/util/bottom.jsp"/>

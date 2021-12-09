@@ -38,10 +38,34 @@
                 ON TRANSACTION.BUYER_CODE = MEMBER.MEMBER_CODE
                 <where>
                     <if test="startDate != null and endDate != null">
-                        AND TRANSACTION_DATETIME BETWEEN #{startDate} AND #{endDate}
+                        <if test='startDate != "" and endDate != ""'>
+                            AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+                        </if>
+                    </if>
+                    <if test="silageCode > 0">
+                        AND SILAGE_CODE = #{silageCode}
+                    </if>
+                    <if test="transactionCode > 0">
+                        AND TRANSACTION_CODE = #{transactionCode}
+                    </if>
+                    <if test="sellerCode != buyerCode">
+                        <if test="sellerCode > 0">
+                            AND SELLER_CODE = #{sellerCode}
+                        </if>
+                        <if test="buyerCode > 0">
+                            AND BUYER_CODE=#{buyerCode}
+                        </if>
+                    </if>
+                    <if test="sellerCode == buyerCode">
+                        <if test="sellerCode > 0 and buyerCode > 0">
+                            AND SELLER_CODE = #{sellerCode} OR BUYER_CODE=#{buyerCode}
+                        </if>
                     </if>
                 </where>
-        ORDER BY TRANSACTION_DATETIME
+                ORDER BY TRANSACTION_DATETIME
+                <if test="pageNo != -1">
+                    LIMIT #{pageNo}, 10
+                </if>
     </select>
 
     <select id="select"
@@ -70,7 +94,7 @@
                     AND TRANSACTION_CODE = #{transactionCode}
                 </if>
                 <if test="sellerId > 0">
-                    AND SELLER_ID = #{sellerId}
+                    AND SELLER_ID = ${sellerId}
                 </if>
             </where>
             ORDER BY TRANSACTION_DATETIME

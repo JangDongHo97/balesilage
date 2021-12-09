@@ -2,6 +2,7 @@ package kr.co.bsa.transaction;
 
 import kr.co.bsa.account.Account;
 import kr.co.bsa.account.AccountService;
+import kr.co.bsa.common.Navigator;
 import kr.co.bsa.member.Member;
 import kr.co.bsa.common.DateCommand;
 import kr.co.bsa.member.MemberService;
@@ -15,9 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/bsa")
@@ -30,6 +29,8 @@ public class TransactionController {
     private AccountService accountService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private Navigator navigator;
 
     //forward /WEB-INF/jsp/transaction/notice.jsp
     @GetMapping("/purchases/notice/{silageCode}")
@@ -58,25 +59,50 @@ public class TransactionController {
     }
 
     //forward /WEB-INF/jsp/transaction/purchaseList.jsp
-    @GetMapping("/purchases")
-    public ModelAndView searchPurchaseList(DateCommand dateCommand, HttpSession session) {
-        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
-        List<Transaction> afterTransactions = new ArrayList<Transaction>();
+    @GetMapping(value = "/purchases")
+    public ModelAndView purchasesListForm() {
+        return new ModelAndView("/transaction/purchaseList");
+    }
 
-        Iterator<Transaction> transactionIterator = transactions.iterator();
-        while (transactionIterator.hasNext()) {
-            Transaction iter = transactionIterator.next();
-            if(iter.getBuyerCode() == (Integer)session.getAttribute("memberCode")) {
-                afterTransactions.add(iter);
-            }
+    @ResponseBody
+    @PostMapping(value="/purchases/list")
+    public Map<String, Object> searchPurchaseList(@RequestBody(required = false) DateCommand dateCommand
+                                                                                , HttpSession session) {
+        int silageCount;
+        Map<String, Object> result = new HashMap<>();
+        Member member = new Member();
+        DateCommand initCommand = new DateCommand();
+
+        System.out.println(dateCommand.getId());
+
+        // 메퍼에서 sellerId로 검색했을때 문제가 있음.
+        if(dateCommand.getId() != null && !dateCommand.getId().equals("")) {
+            member.setId(dateCommand.getId());
+            member = memberService.selectMember(member);
+
+            initCommand.setSellerCode(member.getMemberCode());
+            dateCommand.setSellerCode(member.getMemberCode());
         }
 
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("memberCode",(Integer)session.getAttribute("memberCode"));
-        mav.addObject("transactions", afterTransactions);
-        mav.setViewName("/transaction/purchaseList");
+        initCommand.setPageNo(-1);
+        initCommand.setStartDate(dateCommand.getStartDate().trim());
+        initCommand.setEndDate(dateCommand.getEndDate().trim());
 
-        return mav;
+        initCommand.setBuyerCode((Integer)session.getAttribute("memberCode"));
+
+        silageCount = transactionService.selectTransactionList(initCommand).size();
+
+        String navigatorHtml = navigator.getNavigator(silageCount, dateCommand.getPageNo());
+
+        dateCommand.setPageNo((dateCommand.getPageNo() * 10));
+        dateCommand.setBuyerCode((Integer)session.getAttribute("memberCode"));
+
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+
+        result.put("navigator", navigatorHtml);
+        result.put("silages", transactions);
+
+        return result;
     }
 
     //forward /WEB-INF/jsp/transaction/purchaseView.jsp
@@ -120,12 +146,52 @@ public class TransactionController {
 
     //forward /WEB-INF/jsp/transaction/list.jsp
     @GetMapping("/transactions")
-    public ModelAndView searchTransactionList(DateCommand dateCommand) {
+    public ModelAndView transactionListForm(DateCommand dateCommand) {
         ModelAndView mav = new ModelAndView("/transaction/list");
-        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
-        mav.addObject("transactions", transactions);
 
         return mav;
+    }
+
+    @PostMapping(value="/transactions/list", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> searchTransactionList(@RequestBody(required = false) DateCommand dateCommand) {
+        int silageCount;
+        Map<String, Object> result = new HashMap<>();
+        Member member = new Member();
+        DateCommand initCommand = new DateCommand();
+
+        System.out.println(dateCommand.getId());
+
+        // 메퍼에서 Id로 검색했을때 문제가 있음.
+        // id검색했을 때 해당 아이디의 회원의 코드로 검색
+        if(dateCommand.getId() != null && !dateCommand.getId().equals("")) {
+            member.setId(dateCommand.getId());
+            member = memberService.selectMember(member);
+
+            initCommand.setSellerCode(member.getMemberCode());
+            initCommand.setBuyerCode(member.getMemberCode());
+            dateCommand.setSellerCode(member.getMemberCode());
+            dateCommand.setBuyerCode(member.getMemberCode());
+        }
+
+        initCommand.setPageNo(-1);
+        initCommand.setStartDate(dateCommand.getStartDate().trim());
+        initCommand.setEndDate(dateCommand.getEndDate().trim());
+
+        System.out.println(initCommand);
+
+        silageCount = transactionService.selectTransactionList(initCommand).size();
+
+        String navigatorHtml = navigator.getNavigator(silageCount, dateCommand.getPageNo());
+
+        dateCommand.setPageNo((dateCommand.getPageNo() * 10));
+
+        List<Transaction> transactions = transactionService.selectTransactionList(dateCommand);
+
+        result.put("navigator", navigatorHtml);
+        result.put("silages", transactions);
+
+        return result;
     }
 
     //redirect /bsa/silages
@@ -145,7 +211,6 @@ public class TransactionController {
 
         return mav;
     }
-
 
     //-
     @PutMapping("/transactions/deposit")

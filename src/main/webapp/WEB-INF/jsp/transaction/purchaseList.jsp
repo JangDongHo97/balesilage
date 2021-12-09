@@ -50,7 +50,7 @@
                                             <input type="date" id="endDate">
                                         </td>
                                         <td>
-                                            <input type="button" value="검색" onclick="searchDateScope('${memberCode}')">
+                                            <input type="button" value="검색" onclick="search()">
                                         </td>
                                     </tr>
                                 </table>
@@ -59,7 +59,7 @@
                                 <div class="sidebar-search-box">
                                     <form class="search-form" action="#">
                                         <input placeholder="ID 검색" type="text" id="searchMemberId">
-                                        <button type="submit" onclick="searchMember()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                        <button id="searchButton" ><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -81,128 +81,164 @@
                         </tr>
                         </thead>
                     </table>
-                    <div id="silageList" style="position:relative; width:101.5%; height:120%; overflow-y:auto; overflow-x:auto;">
-                        <table class="cart_table">
-                            <tbody style="text-align: center">
-                            <c:forEach items="${transactions}" var="transaction" varStatus="status">
-                                <tr>
-                                    <td class="colum_box" style="padding: 40 0 40 0">
-                                            ${status.count}
-                                    </td>
-                                    <td class="title"  style="padding: 40 0 40 0">
-                                            ${transaction.sellerId}
-                                    </td>
-                                    <td class="pro_qty" style="padding: 40 0 40 0">
-                                            ${transaction.silageCode}
-                                    </td>
-                                    <td class="pro_price" style="padding: 40 0 40 0">
-                                            ${transaction.transactionDateTime}
-                                    </td>
-                                    <td class="pro_sub_total" style="padding: 40 0 40 0">
-                                            ${transaction.totalPrice}
-                                    </td>
-                                    <td class="pro_sub_total" style="padding: 40 0 40 0">
-                                        <a href="/bsa/purchases/${transaction.transactionCode}"><input type="button" value="상세 조회"></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-                            </tbody>
-                        </table>
+                    <div id="silageList" style="position:relative; width:101.5%; height:60%; overflow-y:auto; overflow-x:auto;"></div>
+                    <div id="pagingHtml"></div>
                     </div>
                 </div>
             </div>
     </section>
 
+<%--    <script type="text/javascript">--%>
+<%--        function searchDateScope(memberCode) {--%>
+<%--            var xmlHttp = new XMLHttpRequest();--%>
+<%--            var dateScope = {--%>
+<%--                startDate : document.getElementById("startDate").value--%>
+<%--                , endDate : document.getElementById("endDate").value--%>
+<%--            };--%>
+<%--            var parseDateScope = JSON.stringify(dateScope);--%>
+
+<%--            var inputJson = document.getElementById("silageList");--%>
+
+<%--            xmlHttp.onreadystatechange = function() {--%>
+<%--                if(this.readyState == 4 && this.status == 200) {--%>
+<%--                    let storage = xmlHttp.response;--%>
+
+<%--                    var script = "";--%>
+<%--                    script += "<table class=\"cart_table\">";--%>
+<%--                    script += "    <tbody style=\"text-align: center\">";--%>
+
+<%--                    for (var i = 0; i < storage.length; i++) {--%>
+<%--                        script += "    <tr>";--%>
+<%--                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";--%>
+<%--                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";--%>
+<%--                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";--%>
+<%--                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";--%>
+<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";--%>
+<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";--%>
+<%--                        script += "    </tr>";--%>
+<%--                    }--%>
+
+<%--                    script += "    </tbody>";--%>
+<%--                    script += "</table>";--%>
+
+<%--                    inputJson.innerHTML = script;--%>
+
+<%--                }--%>
+<%--            };--%>
+<%--            xmlHttp.open('POST', 'http://localhost/bsa/purchases');--%>
+<%--            xmlHttp.responseType = 'json';--%>
+<%--            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");--%>
+<%--            xmlHttp.send(parseDateScope);--%>
+<%--        }--%>
+
+<%--        function searchMember() {--%>
+<%--            var recentMemberCode = ${memberCode};--%>
+
+<%--            var searchMemberId = {--%>
+<%--                id : document.getElementById("searchMemberId").value--%>
+<%--            };--%>
+
+<%--            var parseSearchMember = JSON.stringify(searchMemberId);--%>
+
+<%--            var xmlHttp = new XMLHttpRequest();--%>
+
+<%--            var inputJson = document.getElementById("silageList");--%>
+
+<%--            xmlHttp.onreadystatechange = function() {--%>
+<%--                if(this.readyState == 4 && this.status == 200) {--%>
+<%--                    let storage = xmlHttp.response;--%>
+
+<%--                    var script = "";--%>
+<%--                    script += "<table class=\"cart_table\">";--%>
+<%--                    script += "    <tbody style=\"text-align: center\">";--%>
+
+<%--                    for (var i = 0; i < storage.length; i++) {--%>
+<%--                        script += "    <tr>";--%>
+<%--                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";--%>
+<%--                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";--%>
+<%--                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";--%>
+<%--                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";--%>
+<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";--%>
+<%--                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";--%>
+<%--                        script += "    </tr>";--%>
+<%--                    }--%>
+
+<%--                    script += "    </tbody>";--%>
+<%--                    script += "</table>";--%>
+
+<%--                    inputJson.innerHTML = script;--%>
+<%--                }--%>
+<%--            };--%>
+<%--            xmlHttp.open('POST', 'http://localhost/bsa/purchases/member');--%>
+<%--            xmlHttp.responseType = 'json';--%>
+<%--            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");--%>
+<%--            xmlHttp.send(parseSearchMember);--%>
+<%--        }--%>
+
+<%--    </script>--%>
     <script type="text/javascript">
-        function searchDateScope(memberCode) {
-            var xmlHttp = new XMLHttpRequest();
-            var dateScope = {
-                startDate : document.getElementById("startDate").value
+        var selectEvent = document.getElementById("searchButton");
+        selectEvent.addEventListener('click', search);
+
+        var pageNo = 0;
+        search();
+
+        function initPage() {
+            pageNo = 0;
+        }
+
+        function changePage(pageButtonId) {
+            pageNo = parseInt(pageButtonId);
+
+            search();
+        }
+
+        function search() {
+            var searchKeyword = {
+                id: document.getElementById("searchMemberId").value
+                ,startDate : document.getElementById("startDate").value
                 , endDate : document.getElementById("endDate").value
             };
-            var parseDateScope = JSON.stringify(dateScope);
 
-            var inputJson = document.getElementById("silageList");
+            console.log(searchKeyword);
 
-            xmlHttp.onreadystatechange = function() {
-                if(this.readyState == 4 && this.status == 200) {
-                    let storage = xmlHttp.response;
-
-                    var script = "";
-                    script += "<table class=\"cart_table\">";
-                    script += "    <tbody style=\"text-align: center\">";
-
-                    for (var i = 0; i < storage.length; i++) {
-                        script += "    <tr>";
-                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
-                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
-                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
-                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
-                        script += "    </tr>";
-                    }
-
-                    script += "    </tbody>";
-                    script += "</table>";
-
-                    inputJson.innerHTML = script;
-
+            $.ajax({
+                url: "${pageContext.request.contextPath}/bsa/purchases/list",
+                type: "POST",
+                data: JSON.stringify(searchKeyword),
+                headers: {"Content-Type": "application/json;charset=UTF-8"},
+                success: function (rows) {
+                    console.log(rows.navigator);
+                    drawTable(rows);
                 }
-            };
-            xmlHttp.open('POST', 'http://localhost/bsa/purchases');
-            xmlHttp.responseType = 'json';
-            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-            xmlHttp.send(parseDateScope);
+            })
         }
 
-        function searchMember() {
-            var recentMemberCode = ${memberCode};
+        function drawTable(rows) {
+            var showData = rows.silages;
+            var navigatorHtml = rows.navigator;
 
-            var searchMemberId = {
-                id : document.getElementById("searchMemberId").value
-            };
+            var script = "";
+            script += "<table class=\"cart_table\">";
+            script += "    <tbody style=\"text-align: center\">";
 
-            var parseSearchMember = JSON.stringify(searchMemberId);
+            for (var i = 0; i < showData.length; i++) {
+                script += "    <tr>";
+                script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
+                script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + showData[i].sellerId + "</td>";
+                script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + showData[i].silageCode + "</td>";
+                script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + showData[i].transactionDateTime + "</td>";
+                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (showData[i].totalPrice) + "</td>";
+                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + showData[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
+                script += "    </tr>";
+            }
+            script += "    </tbody>";
+            script += "</table>";
 
-            var xmlHttp = new XMLHttpRequest();
-
-            var inputJson = document.getElementById("silageList");
-
-            xmlHttp.onreadystatechange = function() {
-                if(this.readyState == 4 && this.status == 200) {
-                    let storage = xmlHttp.response;
-
-                    var script = "";
-                    script += "<table class=\"cart_table\">";
-                    script += "    <tbody style=\"text-align: center\">";
-
-                    for (var i = 0; i < storage.length; i++) {
-                        script += "    <tr>";
-                        script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                        script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
-                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].transactionDateTime + "</td>";
-                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
-                        script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + storage[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
-                        script += "    </tr>";
-                    }
-
-                    script += "    </tbody>";
-                    script += "</table>";
-
-                    inputJson.innerHTML = script;
-                }
-            };
-            xmlHttp.open('POST', 'http://localhost/bsa/purchases/member');
-            xmlHttp.responseType = 'json';
-            xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-            xmlHttp.send(parseSearchMember);
+            $("#pagingHtml").html(navigatorHtml);
+            $("#silageList").html(script);
         }
-
     </script>
-</div>
 
 <jsp:include page="../util/bottom.jsp"/>
 
