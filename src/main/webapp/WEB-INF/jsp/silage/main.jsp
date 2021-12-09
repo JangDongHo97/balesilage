@@ -69,6 +69,12 @@
                                 </tbody>
                             </table>
                             <div id="pagingHtml" style="justify-content: center; margin:4%"></div>
+                            <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row" style="float : none; margin:0 auto;">
+                        <div class="col-xl-4" style="padding-left: 42.5%">
+                            <div id="pagingHtml" style="justify-content: center; margin:4%;text-align:center;"></div>
                         </div>
                     </div>
                     <div class="row" style="justify-content: right">
