@@ -148,11 +148,11 @@
                 script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].totalPrice) + "</td>";
                 if(showData[i].depositStatus) {
                     script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + showData[i].transactionCode + "\">";
-                    script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
+                    script += "            <input type=\"button\" style=\"color: red\" id=\"deposit" + showData[i].transactionCode + "\" value=\"취소\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
                     script += "        </td>";
                 } else {
                     script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + showData[i].transactionCode + "\">";
-                    script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
+                    script += "            <input type=\"button\" style=\"color: blue\" id=\"deposit" + showData[i].transactionCode + "\" value=\"확인\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
                     script += "        </td>";
                 }
 

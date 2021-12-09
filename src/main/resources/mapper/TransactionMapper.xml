@@ -39,7 +39,7 @@
                 <where>
                     <if test="startDate != null and endDate != null">
                         <if test='startDate != "" and endDate != ""'>
-                            AND ENROLL_DATETIME BETWEEN #{startDate} AND #{endDate}
+                            AND TRANSACTION_DATETIME BETWEEN #{startDate} AND #{endDate}
                         </if>
                     </if>
                     <if test="silageCode > 0">
