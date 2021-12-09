@@ -3,14 +3,50 @@ package kr.co.bsa.common;
 import java.io.Serializable;
 
 public class DateCommand implements Serializable {
+    private int silageCode;
+    private int sellerCode;
+    private int buyerCode;
+    private int transactionCode;
+    private String id;
     private String startDate;
     private String endDate;
-    private String id;
     private char transactionStatus;
     private String orderStandard;
     private int pageNo;
 
     public DateCommand() {
+    }
+
+    public int getSilageCode() {
+        return silageCode;
+    }
+
+    public void setSilageCode(int silageCode) {
+        this.silageCode = silageCode;
+    }
+
+    public int getSellerCode() {
+        return sellerCode;
+    }
+
+    public void setSellerCode(int sellerCode) {
+        this.sellerCode = sellerCode;
+    }
+
+    public int getBuyerCode() {
+        return buyerCode;
+    }
+
+    public void setBuyerCode(int buyerCode) {
+        this.buyerCode = buyerCode;
+    }
+
+    public int getTransactionCode() {
+        return transactionCode;
+    }
+
+    public void setTransactionCode(int transactionCode) {
+        this.transactionCode = transactionCode;
     }
 
     public int getPageNo() {
@@ -64,10 +100,14 @@ public class DateCommand implements Serializable {
     @Override
     public String toString() {
         return "DateCommand{" +
-                "startDate='" + startDate + '\'' +
+                "silageCode=" + silageCode +
+                ", sellerCode=" + sellerCode +
+                ", buyerCode=" + buyerCode +
+                ", transactionCode=" + transactionCode +
+                ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", id='" + id + '\'' +
-                ", transactionStatus='" + transactionStatus + '\'' +
+                ", transactionStatus=" + transactionStatus +
                 ", orderStandard='" + orderStandard + '\'' +
                 ", pageNo=" + pageNo +
                 '}';
