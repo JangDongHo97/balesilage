@@ -7992,14 +7992,14 @@ h6 {
 .showing-result-shorting .bootstrap-select > .dropdown-toggle {
     max-width: 300px;
     width: 100%;
-    height: 70px;
-    line-height: 70px;
+    height: 50px;
+    line-height: 50px;
     border: 1px solid #f5f0e9;
     padding: 0 30px;
     outline: none;
     border-radius: 5px;
-    background: transparent;
-    color: #878986;
+    background: lightgray;
+    color: #343a40;
     font-size: 16px;
 }
 

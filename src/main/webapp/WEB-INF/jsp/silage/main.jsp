@@ -29,15 +29,23 @@
     </section>
 
     <section class="contact_google_map_1">
-        <div class="shorting" style="position: absolute; right: 0; width: 15%; margin: 1%">
-            <div class="dropdown bootstrap-select">
-                <select class="selectpicker" name="orderSelect" id="order" data-width="100%" tabindex="-98">
-                    <option value="" selected="selected">-선택-</option>
-                    <option value="unitP1">단가 낮은순</option>
-                    <option value="unitP2">단가 높은순</option>
-                    <option value="count1">개수 낮은순</option>
-                    <option value="count2">개수 높은순</option>
-                </select>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="showing-result-shorting">
+                    <div class="right">
+                        <div class="shorting" style="position: absolute; right: 0; width: 15%; margin: 1%; margin-right: 4%;">
+                            <div class="dropdown bootstrap-select">
+                                <select class="selectpicker" name="orderSelect" id="order" data-width="100%" tabindex="-98">
+                                    <option value="" selected="selected">-선택-</option>
+                                    <option value="unitP1">단가 낮은순</option>
+                                    <option value="unitP2">단가 높은순</option>
+                                    <option value="count1">개수 낮은순</option>
+                                    <option value="count2">개수 높은순</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -62,10 +70,10 @@
                             <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>
                         </div>
                     </div>
-                    <div id="pagingHtml">
-                        <%--                        페이징 화면이 들어갈 위치--%>
 
-                    </div>
+                    <!-- 페이징 -->
+                    <div id="pagingHtml"></div>
+
                     <div class="row">
                         <div class="col-xl-11">
                             <div class="button_box">
@@ -161,15 +169,12 @@
                 , orderStandard : document.getElementById("order").value
             };
 
-            console.log(searchKeyword);
-
             $.ajax({
                 url: "${pageContext.request.contextPath}/bsa/silages/list",
                 type: "POST",
                 data: JSON.stringify(searchKeyword),
                 headers: {"Content-Type": "application/json;charset=UTF-8"},
                 success: function (rows) {
-                    console.log(rows.navigator);
                     drawTable(rows);
                 }
             })
