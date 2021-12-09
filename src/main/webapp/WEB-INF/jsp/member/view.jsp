@@ -86,7 +86,7 @@
                                 <a href="/bsa/members/form/${member.memberCode}" class="thm-btn" style="text-align: center">수정</a>
                             </div>
                             <div class="place_order_btn" style="margin:10px">
-                                <input type="submit" value="회원탈퇴" class="thm-btn">
+                                <input type="submit" value="회원탈퇴" class="thm-btn" style="padding-left: 31px; padding-right: 31px">
                             </div>
                         </div>
                     </div>
