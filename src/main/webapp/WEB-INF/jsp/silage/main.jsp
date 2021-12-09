@@ -47,32 +47,28 @@
                     </div>
                 </div>
             </div>
-            <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:800px;font-family: 'Nanum Gothic', sans-serif"></div>
+            <div id="map" style="margin-left: 4%; margin-top: 2%; width:700px;height:1000px;font-family: 'Nanum Gothic', sans-serif"></div>
 
             <section class="cart" style="font-family: 'Nanum Gothic', sans-serif; width: 55%">
                 <div class="container">
-                    <div class="row" style="margin-right: 4%; margin-top: 8%; height: 800px; width: 1100px">
+                    <div class="row" style="margin-right: 4%; margin-top: 4%; height: 800px; width: 1100px">
                         <div class="col-xl-12">
                             <table class="cart_table">
                                 <thead class="cart_table_head">
-                                <tr>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">판매자</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">무게</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">개수</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">단가</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">가격</th>
-                                    <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">비고</th>
-                                </tr>
-                                </thead>
-                            </table>
-                            <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>
-                            <div style="margin-left: 43%">
-                                <table>
                                     <tr>
-                                        <div id="pagingHtml" style="justify-content: center; margin:4%"></div>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">판매자</th>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">무게</th>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">개수</th>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">단가</th>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">가격</th>
+                                        <th colspan="1" style="text-align: center;font-family: 'Nanum Gothic', sans-serif; font-size: 20px">비고</th>
                                     </tr>
-                                </table>
-                            </div>
+                                </thead>
+                                <tbody id="silageList">
+<%--                                    <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>--%>
+                                </tbody>
+                            </table>
+                            <div id="pagingHtml" style="justify-content: center; margin:4%"></div>
                         </div>
                     </div>
                     <div class="row" style="justify-content: right">
@@ -82,7 +78,7 @@
                                     checkAccount();
                                 </script>
                                 <a href="/bsa/silages/form">
-                                    <button class="thm-btn checkout_btn" type="button" onclick="needLogin()" style="width: 400px">내 곤포 사일리지 등록하기</button>
+                                    <button class="thm-btn checkout_btn" type="button" onclick="needLogin()" style="width: 400px; margin-top: 15%">내 곤포 사일리지 등록하기</button>
                                 </a>
                             </div>
                         </div>
@@ -91,6 +87,7 @@
             </section>
         </div>
     </section>
+</div>
 
 <%--지도 조회--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0b4825b8dca8223449db80faff26514&libraries=services"></script>
@@ -188,9 +185,6 @@
 
             var script = "";
 
-            script += "<table class=\"cart_table\">";
-
-            script += "    <tbody>";
             for (var i = 0; i < showData.length; i++) {
 
                 if (showData[i].transactionStatus == 'Y') {
@@ -208,9 +202,6 @@
                     script += "    </tr>";
                 }
             }
-            script += "    </tbody>";
-
-            script += "</table>";
 
             $("#pagingHtml").html(navigatorHtml);
             $("#silageList").html(script);
