@@ -66,10 +66,13 @@
                                 </thead>
                             </table>
                             <div id="silageList" style="position:relative; width:100%; height:700px; overflow-y:auto; overflow-x:auto;"></div>
-                            <nav class="dataTable-pagination" style="justify-content: center">
-                                <ul id="pagingHtml" class="dataTable-pagination-list" style="justify-content: center; margin:4%">
-                                </ul>
-                            </nav>
+                            <div style="margin-left: 43%">
+                                <table>
+                                    <tr>
+                                        <div id="pagingHtml" style="justify-content: center; margin:4%"></div>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="row" style="justify-content: right">

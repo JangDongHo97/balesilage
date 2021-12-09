@@ -358,13 +358,13 @@
             </div>
             <div class="main-nav__main-navigation">
                 <ul class=" main-nav__navigation-box">
-                    <li class="dropdown">
+                    <li class="dropdown" style="text-align: center">
                         <a href="/bsa/silages"> 메인 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" style="text-align: center">
                         <a href="/bsa/silages/mine"> 등록 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" style="text-align: center">
                         <a href="/bsa/purchases"> 구매 내역 <button class="dropdown-btn"><i class="fa fa-angle-right"></i></button></a>
                     </li>
                 </ul>
