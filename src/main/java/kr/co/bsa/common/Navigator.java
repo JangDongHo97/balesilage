@@ -6,55 +6,54 @@ import org.springframework.stereotype.Component;
 public class Navigator {
     public String getNavigator(int allNo, int pageNo) {
         StringBuffer navigator = new StringBuffer("");
-
-        navigator.append("<div id='pagingHtml'><table><tbody><tr>");
-        if (pageNo== 0) {
-            navigator.append("<a class='disable' id = 'firstPage' ");
+        if (pageNo == 0) {
+            navigator.append("<td class='pager'><a class='disable' id = 'firstPage' ");
         } else {
-            navigator.append("<a id = 'firstPage' ");
+            navigator.append("<td class='pager'><a id = 'firstPage' ");
         }
         navigator.append("href='#' ");
-        navigator.append("onclick='changePage(" + 0 + ")'><td>&laquo;&nbsp;&nbsp;&nbsp;&nbsp;</td></a>");
+        navigator.append("onclick='changePage(" + 0 + ")'>&laquo;&nbsp;&nbsp;&nbsp;&nbsp;</a></td> ");
         if ((pageNo / 5) == 0) {
+            navigator.append("<td class='pager' >");
             navigator.append("<a href='#' class='disable' id='backPage' ");
         } else {
+            navigator.append("<td class='pager'>");
             navigator.append("<a href='#' id='backPage' ");
         }
-        navigator.append(" onclick='changePage(" + (((pageNo / 5) * 5) - 5) + ")'><td>&lt;&nbsp;&nbsp;&nbsp;&nbsp;</td></a>");
-
+        navigator.append(" onclick='changePage(" + (((pageNo / 5) * 5) - 5) + ")'>&lt;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
         int endPageNo = 0;
         if (((allNo - 1) / 10) + 1 < ((pageNo / 5) * 5) + 5) {
             endPageNo = (allNo - 1) / 10 + 1;
         } else {
             endPageNo = ((pageNo / 5) * 5) + 5;
         }
-
         int count = 1;
         for (int i = ((pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
-                navigator.append("<a href='#' onclick='changePage(" + i + ")><td class='active'");
+                navigator.append("<td class='active'><a href='#' onclick='changePage(" + i + ")'");
             } else {
-                navigator.append("<a href='#' onclick='changePage(\" + i + \")><td");
+                navigator.append("<td class=''><a href='#' onclick='changePage(" + i + ")'");
             }
-            navigator.append(">" + (i + 1) + " &nbsp;&nbsp;&nbsp;&nbsp;</td></a>");
+            navigator.append(" >" + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
         }
         if (endPageNo < (allNo - 1) / 10 + 1) {
+            navigator.append("<td class='pager' id='datatable_next'>");
             navigator.append("        <a id='nextPage' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
         } else {
+            navigator.append("<td class='pager' id='datatable_next'>");
             navigator.append("        <a id='nextPage' class='disable' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
         }
         navigator.append("        href='#' ");
-        navigator.append(" ><td>&gt;&nbsp;&nbsp;&nbsp;&nbsp;</td></a>");
+        navigator.append(" >&gt;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
         if (pageNo < (allNo - 1) / 10) {
+            navigator.append("<td class='pager'>");
             navigator.append("<a id='lastPage' onclick='changePage(" + ((allNo - 1) / 10) + ")' ");
         } else {
+            navigator.append("<td class='pager'>");
             navigator.append("<a id='lastPage' class='disable' onclick='changePage(" + ((allNo - 1) / 10) + ")' ");
         }
         navigator.append("href='#' ");
-        navigator.append("><td>&raquo;&nbsp;&nbsp;&nbsp;&nbsp;</td></a>");
-
-        navigator.append("</tr></tbody></table></div>");
-
+        navigator.append(">&raquo;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
         return navigator.toString();
     }
 }

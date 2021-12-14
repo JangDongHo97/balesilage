@@ -18,7 +18,7 @@
     </insert>
 
     <select id="selectAll"
-            parameterType="kr.co.bsa.common.DateCommand"
+            parameterType="kr.co.bsa.common.Condition"
             resultType="Silage">
         SELECT
         SILAGE_CODE
@@ -58,8 +58,8 @@
         <if test='"count2".equals(orderStandard)'>
             ORDER BY COUNT DESC
         </if>
-        <if test='"".equals(orderStandard)'>
-            ORDER BY ENROLL_DATETIME
+        <if test='"".equals(orderStandard) or orderStandard == null'>
+            ORDER BY ENROLL_DATETIME DESC
         </if>
         <if test="pageNo != -1">
             LIMIT #{pageNo}, 10
@@ -89,18 +89,7 @@
                 AND SELLER_CODE=#{sellerCode}
             </if>
         </where>
-        <if test="unitPrice == 1">
-            ORDER BY UNIT_PRICE
-        </if>
-        <if test="unitPrice == 2">
-            ORDER BY UNIT_PRICE DESC
-        </if>
-        <if test="count == 1">
-            ORDER BY COUNT
-        </if>
-        <if test="count == 2">
-            ORDER BY COUNT DESC
-        </if>
+        ORDER BY ENROLL_DATETIME DESC
     </select>
 
     <update id="update"

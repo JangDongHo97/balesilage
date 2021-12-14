@@ -1,6 +1,6 @@
 package kr.co.bsa.silage;
 
-import kr.co.bsa.common.DateCommand;
+import kr.co.bsa.common.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +30,8 @@ public class SilageServiceImpl implements SilageService {
 
     @Override
     @Transactional
-    public List<Silage> selectSilageList(DateCommand dateCommand) {
-        return silageMapper.selectAll(dateCommand);
+    public List<Silage> selectSilageList(Condition condition) {
+        return silageMapper.selectAll(condition);
     }
 
 

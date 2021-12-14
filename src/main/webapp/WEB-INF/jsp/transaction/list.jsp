@@ -55,7 +55,7 @@
                             <div class="sidebar-search-box" style="margin-right: 20%">
                                 <div class="search-form">
                                     <input placeholder="ID 검색" type="text" id="searchMemberId">
-                                    <button onclick="search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                    <button onclick="initPage(), search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -91,10 +91,10 @@
                     <div id="pagingHtml" style="justify-content: center; margin:4% text-align:center;"></div>
                 </div>
             </div>
+        </div>
     </section>
 
     <script type="text/javascript">
-        //json요청 결과
         var storage;
         var pageNo = 0;
         search();
@@ -114,9 +114,8 @@
                 id: document.getElementById("searchMemberId").value
                 ,startDate : document.getElementById("startDate").value
                 , endDate : document.getElementById("endDate").value
+                , pageNo : pageNo
             };
-
-            console.log(searchKeyword);
 
             $.ajax({
                 url: "${pageContext.request.contextPath}/bsa/transactions/list",
@@ -124,7 +123,6 @@
                 data: JSON.stringify(searchKeyword),
                 headers: {"Content-Type": "application/json;charset=UTF-8"},
                 success: function (rows) {
-                    console.log(rows.navigator);
                     drawTable(rows);
                 }
             })
@@ -145,7 +143,7 @@
                 script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].bankName) + "</td>";
                 script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].accountNo) + "</td>";
                 script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].transactionDateTime) + "</td>";
-                script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].totalPrice) + "</td>";
+                script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + addFormat(showData[i].totalPrice) + " 원</td>";
                 if(showData[i].depositStatus) {
                     script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + showData[i].transactionCode + "\">";
                     script += "            <input type=\"button\" style=\"color: red\" id=\"deposit" + showData[i].transactionCode + "\" value=\"취소\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
@@ -170,7 +168,6 @@
                 script += "        </td>";
                 script += "    </tr>";
             }
-
             $("#pagingHtml").html(navigatorHtml);
             $("#silageList").html(script);
         }
@@ -199,13 +196,11 @@
                         depositScript += "            <input type=\"button\" style=\"color: blue\" id=\"deposit" + afterTransaction.transactionCode + "\" value=\"확인\" onclick=\"checkDeposit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.depositStatus + "\')\">";
                         depositScript += "        </td>";
                     }
-
                     inputJson.innerHTML = depositScript;
-
                 }
             };
 
-            xmlHttp.open('PUT', 'http://localhost/bsa/transactions/deposit');
+            xmlHttp.open('PUT', '${pageContext.request.contextPath}/bsa/transactions/deposit');
             xmlHttp.responseType = 'json';
             xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
             xmlHttp.send(parseTransaction);
@@ -213,8 +208,6 @@
 
         function checkRemit(transCode, remit){
             var depositStatus = document.getElementById("deposit"+transCode).value;
-
-            console.log(document.getElementById("deposit"+transCode).value);
 
             if(depositStatus == '확인') {
                 window.alert("입금 확인을 먼저 해주세요!")
@@ -243,13 +236,11 @@
                         remitScript += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkRemit(\'" + afterTransaction.transactionCode + "\',\'" + afterTransaction.remitStatus + "\')\">";
                         remitScript += "        </td>";
                     }
-
                     inputJson.innerHTML = remitScript;
-
                 }
             };
 
-            xmlHttp.open('PUT', 'http://localhost/bsa/transactions/remit');
+            xmlHttp.open('PUT', '${pageContext.request.contextPath}/bsa/transactions/remit');
             xmlHttp.responseType = 'json';
             xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
             xmlHttp.send(parseTransaction);
@@ -266,58 +257,55 @@
 
             xmlHttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
-                    var storage = xmlHttp.response;
-                    console.log(storage);
+                    var showData = xmlHttp.response;
 
                     var script = "";
-                    script += "<table class=\"cart_table\">";
-                    script += "    <tbody style=\"text-align: center\">";
-
-                    for (var i = 0; i < storage.length; i++) {
+                    for (var i = 0; i < showData.length; i++) {
                         script += "    <tr>";
                         script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
-                        script += "        <td class=\"title\"  style=\"padding: 40 0 40 0\">" + storage[i].silageCode + "</td>";
-                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + storage[i].id + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + storage[i].sellerId + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].bankName) + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].accountNo) + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].transactionDateTime) + "</td>";
-                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (storage[i].totalPrice) + "</td>";
-                        if(storage[i].depositStatus) {
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + storage[i].transactionCode + "\">";
-                            script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkDeposit(\'" + storage[i].transactionCode + "\',\'" + storage[i].depositStatus + "\')\">";
+                        script += "        <td class=\"title\"  style=\"padding: 40 0 40 0\">" + showData[i].silageCode + "</td>";
+                        script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + showData[i].id + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + showData[i].sellerId + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].bankName) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].accountNo) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].transactionDateTime) + "</td>";
+                        script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + addFormat(showData[i].totalPrice) + " 원</td>";
+                        if(showData[i].depositStatus) {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + showData[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: red\" id=\"deposit" + showData[i].transactionCode + "\" value=\"취소\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
                             script += "        </td>";
                         } else {
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + storage[i].transactionCode + "\">";
-                            script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkDeposit(\'" + storage[i].transactionCode + "\',\'" + storage[i].depositStatus + "\')\">";
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusDeposit" + showData[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: blue\" id=\"deposit" + showData[i].transactionCode + "\" value=\"확인\" onclick=\"checkDeposit(\'" + showData[i].transactionCode + "\',\'" + showData[i].depositStatus + "\')\">";
                             script += "        </td>";
                         }
 
-                        if(storage[i].remitStatus) {
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + storage[i].transactionCode + "\">";
-                            script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkRemit(\'" + storage[i].transactionCode + "\',\'" + storage[i].remitStatus + "\')\">";
+                        if(showData[i].remitStatus) {
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + showData[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: red\" value=\"취소\" onclick=\"checkRemit(\'" + showData[i].transactionCode + "\',\'" + showData[i].remitStatus + "\')\">";
                             script += "        </td>";
                         } else {
-                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + storage[i].transactionCode + "\">";
-                            script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkRemit(\'" + storage[i].transactionCode + "\',\'" + storage[i].remitStatus + "\')\">";
+                            script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\" id=\"statusRemit" + showData[i].transactionCode + "\">";
+                            script += "            <input type=\"button\" style=\"color: blue\" value=\"확인\" onclick=\"checkRemit(\'" + showData[i].transactionCode + "\',\'" + showData[i].remitStatus + "\')\">";
                             script += "        </td>";
                         }
                         script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">";
-                        script += "            <input type=\"button\" value=\"거래 취소\" onclick=\"cancleTransaction(\'" + (storage[i].transactionCode) + "\')\">";
+                        script += "            <input type=\"button\" value=\"거래 취소\" onclick=\"cancleTransaction(\'" + (showData[i].transactionCode) + "\')\">";
                         script += "        </td>";
                         script += "    </tr>";
                     }
-                    script += "    </tbody>";
-                    script += "</table>";
-
                     inputJson.innerHTML = script;
                 }
             }
 
-            xmlHttp.open('DELETE', 'http://localhost/bsa/transactions');
+            xmlHttp.open('DELETE', '${pageContext.request.contextPath}/bsa/transactions');
             xmlHttp.responseType='json';
             xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
             xmlHttp.send(parseTransaction);
+        }
+
+        function addFormat(amount) {
+            return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
         }
     </script>
 </div>

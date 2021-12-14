@@ -18,7 +18,6 @@ public class CommonController {
     @Autowired
     private LoginService loginService;
 
-    //forward /WEB-INF/jsp/common/login.jsp
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView("common/login");
@@ -26,23 +25,19 @@ public class CommonController {
         return mav;
     }
 
-    //redirect /bsa/silages
     @PostMapping("/login")
     public ModelAndView login(@Valid Member member, HttpSession session) {
         ModelAndView mav = null;
         Member afterMember = loginService.login(member);
         try {
-            //회원일 시
             if (afterMember.getMemberStatus() == 'Y') {
                 mav = new ModelAndView(new RedirectView("/bsa/silages"));
                 session.setAttribute("memberCode", afterMember.getMemberCode());
-
-                //관리자일 시
-            } else if(afterMember.getMemberStatus() == 'A') {
+                session.setAttribute("memberId", afterMember.getId());
+            } else if (afterMember.getMemberStatus() == 'A') {
                 mav = new ModelAndView(new RedirectView("/bsa/silages"));
                 session.setAttribute("memberCode", 1);
-
-                //탈퇴회원, 비회원일 시
+                session.setAttribute("memberId", afterMember.getId());
             } else {
                 session.setAttribute("loginErrorMsg", "등록된 회원 정보가 없습니다.");
                 mav = new ModelAndView(new RedirectView("/bsa/login"));
@@ -51,19 +46,18 @@ public class CommonController {
             session.setAttribute("loginErrorMsg", "등록된 회원 정보가 없습니다.");
             mav = new ModelAndView(new RedirectView("/bsa/login"));
         }
+
         return mav;
     }
 
-    //redirect /bsa/silages
     @GetMapping("/logout")
-    public ModelAndView logout(HttpSession session){
+    public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         session.invalidate();
 
         return mav;
     }
 
-    //forward /WEB-INF/jsp/common/auth.jsp
     @GetMapping("/auth")
     public ModelAndView checkAuth() {
         ModelAndView mav = new ModelAndView("common/auth");
@@ -71,17 +65,15 @@ public class CommonController {
         return mav;
     }
 
-    //redirect /bsa/member/{memberCode}/form
     @PostMapping("/auth")
     public ModelAndView checkAuth(Member member, HttpSession session) {
         member.setMemberCode((int) session.getAttribute("memberCode"));
-        if(loginService.auth(member)) {
+        if (loginService.auth(member)) {
             ModelAndView mav = new ModelAndView(new RedirectView("/bsa/members/" + member.getMemberCode()));
 
             return mav;
         }
         ModelAndView mav = new ModelAndView("common/auth");
-
         return mav;
     }
 }

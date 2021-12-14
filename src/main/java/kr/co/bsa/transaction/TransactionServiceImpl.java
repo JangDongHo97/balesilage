@@ -1,6 +1,6 @@
 package kr.co.bsa.transaction;
 
-import kr.co.bsa.common.DateCommand;
+import kr.co.bsa.common.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +20,8 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     @Transactional
-    public List<Transaction> selectTransactionList(DateCommand dateCommand) {
-        List<Transaction> transactions = transactionMapper.selectAll(dateCommand);
+    public List<Transaction> selectTransactionList(Condition condition) {
+        List<Transaction> transactions = transactionMapper.selectAll(condition);
 
         return transactions;
     }

@@ -123,8 +123,6 @@
                     , endDate : document.getElementById("endDate").value
                 };
 
-                console.log(searchKeyword);
-
                 $.ajax({
                     url: "${pageContext.request.contextPath}/bsa/silages/mine",
                     type: "POST",
@@ -141,13 +139,12 @@
                 var navigatorHtml = rows.navigator;
 
                 var script = "";
-
                 for (var i = 0; i < showData.length; i++) {
                     script += "    <tr>";
                     script += "        <td class=\"colum_box\" style=\"padding: 40 0 40 0\">" + (i+1) + "</td>";
                     script += "        <td class=\"title\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/silages/" + showData[i].silageCode + "\">" + showData[i].silageCode + "</a></td>";
                     script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + showData[i].enrollDateTime + "</td>";
-                    script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + (showData[i].count * showData[i].unitPrice) + "</td>";
+                    script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + addFormat(showData[i].count * showData[i].unitPrice) + " 원</td>";
                     if(showData[i].transactionStatus === 'Y'){
                         script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">판매중</td>";
                     } else {
@@ -155,9 +152,12 @@
                     }
                     script += "    </tr>";
                 }
-
                 $("#pagingHtml").html(navigatorHtml);
                 $("#silageList").html(script);
+            }
+
+            function addFormat(amount) {
+                return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
             }
         </script>
 

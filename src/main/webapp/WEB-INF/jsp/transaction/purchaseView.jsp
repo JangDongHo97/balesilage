@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="../util/top.jsp"/>
 
@@ -46,7 +47,12 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">판매자 연락처</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="phone" value="${member.phone}" id="phone" readonly>
+                                <c:if test="${transaction.remitStatus}">
+                                    <input type="text" name="phone" value="${member.phone}" id="phone" readonly>
+                                </c:if>
+                                <c:if test="${!transaction.remitStatus}">
+                                    <input type="text" name="phone" value="거래 완료 시 연락처가 나옵니다" id="phone" readonly>
+                                </c:if>
                             </div>
                         </div>
                         <div class="col-xl-6">
@@ -70,7 +76,8 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">무게</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="weight" value="${silage.weight}" id="weight" readonly>
+                                <input type="hidden" name="weight" value="${silage.unitPrice}" id="weight">
+                                <input type="text" value="<fmt:formatNumber type="number" value="${silage.weight}"/> kg"  readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
@@ -82,13 +89,15 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">단가</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="unitPrice" value="${silage.unitPrice}" id="unitPrice" readonly>
+                                <input type="hidden" name="unitPrice" value="${silage.unitPrice}" id="unitPrice">
+                                <input type="text" value="<fmt:formatNumber type="number" value="${silage.unitPrice}"/> 원" readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">가격</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="totalPrice" value="${transaction.totalPrice}" id="totalPrice" readonly>
+                                <input type="hidden" name="totalPrice" value="${silage.unitPrice}" id="totalPrice">
+                                <input type="text" value="<fmt:formatNumber type="number" value="${silage.unitPrice}"/> 원"  readonly>
                             </div>
                         </div>
                     </div>
@@ -126,7 +135,7 @@
                                 </div>
                                 <div class="place_order_btn" style="margin:10px">
                                     <c:if test="${transaction.remitStatus == false}">
-                                        <input type="submit" value="구매취소" class="thm-btn">
+                                        <input type="submit" value="거래취소" class="thm-btn">
                                     </c:if>
                                 </div>
                             </div>
@@ -152,5 +161,6 @@
 
     </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div><!-- /.side-menu__block-inner -->
 </div><!-- /.side-menu__block -->
+
 
 <jsp:include page="../util/bottom.jsp"/>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
     @Autowired
     private MemberMapper memberMapper;
 
@@ -15,10 +15,9 @@ public class LoginServiceImpl implements LoginService{
     @Transactional
     public Member login(Member member) {
         Member members = memberMapper.select(member);
-
-        if(members != null) {
-            if(member.getId().equals(members.getId())
-                    && member.getPassword().equals(members.getPassword())){
+        if (members != null) {
+            if (member.getId().equals(members.getId())
+                    && member.getPassword().equals(members.getPassword())) {
                 return members;
             }
         }
@@ -29,7 +28,6 @@ public class LoginServiceImpl implements LoginService{
     @Transactional
     public boolean auth(Member member) {
         Member afterMember = memberMapper.select(member);
-
         if ((afterMember.getPassword()).equals(member.getPassword())) {
             return true;
         }

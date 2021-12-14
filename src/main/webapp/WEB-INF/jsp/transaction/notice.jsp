@@ -32,7 +32,7 @@
                     <div class="billing_title">
                         <h2 style="font-family: 'Nanum Gothic', sans-serif">입금 안내 화면</h2>
                         <h5 style="font-family: 'Nanum Gothic', sans-serif; margin-top:10px">입금하실 때 '받는 통장 메모/표시'에 상품번호를 입력해주세요</h5>
-                        <h5 style="font-family: 'Nanum Gothic', sans-serif">'확인'을 누르시면 거래 등록이 완료됩니다</h5>
+                        <h5 style="font-family: 'Nanum Gothic', sans-serif">'확인'을 누르시면 거래 요청이 완료됩니다</h5>
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
@@ -107,7 +107,7 @@
             alert("입금 안내를 확인해주세요");
             return false;
         }
-        alert("거래 등록이 완료되었습니다")
+        alert("거래 요청이 완료되었습니다")
         form.submit();
     }
 </script>

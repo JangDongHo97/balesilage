@@ -19,7 +19,7 @@
     </insert>
 
     <select id="selectAll"
-            parameterType="kr.co.bsa.common.DateCommand"
+            parameterType="kr.co.bsa.common.Condition"
             resultType="Transaction">
                 SELECT
                     TRANSACTION_CODE
@@ -62,7 +62,7 @@
                         </if>
                     </if>
                 </where>
-                ORDER BY TRANSACTION_DATETIME
+                ORDER BY TRANSACTION_DATETIME DESC
                 <if test="pageNo != -1">
                     LIMIT #{pageNo}, 10
                 </if>
@@ -93,11 +93,8 @@
                 <if test="transactionCode > 0">
                     AND TRANSACTION_CODE = #{transactionCode}
                 </if>
-                <if test="sellerId > 0">
-                    AND SELLER_ID = ${sellerId}
-                </if>
             </where>
-            ORDER BY TRANSACTION_DATETIME
+            ORDER BY TRANSACTION_DATETIME DESC
     </select>
 
     <update id="update"

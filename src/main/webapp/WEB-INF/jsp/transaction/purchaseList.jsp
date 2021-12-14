@@ -59,7 +59,7 @@
                                 <div class="sidebar-search-box">
                                     <div class="search-form">
                                         <input placeholder="ID 검색" type="text" id="searchMemberId">
-                                        <button onclick="search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
+                                        <button onclick="initPage(), search()"><i class="icon-magnifying-glass" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -112,9 +112,9 @@
                 id: document.getElementById("searchMemberId").value
                 ,startDate : document.getElementById("startDate").value
                 , endDate : document.getElementById("endDate").value
+                , pageNo : pageNo
             };
 
-            console.log(searchKeyword);
 
             $.ajax({
                 url: "${pageContext.request.contextPath}/bsa/purchases/list",
@@ -122,7 +122,6 @@
                 data: JSON.stringify(searchKeyword),
                 headers: {"Content-Type": "application/json;charset=UTF-8"},
                 success: function (rows) {
-                    console.log(rows.navigator);
                     drawTable(rows);
                 }
             })
@@ -140,13 +139,17 @@
                 script += "        <td class=\"title\" style=\"padding: 40 0 40 0\">" + showData[i].sellerId + "</td>";
                 script += "        <td class=\"pro_qty\" style=\"padding: 40 0 40 0\">" + showData[i].silageCode + "</td>";
                 script += "        <td class=\"pro_price\" style=\"padding: 40 0 40 0\">" + showData[i].transactionDateTime + "</td>";
-                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + (showData[i].totalPrice) + "</td>";
+                script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\">" + addFormat(showData[i].totalPrice) + " 원</td>";
                 script += "        <td class=\"pro_sub_total\" style=\"padding: 40 0 40 0\"><a href=\"/bsa/purchases/" + showData[i].transactionCode + "\"><input type=\"button\" value=\"상세 조회\"></a></td>";
                 script += "    </tr>";
             }
 
             $("#pagingHtml").html(navigatorHtml);
             $("#silageList").html(script);
+        }
+
+        function addFormat(amount) {
+            return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
         }
     </script>
 

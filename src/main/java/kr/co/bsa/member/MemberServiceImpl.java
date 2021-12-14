@@ -39,7 +39,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void deleteMember(Member member) {
-        //회원 수정을 통한 회원 탈퇴 진행 (회원 삭제 x)
         member.setMemberStatus('N');
         memberMapper.update(member);
 

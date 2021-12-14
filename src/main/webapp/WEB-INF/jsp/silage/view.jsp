@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="../util/top.jsp"/>
 
@@ -59,7 +60,8 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">무게</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="weight" value="${silage.weight}" id="weight" readonly>
+                                <input type="hidden" name="weight" value="${silage.weight}" id="weight">
+                                <input type="text" value="${silage.weight} kg" readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
@@ -71,13 +73,16 @@
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">단가</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="unitPrice" value="${silage.unitPrice}" id="unitPrice" readonly>
+                                <input type="hidden" name="unitPrice" value="${silage.unitPrice}" id="unitPrice">
+                                <input type="text"  value="<fmt:formatNumber type="number" value="${silage.unitPrice}"/> 원"  readonly>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <h3 style="font-family: 'Nanum Gothic', sans-serif">가격</h3>
                             <div class="billing_input_box">
-                                <input type="text" name="totalPrice" value="${silage.count * silage.unitPrice}" id="totalPrice" readonly>
+                                <input type="hidden" name="totalPrice" value="${silage.count * silage.unitPrice}" id="totalPrice">
+                                <input type="text"  value="<fmt:formatNumber type="number" value="${silage.count * silage.unitPrice}"/> 원"  readonly>
+
                             </div>
                         </div>
                     </div>
@@ -113,7 +118,6 @@
                     </c:if>
                 </div>
             </div>
-
             <c:choose>
                 <c:when test="${auth == 1}">
                     <div class="your_order">
@@ -147,7 +151,7 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="place_order_btn" style="margin:10px">
-                                                <a href="/bsa/silages" class="thm-btn" style="text-align: center">목록</a>
+                                                <a href="/bsa/silages/mine" class="thm-btn" style="text-align: center">목록</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +187,9 @@
                                     </div>
                                     <div class="col-sm-3" style="flex: 0 0 10%">
                                         <div class="place_order_btn" style="margin:10px">
-                                            <a href="/bsa/silages" class="thm-btn" style="text-align: center">목록</a>
+                                            <a href="/bsa/silages" class="thm-btn" style="text-align: center;width: 137px;height: 80px;padding-right: 20px;padding-left: 20px;">
+                                                목록
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

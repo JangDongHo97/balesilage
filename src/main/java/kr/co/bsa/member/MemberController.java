@@ -21,7 +21,6 @@ public class MemberController {
     @Autowired
     private AccountService accountService;
 
-    //forward /WEB-INF/jsp/member/add.jsp
     @GetMapping("/members/form")
     public ModelAndView enrollMember() {
         ModelAndView mav = new ModelAndView("member/add");
@@ -29,20 +28,19 @@ public class MemberController {
         return mav;
     }
 
-    //redirect /bsa/silages
     @PostMapping("/members")
     public ModelAndView enrollMember(@Valid Member member, Account account, HttpSession session) {
         ModelAndView mav = null;
         try {
             Member afteMmember = memberService.selectMember(member);
-            if(afteMmember == null) {
+            if (afteMmember == null) {
                 mav = new ModelAndView(new RedirectView("/bsa/silages"));
                 memberService.insertMember(member);
-
-                if(account.getAccountNo() != null) {
+                if (account.getAccountNo() != null) {
                     account.setMemberCode(member.getMemberCode());
                     accountService.insertAccount(account);
                 }
+
                 return mav;
             }
             mav = new ModelAndView(new RedirectView("/bsa/members/form"));
@@ -58,7 +56,6 @@ public class MemberController {
         }
     }
 
-    //forward /WEB-INF/jsp/member/view.jsp
     @GetMapping("/members/{memberCode}")
     public ModelAndView searchMember(Member member) {
         member = memberService.selectMember(member);
@@ -71,7 +68,6 @@ public class MemberController {
         return mav;
     }
 
-    //forward /WEB-INF/jsp/member/edit.jsp
     @GetMapping("/members/form/{memberCode}")
     public ModelAndView editMemberForm(Member member, @PathVariable int memberCode) {
         ModelAndView mav = new ModelAndView("member/edit");
@@ -85,25 +81,18 @@ public class MemberController {
         return mav;
     }
 
-    //redirect /bsa/member/{memberCode}
     @PutMapping("/members/{memberCode}")
     public ModelAndView editMember(Member member, @PathVariable int memberCode, Account account) {
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/members/" + member.getMemberCode()));
-        
-        //회원정보 수정
+
         member.setMemberCode(memberCode);
         memberService.updateMember(member);
 
         Account afterAccount = accountService.selectAccount(member);
-        if(afterAccount == null){
+        if (afterAccount == null) {
             accountService.insertAccount(account);
-        } else {
-            if(account.getAccountNo() == null) {
-
-            }
         }
-        
-        //계정정보 등록 or 수정
+
         try {
             accountService.selectAccount(member).getAccountCode();
             accountService.updateAccount(account);
@@ -115,12 +104,11 @@ public class MemberController {
         return mav;
     }
 
-    //redirect /bsa/silage
     @DeleteMapping("/members")
     public ModelAndView removeMember(Member member) {
-        ModelAndView mav = new ModelAndView(new RedirectView("/bsa/silages"));
         memberService.deleteMember(member);
 
+        ModelAndView mav = new ModelAndView("/bsa/logout");
         return mav;
     }
 }

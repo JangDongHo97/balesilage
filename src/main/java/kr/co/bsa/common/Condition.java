@@ -2,7 +2,7 @@ package kr.co.bsa.common;
 
 import java.io.Serializable;
 
-public class DateCommand implements Serializable {
+public class Condition implements Serializable {
     private int silageCode;
     private int sellerCode;
     private int buyerCode;
@@ -14,7 +14,7 @@ public class DateCommand implements Serializable {
     private String orderStandard;
     private int pageNo;
 
-    public DateCommand() {
+    public Condition() {
     }
 
     public int getSilageCode() {

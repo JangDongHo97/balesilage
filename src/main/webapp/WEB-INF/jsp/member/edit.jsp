@@ -65,13 +65,13 @@
                         <div class="col-xl-12">
                             <h4 style="font-family: 'Nanum Gothic', sans-serif">은행명</h4>
                             <div class="billing_input_box">
-                                <input type="text" name="bankName" value="${account.bankName}" id="bankName" required>
+                                <input type="text" name="bankName" value="${account.bankName}" id="bankName" >
                             </div>
                         </div>
                         <div class="col-xl-12">
                             <h4 style="font-family: 'Nanum Gothic', sans-serif">계좌번호</h4>
                             <div class="billing_input_box">
-                                <input type="text" name="accountNo" value="${account.accountNo}" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요" required>
+                                <input type="text" name="accountNo" value="${account.accountNo}" id="accountNo" placeholder="하이픈(-)을 뺴고 입력해주세요" >
                             </div>
                         </div>
                     </div>

@@ -59,7 +59,7 @@
                         <div class="col-xl-8">
                             <h4 style="font-family: 'Nanum Gothic', sans-serif">주소*</h4>
                             <div class="billing_input_box">
-                                <input type="text" name="address" value="" id="address" placeholder="상세주소를 제외한 도로명주소까지만 써주세요" required>
+                                <input type="text" name="address" value="" id="address" placeholder="상세주소를 제외한 간단한 주소만 써주세요" required>
                             </div>
                         </div>
                         <div class="col-xl-8">
