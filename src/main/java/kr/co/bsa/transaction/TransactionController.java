@@ -37,7 +37,6 @@ public class TransactionController {
         Silage silage = new Silage();
         silage.setSilageCode(silageCode);
         List<Silage> silages = silageService.selectSilage(silage);
-
         silage = silages.get(0);
 
         Member seller = new Member();
@@ -78,7 +77,6 @@ public class TransactionController {
             initCommand.setSellerCode(member.getMemberCode());
             condition.setSellerCode(member.getMemberCode());
         }
-
         initCommand.setPageNo(-1);
         initCommand.setStartDate(condition.getStartDate().trim());
         initCommand.setEndDate(condition.getEndDate().trim());
@@ -161,7 +159,6 @@ public class TransactionController {
             condition.setSellerCode(member.getMemberCode());
             condition.setBuyerCode(member.getMemberCode());
         }
-
         initCommand.setPageNo(-1);
         initCommand.setStartDate(condition.getStartDate().trim());
         initCommand.setEndDate(condition.getEndDate().trim());
@@ -254,7 +251,7 @@ public class TransactionController {
     @PostMapping(value = "/purchases", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Transaction> searchTransactionScope(@RequestBody(required = false) Condition condition
-            , HttpSession session) {
+                                                    , HttpSession session) {
         List<Transaction> transactions = transactionService.selectTransactionList(condition);
         List<Transaction> afterTransactions = new ArrayList<Transaction>();
 
@@ -272,7 +269,8 @@ public class TransactionController {
 
     @PostMapping(value = "/purchases/member", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member, HttpSession session) {
+    public List<Transaction> searchPurchaseMember(@RequestBody(required = false) Member member
+                                                  , HttpSession session) {
         int presentMember = (Integer) session.getAttribute("memberCode");
 
         List<Transaction> transactions = transactionService.selectTransactionList(new Condition());

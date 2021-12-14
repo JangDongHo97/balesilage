@@ -68,7 +68,8 @@ public class SilageController {
 
     @PostMapping(value = "/silages/mine", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Map<String, Object> searchMySilage(@RequestBody(required = false) Condition condition, HttpSession session) {
+    public Map<String, Object> searchMySilage(@RequestBody(required = false) Condition condition
+                                            , HttpSession session) {
         int silageCount;
         Map<String, Object> result = new HashMap<>();
 
@@ -118,7 +119,8 @@ public class SilageController {
 
     @PostMapping(value = "/silages/list", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Map<String, Object> searchSilageList(@RequestBody(required = false) Condition condition, HttpSession session) {
+    public Map<String, Object> searchSilageList(@RequestBody(required = false) Condition condition
+                                                , HttpSession session) {
         int silageCount;
         Map<String, Object> result = new HashMap<>();
 
@@ -173,7 +175,6 @@ public class SilageController {
         silage = silageService.selectSilage(silage).get(0);
 
         ModelAndView mav = null;
-
         if (silage.getTransactionStatus() == 'Y') {
             mav = new ModelAndView();
             mav.addObject("silage", silage);
@@ -210,7 +211,7 @@ public class SilageController {
     @PostMapping(value = "/silages", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Silage> searchSilageScope(@RequestBody(required = false) Condition condition
-            , HttpSession session) {
+                                        , HttpSession session) {
         int presentMember = (Integer) session.getAttribute("memberCode");
         List<Silage> silages = silageService.selectSilageList(condition);
         List<Silage> afterSilages = new ArrayList<Silage>();
@@ -229,7 +230,7 @@ public class SilageController {
     @PostMapping(value = "/silages/status", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Silage> searchSilageStatus(@RequestBody(required = false) Silage silage
-            , HttpSession session) {
+                                            , HttpSession session) {
         char status = silage.getTransactionStatus();
         int presentMember = (Integer) session.getAttribute("memberCode");
         List<Silage> silages = silageService.selectSilageList(new Condition());

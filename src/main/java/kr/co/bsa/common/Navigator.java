@@ -11,6 +11,7 @@ public class Navigator {
         } else {
             navigator.append("<td class='pager'><a id = 'firstPage' ");
         }
+
         navigator.append("href='#' ");
         navigator.append("onclick='changePage(" + 0 + ")'>&laquo;&nbsp;&nbsp;&nbsp;&nbsp;</a></td> ");
         if ((pageNo / 5) == 0) {
@@ -21,12 +22,14 @@ public class Navigator {
             navigator.append("<a href='#' id='backPage' ");
         }
         navigator.append(" onclick='changePage(" + (((pageNo / 5) * 5) - 5) + ")'>&lt;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
+
         int endPageNo = 0;
         if (((allNo - 1) / 10) + 1 < ((pageNo / 5) * 5) + 5) {
             endPageNo = (allNo - 1) / 10 + 1;
         } else {
             endPageNo = ((pageNo / 5) * 5) + 5;
         }
+
         int count = 1;
         for (int i = ((pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
@@ -36,6 +39,7 @@ public class Navigator {
             }
             navigator.append(" >" + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
         }
+
         if (endPageNo < (allNo - 1) / 10 + 1) {
             navigator.append("<td class='pager' id='datatable_next'>");
             navigator.append("        <a id='nextPage' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
@@ -54,6 +58,7 @@ public class Navigator {
         }
         navigator.append("href='#' ");
         navigator.append(">&raquo;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>");
+
         return navigator.toString();
     }
 }

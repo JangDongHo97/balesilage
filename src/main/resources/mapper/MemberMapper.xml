@@ -30,25 +30,25 @@
 
     <insert id="insert"
             parameterType="Member">
-        <selectKey order="BEFORE" keyColumn="MEMBER_CODE" keyProperty="memberCode" resultType="int">
-            SELECT MAX(MEMBER_CODE)+1 FROM member
-        </selectKey>
-        INSERT INTO MEMBER
-        (ID, PASSWORD, NAME, PHONE, ADDRESS)
-        VALUES
-        (#{id}, #{password}, #{name}, #{phone}, #{address})
+            <selectKey order="BEFORE" keyColumn="MEMBER_CODE" keyProperty="memberCode" resultType="int">
+                SELECT MAX(MEMBER_CODE)+1 FROM member
+            </selectKey>
+            INSERT INTO MEMBER
+            (ID, PASSWORD, NAME, PHONE, ADDRESS)
+            VALUES
+            (#{id}, #{password}, #{name}, #{phone}, #{address})
     </insert>
 
     <update id="update"
             parameterType="Member">
-        UPDATE MEMBER
-        SET PASSWORD = #{password}
-            , NAME = #{name}
-            , PHONE = #{phone}
-            , ADDRESS = #{address}
-            <if test="memberStatus == 'N'">
-                , MEMBER_STATUS = #{memberStatus}
-            </if>
-        WHERE MEMBER_CODE = #{memberCode}
+            UPDATE MEMBER
+            SET PASSWORD = #{password}
+                , NAME = #{name}
+                , PHONE = #{phone}
+                , ADDRESS = #{address}
+                <if test="memberStatus == 'N'">
+                    , MEMBER_STATUS = #{memberStatus}
+                </if>
+            WHERE MEMBER_CODE = #{memberCode}
     </update>
 </mapper>

@@ -34,7 +34,6 @@ public class SilageServiceImpl implements SilageService {
         return silageMapper.selectAll(condition);
     }
 
-
     @Override
     @Transactional
     public List<Silage> selectSilage(Silage silage) {

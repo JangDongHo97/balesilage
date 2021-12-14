@@ -29,7 +29,9 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ModelAndView enrollMember(@Valid Member member, Account account, HttpSession session) {
+    public ModelAndView enrollMember(@Valid Member member
+                                    , Account account
+                                    , HttpSession session) {
         ModelAndView mav = null;
         try {
             Member afteMmember = memberService.selectMember(member);
@@ -47,7 +49,6 @@ public class MemberController {
             session.setAttribute("enrollErrorMsg", "이미 사용 중인 아이디입니다");
 
             return mav;
-
         } catch (DuplicateKeyException e) {
             mav = new ModelAndView(new RedirectView("/bsa/members/form"));
             session.setAttribute("enrollErrorMsg", "이미 사용 중인 아이디입니다");
@@ -69,7 +70,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/form/{memberCode}")
-    public ModelAndView editMemberForm(Member member, @PathVariable int memberCode) {
+    public ModelAndView editMemberForm(@PathVariable int memberCode, Member member) {
         ModelAndView mav = new ModelAndView("member/edit");
         member.setMemberCode(memberCode);
         member = memberService.selectMember(member);
@@ -82,7 +83,9 @@ public class MemberController {
     }
 
     @PutMapping("/members/{memberCode}")
-    public ModelAndView editMember(Member member, @PathVariable int memberCode, Account account) {
+    public ModelAndView editMember(@PathVariable int memberCode
+                                   , Member member
+                                   , Account account) {
         ModelAndView mav = new ModelAndView(new RedirectView("/bsa/members/" + member.getMemberCode()));
 
         member.setMemberCode(memberCode);

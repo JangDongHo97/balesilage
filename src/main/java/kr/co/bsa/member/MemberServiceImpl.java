@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberMapper memberMapper;
 
@@ -24,9 +24,10 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public Member selectMember(Member member) {
         member = memberMapper.select(member);
-        if(member != null){
+        if (member != null) {
             member.setAddress(member.getAddress().trim());
         }
+
         return member;
     }
 
